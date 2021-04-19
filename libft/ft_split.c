@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 17:30:26 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/04/04 13:49:13 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/04/19 12:43:31 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	**ft_split(char const *s, char c)
 			s++;
 		if (*s && *s != c)
 		{
-			split_tab[i++] = malloc_word(s, c);
+			split_tab[i] = malloc_word(s, c);
 			if (!split_tab[i++])
 			{
 				free_array(split_tab, i - 1);
