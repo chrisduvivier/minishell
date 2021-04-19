@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 19:22:29 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/04/19 12:42:08 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:20:29 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,20 +151,10 @@ void lsh_loop(void)
 		ft_printf("> ");
 		ret = get_next_line(STDIN_FILENO, &line); // we need only 1 line
 		args = ft_split(line, ' ');				  // only considers whilespace ' ' as seperator
-		// status = lsh_execute(args);				  // execute the given commands
-
-		int i = 0;
-		while (args && args[i])
-		{
-			ft_printf("args[i]: %s\n", args[i]);
-			i++;
-		}
+		status = lsh_execute(args);				  // execute the given commands
 
 		free(line);
 		free(args);
-		
-		
-		status = 0;
 	}
 }
 
