@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/04/30 16:44:16 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:23:15 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh minishell;
-
-int syntaxe_cmd(char *full_cmd)
+int syntaxe_cmd(t_msh *msh, char *full_cmd)
 {
     int sq;
     int dq;
@@ -27,12 +25,12 @@ int syntaxe_cmd(char *full_cmd)
     {
         if (full_cmd[i] == PIPE)
         {
-            handle_error(ERR_PARS_PIPE);
+            handle_error(msh, ERR_PARS_PIPE);
             return (0);
         }
         else if (full_cmd[i] == SEMICOLON)
         {
-            handle_error(ERR_PARS_SEMI);
+            handle_error(msh, ERR_PARS_SEMI);
             return (0);
         }
     }
@@ -49,7 +47,7 @@ int syntaxe_cmd(char *full_cmd)
             if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == PIPE)
             {
                 write(1,"HEREP\n", 6);
-                handle_error(ERR_PARS_PIPE);
+                handle_error(msh, ERR_PARS_PIPE);
                 return (0);
             }
             printf("ERR !:X%cX\n", full_cmd[i + 1]);
@@ -57,12 +55,12 @@ int syntaxe_cmd(char *full_cmd)
             {
                 write(1,"HERE0\n", 6);
                 printf("ERR ?:X%cX\n", full_cmd[i + 1]);
-                handle_error(ERR_MULTILINE);
+                handle_error(msh, ERR_MULTILINE);
                 return (0);
             }
             if (full_cmd[i - 1] == SEMICOLON)
             {
-                handle_error(ERR_PARS_PIPE);
+                handle_error(msh, ERR_PARS_PIPE);
                 return (0);
             }
         }
@@ -70,7 +68,7 @@ int syntaxe_cmd(char *full_cmd)
         {
             if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == SEMICOLON)
             {
-                handle_error(ERR_PARS_SEMI);
+                handle_error(msh, ERR_PARS_SEMI);
                 return (0);
             }            
         }
@@ -79,7 +77,7 @@ int syntaxe_cmd(char *full_cmd)
     }
     if ((sq % 2) != 0 || (dq % 2) != 0)
     {
-        handle_error(ERR_MULTILINE);
+        handle_error(msh, ERR_MULTILINE);
         return (0);
     }
     return (1);

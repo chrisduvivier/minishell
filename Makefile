@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/07 21:00:40 by cduvivie          #+#    #+#              #
-#    Updated: 2021/04/19 11:42:37 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/04/19 20:52:51 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ clean		:
 	@ $(MAKE) -C ./libft clean
 
 fclean		:	clean
-	@ $(RM) $(CHECKER) $(PUSH_SWAP)
+	@ $(RM) $(NAME)
 	@ $(MAKE) -C ./libft fclean
 
 re			: fclean all

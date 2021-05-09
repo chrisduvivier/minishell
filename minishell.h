@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 11:20:59 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/04/18 16:50:27 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:31:34 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,10 @@
 # include <sys/wait.h>
 
 # include "libft/libft.h"
+
+typedef struct s_data
+{
+    
+}               t_data;
 
 #endif
