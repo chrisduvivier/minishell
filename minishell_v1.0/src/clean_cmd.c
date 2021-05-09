@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:42:55 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/08 19:28:04 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/09 10:53:06 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,12 @@ char    *remove_space(t_msh *msh, char *full_cmd)
     return (clean_cmd);
 }
 
-char* clean_cmd(t_msh *msh, char *full_cmd) //fonction qui va nettoyer la commande de ses tokens
+
+/*
+**  fonction qui va nettoyer la commande de ses tokens
+*/
+
+char* clean_cmd(t_msh *msh, char *full_cmd)
 {
     full_cmd = remove_char(msh, full_cmd, QUOTE);
     full_cmd = remove_char(msh, full_cmd, DQUOTE);

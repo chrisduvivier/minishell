@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/08 19:26:26 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/09 11:23:52 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void get_cmd(char **full_cmd)
 	}
 }
 
-void parse_input(t_msh *msh, char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
+/*
+**	split the whole command (which has been cleaned/transform)
+**	into single executable command. (ex: [ls; cd ../] -> [[ls], [cd ../]])
+*/
+
+void split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
 {
 	char **strs;
 	int i;
@@ -71,7 +76,7 @@ void prompt(t_msh *msh)
 		syntaxe_cmd(msh, full_cmd);
 		full_cmd = clean_cmd(msh, full_cmd);
 		printf("COMMANDE CLEAN : %s\n\n", full_cmd);
-		parse_input(msh, full_cmd);
+		split_to_single_command(msh, full_cmd);
 		msh->status = 1;
 	}
 }

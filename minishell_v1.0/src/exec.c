@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/08 19:14:35 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/09 11:29:06 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,14 @@ int exec_cmd(char *cmd) //sert juste d'exemple
 	int i;
 	char **args;
 
-	printf("============== exec_cmd: [%s]=============\n", cmd);
-
 	i = 0;
 	args = ft_split_msh(cmd, SPACE);
+
+	// printf("============== exec_cmd =============\n");
+	// int j = 0;
+	// while (args[j] != NULL)
+	// 	printf("%s\n", args[j++]);
+	
 	while (args[i] != NULL)
 	{
 		if (i == 0)
