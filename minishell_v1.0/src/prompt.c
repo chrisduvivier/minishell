@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/09 11:23:52 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:59:09 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void get_cmd(char **full_cmd)
 **	into single executable command. (ex: [ls; cd ../] -> [[ls], [cd ../]])
 */
 
-void split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
+void	split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
 {
 	char **strs;
 	int i;
@@ -53,13 +53,21 @@ void split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a 
 			while (basic_cmd[j] != 0)
 			{
 				printf("------->BASIC CMD [%d] : %s\n\n", j, basic_cmd[j]);
-				exec_cmd(basic_cmd[j]);
+				
+				// append_cmd_table(msh, basic_cmd); TODO 
+				
+				exec_cmd(msh, basic_cmd[j]);
 				j++;
 			}
 			i++;
 		}
 	}
 }
+
+/*
+**	Prompt new line in shell
+**	
+*/
 
 void prompt(t_msh *msh)
 {

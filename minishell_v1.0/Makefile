@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/05/08 19:12:30 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/05/10 09:53:49 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS		:=	main.c \
 				./src/exec.c \
 				./src/builtin_functions.c \
 				./src/builtin_functions_helper.c \
-				./src/t_msh_init.c \
+				./src/struct_init.c \
 
 OBJ			:=	$(SRCS:%.c=%.o)
 

@@ -6,17 +6,39 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/08 19:14:05 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/09 19:00:24 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int is_builtin(char *cmd)
+{
+	if (ft_strcmp(cmd, "echo") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "cd") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "export") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "env") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "exit") == 0)
+		return (1);
+	return (0);
+}
+
 /*
 **  Check if the command correspond to one of the builtin function, and exec.
+**	Return Value:
+**		1 is returned by each function upon success.
+**		0 is returned when the cmd is not supported.
 */
 
-int builtin_function_caller(char **args)
+int builtin_caller(char **args)
 {
 	char *cmd;
 

@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/09 11:29:06 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/10 18:41:50 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,26 @@ int lsh_execute(char **args)
 		// An empty command was entered.
 		return (1);
 	}
-	builtin_function_caller(args);
+	builtin_caller(args);
 	return (lsh_launch(args));
 }
 
-int exec_cmd(char *cmd) //sert juste d'exemple
+/*
+**	Receieve a cleaned command line as string.
+**	Execute the command:
+**		if matches one of our own builtin, execute it (ex: echo, pwd, exit...)
+**		otherwise, execute as native builtin function (ex: ls)
+**	Input:
+*/
+
+int exec_cmd(t_msh *msh, char *cmd)
 {
-	int i;
 	char **args;
 
-	i = 0;
+	(void)msh;
 	args = ft_split_msh(cmd, SPACE);
-
-	// printf("============== exec_cmd =============\n");
-	// int j = 0;
-	// while (args[j] != NULL)
-	// 	printf("%s\n", args[j++]);
-	
-	while (args[i] != NULL)
-	{
-		if (i == 0)
-		{
-			printf("----------->CMD[%i] : |%s|\n", i, args[i]);
-			builtin_function_caller(args);
-		}
-		else
-			printf("----------->ARG[%i] : |%s|\n", i, args[i]);
-		i++;
-	}
+	if (is_builtin(cmd) == 1)
+		return (builtin_caller(args));
 	return (lsh_launch(args));
 	printf("\n");
 }

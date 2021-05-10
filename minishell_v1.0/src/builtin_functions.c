@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/09 10:05:17 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/10 09:00:23 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ int msh_exit(char **args)
 {
 	(void)args;
 	exit(0);
-	return (0);
+	return (1);
 }
