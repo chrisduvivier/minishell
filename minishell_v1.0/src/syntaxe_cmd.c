@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/08 19:23:15 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/12 14:14:54 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,13 @@ int syntaxe_cmd(t_msh *msh, char *full_cmd)
             dq++;
         if (full_cmd[i] == PIPE)
         {
-            write(1,"HERE\n", 5);
-            printf("ERR !:X%cX\n", full_cmd[i + 1]);
             if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == PIPE)
             {
-                write(1,"HEREP\n", 6);
                 handle_error(msh, ERR_PARS_PIPE);
                 return (0);
             }
-            printf("ERR !:X%cX\n", full_cmd[i + 1]);
             if (full_cmd[i + 1] == 0)
             {
-                write(1,"HERE0\n", 6);
-                printf("ERR ?:X%cX\n", full_cmd[i + 1]);
                 handle_error(msh, ERR_MULTILINE);
                 return (0);
             }

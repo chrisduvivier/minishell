@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/05/10 09:53:49 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/05/11 16:03:52 by rlinkov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCS		:=	main.c \
 				./src/builtin_functions.c \
 				./src/builtin_functions_helper.c \
 				./src/struct_init.c \
+				./src/copy_env.c\
+				./src/set_env_var.c\
 
 OBJ			:=	$(SRCS:%.c=%.o)
 

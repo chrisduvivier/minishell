@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/10 18:58:46 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:50:34 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void    t_msh_init(t_msh *msh)
 {
 	msh->status = 1;
 	msh->cmd_t = NULL;
+	msh->env = NULL;
 }
 
 void	t_cmd_table_init(t_cmd_table *cmd_t)

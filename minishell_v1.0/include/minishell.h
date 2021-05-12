@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/10 18:58:53 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/11 19:18:05 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmd_table {
 typedef struct s_msh {
 	int				status;
 	t_cmd_table		*cmd_t;
+	char			**env;
 }				t_msh;
 
 //TOKEN
@@ -69,15 +70,18 @@ typedef struct s_msh {
 
 # define NEW_COMMAND_PROMPT "(╯°□°)╯︵ ┻━┻$> "
 
+void	copy_env(t_msh *msh, char **envp);
 void	prompt(t_msh *msh);
 void    get_cmd(char **str);
 void	handle_error(t_msh *msh, char *err_tag);
 char	**ft_split_msh(char const *s, char c);
-void    code_cmd(char *str);
+char	*code_cmd(char *str, t_msh *msh);
+char	*set_env_var(char *full_cmd, t_msh *msh, int i);
 int		syntaxe_cmd(t_msh *msh, char *full_cmd);
 char    *remove_space(t_msh *msh, char *full_cmd);
 char    *clean_cmd(t_msh *msh, char *str);
 int     exec_cmd(t_msh *msh, char *cmd);
+
 
 /*
 **  Function Declarations for builtin shell commands:

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   code_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/09 11:04:13 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/12 15:48:26 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int is_token(char c)
     return (0);
 }
 
-void handle_backslash(int i, char *full_cmd, int *sq, int *dq)
+char *handle_backslash(int i, char *full_cmd, int *sq, int *dq)
 {
     if (full_cmd[i - 1] != BACKSLASH) //si le précédent n'est pas un backslash
     {
@@ -52,9 +52,10 @@ void handle_backslash(int i, char *full_cmd, int *sq, int *dq)
             }
         }
     }
+    return (full_cmd);
 }
 
-void handle_quote(int i, char *full_cmd, int *sq, int *dq)
+char *handle_quote(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*dq % 2) == 0) //si les doubles quotes ne sont pas ouvertes
     {
@@ -64,9 +65,10 @@ void handle_quote(int i, char *full_cmd, int *sq, int *dq)
             *sq = *sq + 1;
         }
     }
+    return (full_cmd);
 }
 
-void handle_dquote(int i, char *full_cmd, int *sq, int *dq)
+char *handle_dquote(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0) //si les simple quotes ne sont pas ouvertes
     {
@@ -76,65 +78,82 @@ void handle_dquote(int i, char *full_cmd, int *sq, int *dq)
             *dq = *dq + 1;
         }
     }
+    return (full_cmd);
 }
 
-void handle_semicolon(int i, char *full_cmd, int *sq, int *dq)
+char *handle_semicolon(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
         if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
             full_cmd[i] = SEMICOLON;
     }
+    return (full_cmd);
 }
 
-void handle_dollar(int i, char *full_cmd, int *sq)
+/*
+** Unlike the other functions, this one not only subsitute $ token by an non printable char
+** but is substitute $ token with the corresponding environment variable if it exist
+*/
+
+char *handle_dollar(int i, char *full_cmd, int *sq, t_msh *msh)
 {
     if ((*sq % 2) == 0) //si ni les simple quotes ne sont ouvertes
     {
         if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
-            full_cmd[i] = DOLLAR;
+        {
+            if (full_cmd[i + 1] && full_cmd[i + 1] != ' ')
+            {
+                full_cmd[i] = DOLLAR;
+                full_cmd = set_env_var(full_cmd, msh, i);
+            }
+        }
     }
+    return (full_cmd);
 }
 
-void handle_pipe(int i, char *full_cmd, int *sq, int *dq)
+char *handle_pipe(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
         if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
             full_cmd[i] = PIPE;
     }
+    return (full_cmd);
 }
 
-void handle_lchevron(int i, char *full_cmd, int *sq, int *dq)
+char *handle_lchevron(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
         if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
             full_cmd[i] = LCHEVRON;
     }
+    return (full_cmd);
 }
 
-void handle_rchevron(int i, char *full_cmd, int *sq, int *dq)
+char *handle_rchevron(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
         if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
             full_cmd[i] = RCHEVRON;
     }
+    return (full_cmd);
 }
 
-void handle_space(int i, char *full_cmd, int *sq, int *dq)
+char *handle_space(int i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
         full_cmd[i] = SPACE; //nous permet de différencier les espaces servant a separer les cmd et leurs arguments des espaces literal
     }
+    return (full_cmd);
 }
 
-void check_token(int i, char *full_cmd, int *sq, int *dq)
+char *check_token(int i, char *full_cmd, int *sq, int *dq, t_msh *msh)
 {
     int token;
-
     token = is_token(full_cmd[i]);
     if (i == 0) //pour le premier caractere on ne peux pas se fier à son précédent
     {
@@ -143,31 +162,34 @@ void check_token(int i, char *full_cmd, int *sq, int *dq)
             *sq = *sq + 1;
         else if (token == DQUOTE)
             *dq = *dq + 1;
+        else if (token == DOLLAR)
+            full_cmd = set_env_var(full_cmd, msh, i);
     }
     else
     {
         if (token == BACKSLASH)
-            handle_backslash(i, full_cmd, sq, dq);
+            full_cmd = handle_backslash(i, full_cmd, sq, dq);
         else if (token == QUOTE)
-            handle_quote(i, full_cmd, sq, dq);
+            full_cmd = handle_quote(i, full_cmd, sq, dq);
         else if (token == DQUOTE)
-            handle_dquote(i, full_cmd, sq, dq);
+            full_cmd = handle_dquote(i, full_cmd, sq, dq);
         else if (token == SEMICOLON)
-            handle_semicolon(i, full_cmd, sq, dq);
+            full_cmd = handle_semicolon(i, full_cmd, sq, dq);
         else if (token == DOLLAR)
-            handle_dollar(i, full_cmd, sq);
+            full_cmd = handle_dollar(i, full_cmd, sq, msh);
         else if (token == PIPE) //au besoin on peut raccourcir le code en regroupant pipe, lchev, rchev et semicolon dans la meme fonction et en faisant fullcmd = is_token
-            handle_pipe(i, full_cmd, sq, dq);
+            full_cmd = handle_pipe(i, full_cmd, sq, dq);
         else if (token == LCHEVRON)
-            handle_lchevron(i, full_cmd, sq, dq);
+            full_cmd = handle_lchevron(i, full_cmd, sq, dq);
         else if (token == RCHEVRON)
-            handle_rchevron(i, full_cmd, sq, dq);
+            full_cmd = handle_rchevron(i, full_cmd, sq, dq);
         else if (token == SPACE)
-            handle_space(i, full_cmd, sq, dq);
+            full_cmd = handle_space(i, full_cmd, sq, dq);
     }
+    return (full_cmd);
 }
 
-void code_cmd(char *full_cmd)
+char *code_cmd(char *full_cmd, t_msh *msh)
 {
     int i;
     int simple_quote;
@@ -179,7 +201,8 @@ void code_cmd(char *full_cmd)
     while (full_cmd[i] != 0)
     {
         if (is_token(full_cmd[i]) != 0)                             //si on trouve un caractere special
-            check_token(i, full_cmd, &simple_quote, &double_quote); //alors on le regarde et on le code au besoin
+            full_cmd = check_token(i, full_cmd, &simple_quote, &double_quote, msh); //alors on le regarde et on le code au besoin
         i++;
     }
+    return(full_cmd);
 }

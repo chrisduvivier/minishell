@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/10 18:59:09 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/11 19:22:45 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void prompt(t_msh *msh)
 		write(1, NEW_COMMAND_PROMPT, 32);
 		get_cmd(&full_cmd);
 		printf("COMMANDE RECUE : %s\n", full_cmd);
-		code_cmd(full_cmd);
+		full_cmd = code_cmd(full_cmd, msh);
 		printf("COMMANDE CODEE : %s\n", full_cmd);
 		full_cmd = remove_space(msh, full_cmd);
 		syntaxe_cmd(msh, full_cmd);
