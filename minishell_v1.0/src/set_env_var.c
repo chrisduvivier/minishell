@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:37:35 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:12:54 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ extern t_msh g_msh;
 ** Find the corresponding environment variable and return it
 */
 
-char    *find_var(char *var_name)
+char *find_var(char *var_name)
 {
     char *var;
     int i;
     int len;
-    
+
     i = 0;
     var = malloc(sizeof(char));
     if (!var)
@@ -35,7 +35,7 @@ char    *find_var(char *var_name)
         if (ft_strncmp(var_name, g_msh.env[i], len) == 0)
         {
             if (g_msh.env[i][len] && g_msh.env[i][len] == '=')
-            {  
+            {
                 free(var);
                 var = ft_strdup(g_msh.env[i] + len + 1);
                 break;
@@ -51,27 +51,27 @@ char    *find_var(char *var_name)
 ** Insert the environment variable value inside the command
 */
 
-char    *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
+char *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
 {
     char *new_cmd;
     int i;
     int j;
-    
+
     new_cmd = (char *)malloc(ft_strlen(var) - len_var_name + ft_strlen(full_cmd) + 1);
     i = 0;
-    while(i < pos_i)
+    while (i < pos_i)
     {
         new_cmd[i] = full_cmd[i];
         i++;
     }
-    while(*var && var)
+    while (*var && var)
     {
         new_cmd[i] = *var;
         var++;
         i++;
     }
     j = 0;
-    while(full_cmd[pos_i + len_var_name + j])
+    while (full_cmd[pos_i + len_var_name + j])
     {
         new_cmd[i] = full_cmd[pos_i + len_var_name + j];
         i++;
@@ -79,7 +79,7 @@ char    *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
     }
     new_cmd[i] = '\0';
     free(full_cmd);
-    return(new_cmd);
+    return (new_cmd);
 }
 
 /*

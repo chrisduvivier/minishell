@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:30:36 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:13:53 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void get_cmd(char **full_cmd)
 
 /*
 **	split the whole command (which has been cleaned/transform)
+**	1. Split based on the `;`
+**	2. Split based on the `>`, `<`, `|`
 **	into single executable command. (ex: [ls; cd ../] -> [[ls], [cd ../]])
 */
 
@@ -44,15 +46,16 @@ void	split_to_single_command(char *full_cmd) //attention des free a rajouter (po
 	int i;
 	int j;
 	char **basic_cmd;
+	
 	if (g_msh.status == 1)
 	{
-		strs = ft_split_msh(full_cmd, SEMICOLON);
+		strs = ft_split(full_cmd, SEMICOLON);
 		i = 0;
 		while (strs[i] != NULL)
 		{
 			j = 0;
 			printf("---->COMMANDE [%d] : %s\n\n", i, strs[i]);
-			basic_cmd = ft_split_msh(strs[i], PIPE);
+			basic_cmd = ft_split(strs[i], PIPE);
 			while (basic_cmd[j] != 0)
 			{
 				printf("------->BASIC CMD [%d] : %s\n\n", j, basic_cmd[j]);

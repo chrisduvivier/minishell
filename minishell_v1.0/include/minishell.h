@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:35:14 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:15:23 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	copy_env(char **envp);
 void	prompt(void);
 void    get_cmd(char **str);
 void	handle_error(char *err_tag);
-char	**ft_split_msh(char const *s, char c);
 char	*code_cmd(char *str);
 char	*set_env_var(char *full_cmd, int i);
 int		syntaxe_cmd(char *full_cmd);
