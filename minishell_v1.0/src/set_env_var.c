@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/12 16:50:46 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:37:35 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+extern t_msh g_msh;
+
 /*
 ** Find the corresponding environment variable and return it
 */
 
-char    *find_var(char *var_name, t_msh *msh)
+char    *find_var(char *var_name)
 {
     char *var;
     int i;
@@ -25,17 +27,17 @@ char    *find_var(char *var_name, t_msh *msh)
     i = 0;
     var = malloc(sizeof(char));
     if (!var)
-        handle_error(msh, ERR_MALLOC);
+        handle_error(ERR_MALLOC);
     var[0] = '\0';
     len = ft_strlen(var_name);
-    while (msh->env[i] && msh->env[i] != NULL)
+    while (g_msh.env[i] && g_msh.env[i] != NULL)
     {
-        if (ft_strncmp(var_name, msh->env[i], len) == 0)
+        if (ft_strncmp(var_name, g_msh.env[i], len) == 0)
         {
-            if (msh->env[i][len] && msh->env[i][len] == '=')
+            if (g_msh.env[i][len] && g_msh.env[i][len] == '=')
             {  
                 free(var);
-                var = ft_strdup(msh->env[i] + len + 1);
+                var = ft_strdup(g_msh.env[i] + len + 1);
                 break;
             }
         }
@@ -86,7 +88,7 @@ char    *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
 ** value inside
 */
 
-char *set_env_var(char *full_cmd, t_msh *msh, int i)
+char *set_env_var(char *full_cmd, int i)
 {
     int len_var;
     int pos_i;
@@ -102,11 +104,11 @@ char *set_env_var(char *full_cmd, t_msh *msh, int i)
     }
     var_name = malloc(sizeof(char) * (len_var));
     ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
-    var = find_var(var_name, msh);
-    if (!var || !*var)
-        full_cmd = rebuild_cmd(full_cmd, pos_i, "\0", len_var + 1);
-    else
-        full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
+    var = find_var(var_name);
+    // if (!var || !*var)
+    //     full_cmd = rebuild_cmd(full_cmd, pos_i, "\0", len_var + 1);
+    // else
+    full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
     free(var);
     return (full_cmd);
 }

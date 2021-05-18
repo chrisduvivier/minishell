@@ -6,11 +6,13 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/10 09:00:23 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 15:22:10 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_msh g_msh;
 
 /*
 **	Builtin function implementations.
@@ -26,8 +28,7 @@ int msh_cd(char **args)
 	// {
 	// 	perror("lsh");
 	// }
-	
-	chdir(args[0]);
+	chdir(args[1]);
 	return (1);
 }
 
@@ -65,8 +66,8 @@ int msh_pwd(char **args)
 	//TODO get the appropriate fd
 	// should be able to support ex: pwd > pwd.txt 
 	fd = STDOUT_FILENO;
-	ptr = NULL;	
-	getcwd(ptr, 0);
+	ptr = NULL;
+	ptr = getcwd(ptr, 0);
 	ft_putstr_fd(ptr, fd);
 	ft_putchar_fd('\n', fd);
 	return (1);

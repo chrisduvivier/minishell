@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/11 15:50:34 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:33:49 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    t_msh_init(t_msh *msh)
+extern t_msh g_msh;
+
+/*
+**	initialize global var g_msh
+*/
+
+void    t_msh_init(void)
 {
-	msh->status = 1;
-	msh->cmd_t = NULL;
-	msh->env = NULL;
+	g_msh.status = 1;
+	g_msh.cmd_t = NULL;
+	g_msh.env = NULL;
 }
 
 void	t_cmd_table_init(t_cmd_table *cmd_t)

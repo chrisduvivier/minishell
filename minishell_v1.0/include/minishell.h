@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/11 19:18:05 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:35:14 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ typedef struct s_msh {
 
 # define NEW_COMMAND_PROMPT "(╯°□°)╯︵ ┻━┻$> "
 
-void	copy_env(t_msh *msh, char **envp);
-void	prompt(t_msh *msh);
+void	copy_env(char **envp);
+void	prompt(void);
 void    get_cmd(char **str);
-void	handle_error(t_msh *msh, char *err_tag);
+void	handle_error(char *err_tag);
 char	**ft_split_msh(char const *s, char c);
-char	*code_cmd(char *str, t_msh *msh);
-char	*set_env_var(char *full_cmd, t_msh *msh, int i);
-int		syntaxe_cmd(t_msh *msh, char *full_cmd);
-char    *remove_space(t_msh *msh, char *full_cmd);
-char    *clean_cmd(t_msh *msh, char *str);
-int     exec_cmd(t_msh *msh, char *cmd);
+char	*code_cmd(char *str);
+char	*set_env_var(char *full_cmd, int i);
+int		syntaxe_cmd(char *full_cmd);
+char    *remove_space(char *full_cmd);
+char    *clean_cmd(char *str);
+int     exec_cmd(char *cmd);
 
 
 /*
@@ -99,6 +99,6 @@ int 	msh_env(char **args);
 
 int		builtin_caller(char **args);
 int		is_builtin(char *cmd);
-void	t_msh_init(t_msh *msh);
+void	t_msh_init(void);
 
 #endif

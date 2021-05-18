@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/11 19:22:45 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:30:36 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_msh g_msh;
 
 void get_cmd(char **full_cmd)
 {
@@ -22,6 +24,7 @@ void get_cmd(char **full_cmd)
 	{
 		write(1, "exit\n", 6);
 		free(*full_cmd);
+		// free all malloced (msh)
 		exit(EXIT_SUCCESS);
 	}
 	while (ret == 0)
@@ -35,13 +38,13 @@ void get_cmd(char **full_cmd)
 **	into single executable command. (ex: [ls; cd ../] -> [[ls], [cd ../]])
 */
 
-void	split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
+void	split_to_single_command(char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
 {
 	char **strs;
 	int i;
 	int j;
 	char **basic_cmd;
-	if (msh->status == 1)
+	if (g_msh.status == 1)
 	{
 		strs = ft_split_msh(full_cmd, SEMICOLON);
 		i = 0;
@@ -54,9 +57,9 @@ void	split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a 
 			{
 				printf("------->BASIC CMD [%d] : %s\n\n", j, basic_cmd[j]);
 				
-				// append_cmd_table(msh, basic_cmd); TODO 
+				// append_cmd_table(basic_cmd); TODO 
 				
-				exec_cmd(msh, basic_cmd[j]);
+				exec_cmd(basic_cmd[j]);
 				j++;
 			}
 			i++;
@@ -69,7 +72,7 @@ void	split_to_single_command(t_msh *msh, char *full_cmd) //attention des free a 
 **	
 */
 
-void prompt(t_msh *msh)
+void prompt(void)
 {
 	char *full_cmd;
 	
@@ -77,14 +80,14 @@ void prompt(t_msh *msh)
 	{
 		write(1, NEW_COMMAND_PROMPT, 32);
 		get_cmd(&full_cmd);
-		printf("COMMANDE RECUE : %s\n", full_cmd);
-		full_cmd = code_cmd(full_cmd, msh);
-		printf("COMMANDE CODEE : %s\n", full_cmd);
-		full_cmd = remove_space(msh, full_cmd);
-		syntaxe_cmd(msh, full_cmd);
-		full_cmd = clean_cmd(msh, full_cmd);
-		printf("COMMANDE CLEAN : %s\n\n", full_cmd);
-		split_to_single_command(msh, full_cmd);
-		msh->status = 1;
+		// printf("COMMANDE RECUE : %s\n", full_cmd);
+		full_cmd = code_cmd(full_cmd);
+		// printf("COMMANDE CODEE : %s\n", full_cmd);
+		full_cmd = remove_space(full_cmd);
+		syntaxe_cmd(full_cmd);
+		full_cmd = clean_cmd(full_cmd);
+		// printf("COMMANDE CLEAN : %s\n\n", full_cmd);
+		split_to_single_command(full_cmd);
+		g_msh.status = 1;
 	}
 }

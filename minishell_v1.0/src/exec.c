@@ -6,11 +6,13 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/10 18:41:50 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 15:28:33 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_msh g_msh;
 
 int lsh_launch(char **args)
 {
@@ -20,11 +22,10 @@ int lsh_launch(char **args)
 	pid = fork();
 	if (pid == 0)
 	{
-		// Child process
-		if (execvp(args[0], args) == -1)
-		{
-			perror("lsh");
-		}
+		if (execve(args[0], args, NULL) == -1)
+			perror("Could not execve");
+		return 1;
+
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
@@ -62,11 +63,10 @@ int lsh_execute(char **args)
 **	Input:
 */
 
-int exec_cmd(t_msh *msh, char *cmd)
+int exec_cmd(char *cmd)
 {
 	char **args;
 
-	(void)msh;
 	args = ft_split_msh(cmd, SPACE);
 	if (is_builtin(cmd) == 1)
 		return (builtin_caller(args));

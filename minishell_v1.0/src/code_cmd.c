@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   code_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/12 15:48:26 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/18 15:26:01 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern t_msh g_msh;
 
 int is_token(char c)
 {
@@ -96,7 +98,7 @@ char *handle_semicolon(int i, char *full_cmd, int *sq, int *dq)
 ** but is substitute $ token with the corresponding environment variable if it exist
 */
 
-char *handle_dollar(int i, char *full_cmd, int *sq, t_msh *msh)
+char *handle_dollar(int i, char *full_cmd, int *sq)
 {
     if ((*sq % 2) == 0) //si ni les simple quotes ne sont ouvertes
     {
@@ -105,7 +107,7 @@ char *handle_dollar(int i, char *full_cmd, int *sq, t_msh *msh)
             if (full_cmd[i + 1] && full_cmd[i + 1] != ' ')
             {
                 full_cmd[i] = DOLLAR;
-                full_cmd = set_env_var(full_cmd, msh, i);
+                full_cmd = set_env_var(full_cmd, i);
             }
         }
     }
@@ -151,7 +153,7 @@ char *handle_space(int i, char *full_cmd, int *sq, int *dq)
     return (full_cmd);
 }
 
-char *check_token(int i, char *full_cmd, int *sq, int *dq, t_msh *msh)
+char *check_token(int i, char *full_cmd, int *sq, int *dq)
 {
     int token;
     token = is_token(full_cmd[i]);
@@ -163,7 +165,7 @@ char *check_token(int i, char *full_cmd, int *sq, int *dq, t_msh *msh)
         else if (token == DQUOTE)
             *dq = *dq + 1;
         else if (token == DOLLAR)
-            full_cmd = set_env_var(full_cmd, msh, i);
+            full_cmd = set_env_var(full_cmd, i);
     }
     else
     {
@@ -176,7 +178,7 @@ char *check_token(int i, char *full_cmd, int *sq, int *dq, t_msh *msh)
         else if (token == SEMICOLON)
             full_cmd = handle_semicolon(i, full_cmd, sq, dq);
         else if (token == DOLLAR)
-            full_cmd = handle_dollar(i, full_cmd, sq, msh);
+            full_cmd = handle_dollar(i, full_cmd, sq);
         else if (token == PIPE) //au besoin on peut raccourcir le code en regroupant pipe, lchev, rchev et semicolon dans la meme fonction et en faisant fullcmd = is_token
             full_cmd = handle_pipe(i, full_cmd, sq, dq);
         else if (token == LCHEVRON)
@@ -189,7 +191,7 @@ char *check_token(int i, char *full_cmd, int *sq, int *dq, t_msh *msh)
     return (full_cmd);
 }
 
-char *code_cmd(char *full_cmd, t_msh *msh)
+char *code_cmd(char *full_cmd)
 {
     int i;
     int simple_quote;
@@ -201,8 +203,8 @@ char *code_cmd(char *full_cmd, t_msh *msh)
     while (full_cmd[i] != 0)
     {
         if (is_token(full_cmd[i]) != 0)                             //si on trouve un caractere special
-            full_cmd = check_token(i, full_cmd, &simple_quote, &double_quote, msh); //alors on le regarde et on le code au besoin
+            full_cmd = check_token(i, full_cmd, &simple_quote, &double_quote); //alors on le regarde et on le code au besoin
         i++;
     }
-    return(full_cmd);
+    return (full_cmd);
 }
