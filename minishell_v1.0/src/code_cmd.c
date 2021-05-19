@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:26:01 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:24:53 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ char *code_cmd(char *full_cmd)
     double_quote = 0;
     while (full_cmd[i] != 0)
     {
-        if (is_token(full_cmd[i]) != 0)                             //si on trouve un caractere special
+        if (is_token(full_cmd[i]) != 0)                                        //si on trouve un caractere special
             full_cmd = check_token(i, full_cmd, &simple_quote, &double_quote); //alors on le regarde et on le code au besoin
         i++;
     }

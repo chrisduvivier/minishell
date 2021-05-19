@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:49:03 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:24:49 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int syntaxe_cmd(char *full_cmd)
                 return (0);
             }
         }
-        if ( full_cmd[i] == SEMICOLON)
+        if (full_cmd[i] == SEMICOLON)
         {
             if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == SEMICOLON)
             {
                 handle_error(ERR_PARS_SEMI);
                 return (0);
-            }            
+            }
         }
         //rajouter check erreurs de chevrons <, <<, <<<, >, >>
         i++;

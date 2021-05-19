@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:28:33 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:20:01 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int exec_cmd(char *cmd)
 {
 	char **args;
 
-	args = ft_split_msh(cmd, SPACE);
+	args = ft_split(cmd, SPACE);
+	// perhaps need to clean cmd
 	if (is_builtin(cmd) == 1)
 		return (builtin_caller(args));
 	return (lsh_launch(args));

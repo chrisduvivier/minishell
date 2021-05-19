@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/18 15:33:49 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:25:22 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ extern t_msh g_msh;
 **	initialize global var g_msh
 */
 
-void    t_msh_init(void)
+void t_msh_init(void)
 {
 	g_msh.status = 1;
 	g_msh.cmd_t = NULL;
 	g_msh.env = NULL;
 }
 
-void	t_cmd_table_init(t_cmd_table *cmd_t)
+void t_cmd_table_init(t_cmd_table *cmd_t)
 {
 	cmd_t->origin_cmd = NULL;
 	cmd_t->cmd = NULL;

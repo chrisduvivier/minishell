@@ -6,16 +6,16 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 17:20:57 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 16:15:33 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:25:04 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 
-static int	count_size_tab(char *str, char c)
+static int count_size_tab(char *str, char c)
 {
-	int		i;
-	int		nb_word;
+	int i;
+	int nb_word;
 
 	i = 0;
 	nb_word = 0;
@@ -34,9 +34,9 @@ static int	count_size_tab(char *str, char c)
 	return (nb_word);
 }
 
-static int	size_elem(char *str, char c)
+static int size_elem(char *str, char c)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	while (str[i] != c && str[i])
@@ -44,9 +44,9 @@ static int	size_elem(char *str, char c)
 	return (i);
 }
 
-static char	**free_tab(char **tab, int index)
+static char **free_tab(char **tab, int index)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < index - 1)
@@ -55,20 +55,20 @@ static char	**free_tab(char **tab, int index)
 	return (NULL);
 }
 
-char	**ft_split_msh(char const *s, char c)
+char **ft_split_msh(char const *s, char c)
 {
-	char	**tab;
-	int		size_tab;
-	int		size_to_copy;
-	int		start;
-	int		i;
+	char **tab;
+	int size_tab;
+	int size_to_copy;
+	int start;
+	int i;
 
 	i = 0;
 	start = 0;
 	size_tab = count_size_tab((char *)s, c);
 	tab = (char **)malloc(sizeof(char *) * (size_tab + 1));
 	if (!s || !tab)
-		return ((char **) NULL);
+		return ((char **)NULL);
 	while (i < size_tab && s[start] != '\0')
 	{
 		while (s[start] == c && s[start] != '\0')

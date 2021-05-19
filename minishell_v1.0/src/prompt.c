@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 16:13:53 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:30:10 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void get_cmd(char **full_cmd)
 /*
 **	split the whole command (which has been cleaned/transform)
 **	1. Split based on the `;`
-**	2. Split based on the `>`, `<`, `|`
+**	2. TODO Split based on the `>`, `<`, `|`
 **	into single executable command. (ex: [ls; cd ../] -> [[ls], [cd ../]])
 */
 
