@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 16:15:23 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/25 19:39:13 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 
 # include "../libft/libft.h"
@@ -67,6 +69,8 @@ typedef struct s_msh {
 # define RCHEVRON -8
 # define SPACERM -9
 # define SPACE -10
+
+# define MALLOC_FAILURE 1
 
 # define NEW_COMMAND_PROMPT "(╯°□°)╯︵ ┻━┻$> "
 
