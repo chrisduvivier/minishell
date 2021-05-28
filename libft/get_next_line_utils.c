@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 13:34:13 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/04/02 19:59:16 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/27 17:21:13 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,17 @@ char	*gnl_ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	substr[i] = '\0';
 	return (substr);
+}
+
+/*
+**	stupid function for respecting norm of 25 lines per function
+*/
+
+void	strjoin_gnl_helper(char **stack, int fd, char *buf)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(stack[fd], buf);
+	free(stack[fd]);
+	stack[fd] = tmp;
 }

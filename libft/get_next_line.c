@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 13:34:15 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/04/02 20:07:36 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/27 17:20:50 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,14 @@ static int	output(int cursor, char **stack, int fd, char **line)
 static int	ft_read_gnl(char **stack, int fd)
 {
 	char	buf[BUFFER_SIZE + 1];
-	char	*tmp;
 	int		cursor;
 
 	cursor = 0;
-	while (!(gnl_ft_strchr(stack[fd], '\n'))
-		&& (cursor = read(fd, buf, BUFFER_SIZE)) > 0)
+	while (!(gnl_ft_strchr(stack[fd], '\n')))
 	{
+		cursor = read(fd, buf, BUFFER_SIZE);
+		if (cursor <= 0)
+			break ;
 		buf[cursor] = '\0';
 		if (!stack[fd])
 		{
@@ -122,9 +123,7 @@ static int	ft_read_gnl(char **stack, int fd)
 		}
 		else
 		{
-			tmp = ft_strjoin(stack[fd], buf);
-			free(stack[fd]);
-			stack[fd] = tmp;
+			strjoin_gnl_helper(stack, fd, buf);
 			if (!stack[fd])
 				return (-1);
 		}

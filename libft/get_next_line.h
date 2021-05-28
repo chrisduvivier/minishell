@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 13:34:11 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/25 17:35:45 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/28 15:54:58 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int		get_next_line(int fd, char **line);
 char	*gnl_ft_substr(char const *s, unsigned int start, size_t len);
 char	*gnl_ft_strchr(const char *s, int c);
 char	*gnl_ft_strdup(const char *s1);
+void	strjoin_gnl_helper(char **stack, int fd, char *buf);
 
 #endif
