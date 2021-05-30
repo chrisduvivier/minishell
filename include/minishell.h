@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/25 19:39:13 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 00:28:33 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@
 **	- next: pointer to next cmd
 */
 typedef struct s_cmd_table {
-	char				*origin_cmd;
 	char 				*cmd;
-	char 				*opt;
-	char 				*arg;
+	int					argc;
+	char 				**argv;
 	char 				*in_file;
 	char 				*out_file;
 	int 				in_file_fd;
