@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 00:28:33 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 10:44:18 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ int 	msh_env(char **args);
 
 int		builtin_caller(char **args);
 int		is_builtin(char *cmd);
+
 void	t_msh_init(void);
+void	t_cmd_table_init(t_cmd_table *cmd_t);
+
 
 #endif

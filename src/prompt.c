@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 01:05:40 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 12:44:31 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,19 @@ void get_cmd(char **full_cmd)
 }
 
 /*
-**	Parse command stringa and fill data into a command table.
+**	Check for input output settings (>, <, >>)
 */
 
-t_cmd_table fill_cmd_table(char cmd)
+void	set_io(t_cmd_table *t_cmd)
+{
+	(void)t_cmd;
+}
+
+/*
+**	Parse command string and fill data into a command table.
+*/
+
+t_cmd_table fill_cmd_table(char *cmd)
 {
 	t_cmd_table	t_cmd;
 	char		**tokens;
@@ -56,14 +65,32 @@ t_cmd_table fill_cmd_table(char cmd)
 	{
 		t_cmd.cmd = ft_strdup(tokens[i]);
 		if (t_cmd.cmd == NULL)
-			return ;	//TODO MALLOC ERROR
+			//TODO MALLOC ERROR
+		i++;
 	}
+	// Handle '>' and '<', '>>'
+	set_io(&t_cmd);
 	free(tokens);
 	return (t_cmd);
 }
 
 /*
-**	Split commands by pipes, if any.
+**	Iterate over piped commands and set their io fd.
+**	@param:
+**		t_cmds	table of single commands
+**		t_size	size of the table (array of t_cmd)
+*/
+
+void	set_pipes(t_cmd_table *t_cmds, int t_size)
+{
+	(void)t_cmds;
+	(void)t_size;
+}
+
+/*
+**	Split commands by pipes, if any. Create command tables and fill them.
+**	@param:
+**		piped_command	whole cmd string potentially containing pipe
 */
 
 t_cmd_table *handle_pipes(char *piped_command)
@@ -88,7 +115,7 @@ t_cmd_table *handle_pipes(char *piped_command)
 		i++;
 	}
 	free(single_cmds);
-	set_io(t_cmds, i);
+	set_pipes(t_cmds, i);
 	return (t_cmds);
 }
 
@@ -104,30 +131,23 @@ t_cmd_table *handle_pipes(char *piped_command)
 void	split_command(char *full_cmd) //attention des free a rajouter (pour les splits et la cmd)
 {
 	char	**cmds;
-	char	**basic_cmd;
 	int		i;
 	int		j;
 	t_cmd_table *t_cmd;
 	
 	if (g_msh.status == 1)
 	{
+		i = 0;
 		cmds = ft_split(full_cmd, SEMICOLON);
 		free(full_cmd);
-		i = 0;
 		while (cmds[i] != NULL)
-		{
+		{	
+			t_cmd = handle_pipes(cmds[i]);
 			j = 0;
-			
-			
-			// basic_cmd = ft_split(cmds[i], PIPE);	//set back this to revert current WIP change
-			
-			t_cmd = handle_pipes(cmds[i]);			//comment  this to revert current WIP change
-			
-			
-			while (basic_cmd[j] != 0)
+			while (t_cmd[j].argc > 0 && t_cmd[j].argv[0] != NULL)
 			{
 				// printf("------->BASIC CMD [%d] : %s\n\n", j, basic_cmd[j]);
-				exec_cmd(basic_cmd[j]);
+				// exec_cmd(t_cmd[j]);
 				j++;
 			}
 			i++;
