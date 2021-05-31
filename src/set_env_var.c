@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 16:12:54 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 16:15:11 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,18 @@ char *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
     return (new_cmd);
 }
 
+char *insert_msh_status(int pos_i, char *full_cmd)
+{
+    char *new_cmd;
+    char *status;
+    
+    status = ft_itoa(g_msh.status);
+    if (!status)
+        handle_error(ERR_MALLOC);
+    new_cmd = rebuild_cmd(full_cmd, pos_i, status, 2);
+    return (new_cmd);    
+}
+
 /*
 ** The purpose of this function is to substitute $VAR with the corresponding
 ** environment var if it exist and rebuild the command by inserting the right
@@ -97,18 +109,20 @@ char *set_env_var(char *full_cmd, int i)
 
     pos_i = i;
     len_var = 0;
-    while (full_cmd[i] != ' ' && full_cmd[i])
+    if (full_cmd[pos_i + 1] && full_cmd[pos_i + 1] == '?')
+        full_cmd = insert_msh_status(pos_i, full_cmd);
+    else
     {
-        len_var++;
-        i++;
+        while (full_cmd[i] != ' ' && full_cmd[i])
+        {
+            len_var++;
+            i++;
+        }
+        var_name = malloc(sizeof(char) * (len_var));
+        ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
+        var = find_var(var_name);
+        full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
+        free(var);
     }
-    var_name = malloc(sizeof(char) * (len_var));
-    ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
-    var = find_var(var_name);
-    // if (!var || !*var)
-    //     full_cmd = rebuild_cmd(full_cmd, pos_i, "\0", len_var + 1);
-    // else
-    full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
-    free(var);
     return (full_cmd);
 }
