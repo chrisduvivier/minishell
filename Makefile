@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/05/18 16:15:18 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/05/31 15:24:34 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS		:=	main.c \
 				./src/struct_init.c \
 				./src/copy_env.c\
 				./src/set_env_var.c\
+				./src/debug.c\
 
 OBJ			:=	$(SRCS:%.c=%.o)
 

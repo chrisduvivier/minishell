@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 10:44:18 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:23:03 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,28 +82,32 @@ char	*set_env_var(char *full_cmd, int i);
 int		syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
 char    *clean_cmd(char *str);
-int     exec_cmd(char *cmd);
-
+int		exec_cmd(t_cmd_table t_cmd);
 
 /*
 **  Function Declarations for builtin shell commands:
 */
 
-int 	msh_cd(char **args);
-int 	msh_exit(char **args);
-int 	msh_pwd(char **args);
+int 	msh_cd(t_cmd_table cmd_t);
+int 	msh_exit(t_cmd_table cmd_t);
+int 	msh_pwd(t_cmd_table cmd_t);
 
 //TODO
-int 	msh_echo(char **args);
-int 	msh_export(char **args);
-int 	msh_unset(char **args);
-int 	msh_env(char **args);
+int 	msh_echo(t_cmd_table cmd_t);
+int 	msh_export(t_cmd_table cmd_t);
+int 	msh_unset(t_cmd_table cmd_t);
+int 	msh_env(t_cmd_table cmd_t);
 
-int		builtin_caller(char **args);
-int		is_builtin(char *cmd);
+int		our_builtin_caller(t_cmd_table t_cmd);
+int		is_our_builtin(char *cmd);
 
 void	t_msh_init(void);
 void	t_cmd_table_init(t_cmd_table *cmd_t);
 
+/*
+**	debug
+*/
+
+void print_t_cmd_table(t_cmd_table t_cmd);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 12:44:31 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:24:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ t_cmd_table fill_cmd_table(char *cmd)
 	i = 0;
 	while (tokens[i] != NULL)
 	{
-		t_cmd.cmd = ft_strdup(tokens[i]);
-		if (t_cmd.cmd == NULL)
-			//TODO MALLOC ERROR
+		t_cmd.argv[i] = ft_strdup(tokens[i]);
+		//TODO MALLOC ERROR
+		if (i == 0 && t_cmd.cmd == NULL)
+			t_cmd.cmd = ft_strdup(tokens[0]);
 		i++;
 	}
 	// Handle '>' and '<', '>>'
@@ -146,8 +147,8 @@ void	split_command(char *full_cmd) //attention des free a rajouter (pour les spl
 			j = 0;
 			while (t_cmd[j].argc > 0 && t_cmd[j].argv[0] != NULL)
 			{
-				// printf("------->BASIC CMD [%d] : %s\n\n", j, basic_cmd[j]);
-				// exec_cmd(t_cmd[j]);
+				print_t_cmd_table(t_cmd[j]);
+				exec_cmd(t_cmd[j]);
 				j++;
 			}
 			i++;

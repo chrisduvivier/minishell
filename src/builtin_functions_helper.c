@@ -6,13 +6,19 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/18 16:25:15 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:05:25 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_builtin(char *cmd)
+/*
+**	Check whether the cmd name belongs to one of the function we coded ourself.
+**	@param:
+**		cmd		string containing command name
+*/
+
+int is_our_builtin(char *cmd)
 {
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (1);
@@ -38,24 +44,21 @@ int is_builtin(char *cmd)
 **		0 is returned when the cmd is not supported.
 */
 
-int builtin_caller(char **args)
+int our_builtin_caller(t_cmd_table t_cmd)
 {
-	char *cmd;
-
-	cmd = args[0];
-	if (ft_strcmp(cmd, "echo") == 0)
-		return (msh_echo(args));
-	else if (ft_strcmp(cmd, "cd") == 0)
-		return (msh_cd(args));
-	else if (ft_strcmp(cmd, "pwd") == 0)
-		return (msh_pwd(args));
-	// else if (ft_strcmp(cmd, "export") == 0)
-	// 	return (msh_export(args));
-	// else if (ft_strcmp(cmd, "unset") == 0)
-	// 	return (msh_unset(args));
-	// else if (ft_strcmp(cmd, "env") == 0)
-	// 	return (msh_env(args));
-	else if (ft_strcmp(cmd, "exit") == 0)
-		return (msh_exit(args));
+	if (ft_strcmp(t_cmd.cmd, "echo") == 0)
+		return (msh_echo(t_cmd));
+	else if (ft_strcmp(t_cmd.cmd, "cd") == 0)
+		return (msh_cd(t_cmd));
+	else if (ft_strcmp(t_cmd.cmd, "pwd") == 0)
+		return (msh_pwd(t_cmd));
+	// else if (ft_strcmp(t_cmd.cmd, "export") == 0)
+	// 	return (msh_export(t_cmd));
+	// else if (ft_strcmp(t_cmd.cmd, "unset") == 0)
+	// 	return (msh_unset(t_cmd));
+	// else if (ft_strcmp(t_cmd.cmd, "env") == 0)
+	// 	return (msh_env(t_cmd));
+	else if (ft_strcmp(t_cmd.cmd, "exit") == 0)
+		return (msh_exit(t_cmd));
 	return (0);
 }

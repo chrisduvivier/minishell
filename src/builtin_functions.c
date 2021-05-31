@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/18 15:22:10 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:16:25 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,9 @@ extern t_msh g_msh;
 **	Builtin function implementations.
 */
 
-int msh_cd(char **args)
+int msh_cd(t_cmd_table t_cmd)
 {
-	
-	// TODO: need to send the whole cmd+arg as string here.
-	//		so far its sending none
-
-	// if (chdir(args[1]) != 0)
-	// {
-	// 	perror("lsh");
-	// }
-	chdir(args[1]);
+	(void)t_cmd;
 	return (1);
 }
 
@@ -37,9 +29,9 @@ int msh_cd(char **args)
 **	no specific return value expected
 */
 
-int msh_echo(char **args)
+int msh_echo(t_cmd_table t_cmd)
 {
-	(void)args;
+	(void)t_cmd;
 	// check if any arguments are given
 		// return if none
 	// check if first argument after echo is an option
@@ -56,20 +48,15 @@ int msh_echo(char **args)
 **		getcwd is called just to get the pointer to the path string.
 */
 
-int msh_pwd(char **args)
+int msh_pwd(t_cmd_table t_cmd)
 {	
 	char	*ptr;
-	int		fd;
 
-
-	(void)args;
-	//TODO get the appropriate fd
-	// should be able to support ex: pwd > pwd.txt 
-	fd = STDOUT_FILENO;
+	// TODO should be able to support ex: pwd > pwd.txt 
 	ptr = NULL;
 	ptr = getcwd(ptr, 0);
-	ft_putstr_fd(ptr, fd);
-	ft_putchar_fd('\n', fd);
+	ft_putstr_fd(ptr, t_cmd.out_file_fd);
+	ft_putchar_fd('\n', t_cmd.out_file_fd);
 	return (1);
 }
 
@@ -79,9 +66,9 @@ int msh_pwd(char **args)
 **		- call free_anc_exit function 
 */
 
-int msh_exit(char **args)
+int msh_exit(t_cmd_table t_cmd)
 {
-	(void)args;
+	(void)t_cmd;
 	exit(0);
 	return (1);
 }
