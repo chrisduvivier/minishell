@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:50:45 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 15:35:49 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:04:57 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 /*
 **	declaration of the only global variable
 */
@@ -22,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	
+
 	t_msh_init();
 	copy_env(envp);
 	prompt();

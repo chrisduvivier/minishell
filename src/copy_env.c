@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:52:02 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/25 19:39:50 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 15:04:27 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void    copy_env(char **envp)
         env[i] = ft_strdup(envp[i]);
         i++;
     }
+    env[i] = NULL;
     g_msh.env = env;
 }
