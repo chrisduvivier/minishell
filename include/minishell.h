@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 15:23:03 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:02:50 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmd_table {
 */
 typedef struct s_msh {
 	int				status;
+	int				pid;
 	t_cmd_table		*cmd_t;
 	char			**env;
 }				t_msh;
@@ -83,6 +84,9 @@ int		syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
 char    *clean_cmd(char *str);
 int		exec_cmd(t_cmd_table t_cmd);
+
+char	*find_var(char *var_name);
+
 
 /*
 **  Function Declarations for builtin shell commands:

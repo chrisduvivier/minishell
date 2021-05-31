@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 16:15:11 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/05/31 17:08:43 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char *find_var(char *var_name)
         }
         i++;
     }
-    free(var_name);
     return (var);
 }
 
@@ -121,6 +120,7 @@ char *set_env_var(char *full_cmd, int i)
         var_name = malloc(sizeof(char) * (len_var));
         ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
         var = find_var(var_name);
+        free(var_name);
         full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
         free(var);
     }

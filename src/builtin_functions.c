@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/31 15:16:25 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/05/31 17:01:57 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ extern t_msh g_msh;
 int msh_cd(t_cmd_table t_cmd)
 {
 	(void)t_cmd;
+	char *path;
+
+	path = find_var("HOME");
+	if (t_cmd.argc == 1)
+	{
+		chdir(path);
+		free(path);
+	}
 	return (1);
 }
 
