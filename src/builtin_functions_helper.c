@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_helper.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/01 11:41:44 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 14:29:26 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int is_our_builtin(char *cmd)
 **  Check if the command correspond to one of the builtin function, and exec.
 **	Return Value:
 **		1 is returned by each function upon success.
-**		0 is returned when the cmd is not supported.
+**		0 is returned when the cmd is not supported or error.
 */
 
 int our_builtin_caller(t_cmd_table t_cmd)
@@ -64,5 +64,17 @@ int our_builtin_caller(t_cmd_table t_cmd)
 }
 
 /*
-**  Check if the command requires to be run on a child process
+**  Check if the command requires to be run on a parent process
 */
+int is_parent_cmd(char *cmd)
+{
+	if (ft_strcmp(cmd, "cd") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "export") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "unset") == 0)
+		return (1);
+	else if (ft_strcmp(cmd, "exit") == 0)
+		return (1);
+	return (0);	
+}

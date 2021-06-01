@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 17:02:50 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 14:30:52 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 */
 typedef struct s_cmd_table {
 	char 				*cmd;
+	char				*cmd_abs_path;
 	int					argc;
 	char 				**argv;
 	char 				*in_file;
@@ -105,6 +106,9 @@ int 	msh_env(t_cmd_table cmd_t);
 int		our_builtin_caller(t_cmd_table t_cmd);
 int		is_our_builtin(char *cmd);
 
+int		is_parent_cmd(char *cmd);
+
+
 void	t_msh_init(void);
 void	t_cmd_table_init(t_cmd_table *cmd_t);
 
@@ -112,6 +116,13 @@ void	t_cmd_table_init(t_cmd_table *cmd_t);
 **	debug
 */
 
-void print_t_cmd_table(t_cmd_table t_cmd);
+void	print_t_cmd_table(t_cmd_table t_cmd);
+
+/*
+**	free and exit
+*/
+
+void    free_t_cmd(t_cmd_table *t_cmd);
+
 
 #endif

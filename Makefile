@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/05/31 15:24:34 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/01 14:31:40 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,10 @@ SRCS		:=	main.c \
 				./src/builtin_functions.c \
 				./src/builtin_functions_helper.c \
 				./src/struct_init.c \
-				./src/copy_env.c\
-				./src/set_env_var.c\
-				./src/debug.c\
+				./src/copy_env.c \
+				./src/set_env_var.c \
+				./src/debug.c \
+				./src/free_functions.c \
 
 OBJ			:=	$(SRCS:%.c=%.o)
 
