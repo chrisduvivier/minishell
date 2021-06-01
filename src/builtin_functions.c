@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/31 17:01:57 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 11:10:01 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern t_msh g_msh;
 
 /*
 **	Builtin function implementations.
+**	@param:
+**		t_cmd the table with command input
 */
 
 int msh_cd(t_cmd_table t_cmd)
@@ -23,11 +25,24 @@ int msh_cd(t_cmd_table t_cmd)
 	(void)t_cmd;
 	char *path;
 
-	path = find_var("HOME");
 	if (t_cmd.argc == 1)
 	{
+		path = find_var("HOME");
 		chdir(path);
 		free(path);
+		// TODO set OK status
+	}
+	else if (t_cmd.argc > 2)
+	{
+		ft_printf("cd: too many arguments\n");
+		// TODO set ERROR status
+		return (0);
+	}
+	else if (chdir(t_cmd.argv[1]) < 0)
+	{
+		ft_printf("cd: no such file or directory: %s\n", t_cmd.argv[1]);
+		// TODO set ERROR status
+		return (0);
 	}
 	return (1);
 }
