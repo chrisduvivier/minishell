@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 13:20:11 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:50:16 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ char *find_var(char *var_name)
         }
         i++;
     }
+    i = 0;
+    while (var && var[i])
+    {
+        if (var[i] == ' ')
+            var[i] = SPACE;
+        i++;
+    }
     return (var);
 }
 
@@ -63,7 +70,7 @@ char *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name, int al
         new_cmd[i] = full_cmd[i];
         i++;
     }
-    while (*var && var)
+    while (var && *var)
     {
         new_cmd[i] = *var;
         var++;
@@ -100,29 +107,30 @@ char *insert_msh_status(int pos_i, char *full_cmd)
 ** value inside
 */
 
-char *set_env_var(char *full_cmd, int i)
+char *set_env_var(char *full_cmd, int *i)
 {
     int len_var;
     int pos_i;
     char *var_name;
     char *var;
 
-    pos_i = i;
+    pos_i = *i;
     len_var = 0;
     if (full_cmd[pos_i + 1] && full_cmd[pos_i + 1] == '?')
         full_cmd = insert_msh_status(pos_i, full_cmd);
     else
     {
-        while (full_cmd[i] != ' ' && full_cmd[i])
+        while (full_cmd[*i] != ' ' && full_cmd[*i])
         {
             len_var++;
-            i++;
+            *i = *i + 1;
         }
         var_name = malloc(sizeof(char) * (len_var));
         ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
         var = find_var(var_name);
         free(var_name);
         full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var, 1);
+        *i = pos_i + (int)ft_strlen(var) - 1;
         free(var);
     }
     return (full_cmd);

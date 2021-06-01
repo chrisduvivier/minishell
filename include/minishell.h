@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 15:54:58 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 16:30:44 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	prompt(void);
 void    get_cmd(char **str);
 void	handle_error(char *err_tag);
 char	*code_cmd(char *str);
-char	*set_env_var(char *full_cmd, int i);
+char	*set_env_var(char *full_cmd, int *i);
 int		syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
 char    *clean_cmd(char *str);
