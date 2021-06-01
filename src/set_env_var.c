@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 14:27:22 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:50:16 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ char *find_var(char *var_name)
                 break;
             }
         }
+        i++;
+    }
+    i = 0;
+    while (var && var[i])
+    {
+        if (var[i] == ' ')
+            var[i] = SPACE;
         i++;
     }
     return (var);
