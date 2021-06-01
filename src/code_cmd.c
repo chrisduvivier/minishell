@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   code_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 16:24:53 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 14:09:25 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,58 +37,58 @@ int is_token(char c)
     return (0);
 }
 
-char *handle_backslash(int i, char *full_cmd, int *sq, int *dq)
+char *handle_backslash(int *i, char *full_cmd, int *sq, int *dq)
 {
-    if (full_cmd[i - 1] != BACKSLASH) //si le précédent n'est pas un backslash
+    if (full_cmd[*i - 1] != BACKSLASH) //si le précédent n'est pas un backslash
     {
         if ((*sq % 2) == 0) //si les simple quote ne sont pas ouvertes
         {
             if ((*dq % 2) == 0) //si les doubles quotes ne sont pas ouvertes
             {
-                full_cmd[i] = BACKSLASH;
+                full_cmd[*i] = BACKSLASH;
             }
-            else if (full_cmd[i + 1] != 0) //si on est dans des doubles quotes ET que le suivant existe
+            else if (full_cmd[*i + 1] != 0) //si on est dans des doubles quotes ET que le suivant existe
             {
-                if (full_cmd[i + 1] == '$' || full_cmd[i + 1] == '"') //si c'est un " ou un $
-                    full_cmd[i] = BACKSLASH;
+                if (full_cmd[*i + 1] == '$' || full_cmd[*i + 1] == '"') //si c'est un " ou un $
+                    full_cmd[*i] = BACKSLASH;
             }
         }
     }
     return (full_cmd);
 }
 
-char *handle_quote(int i, char *full_cmd, int *sq, int *dq)
+char *handle_quote(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*dq % 2) == 0) //si les doubles quotes ne sont pas ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si le précédent n'est apas est un backslash
+        if (full_cmd[*i - 1] != BACKSLASH) //si le précédent n'est apas est un backslash
         {
-            full_cmd[i] = QUOTE; //vérifier si c'est bon lorsque les single quote sont ouvertes normalement oui car l'ordre des if de check token est bon
+            full_cmd[*i] = QUOTE; //vérifier si c'est bon lorsque les single quote sont ouvertes normalement oui car l'ordre des if de check token est bon
             *sq = *sq + 1;
         }
     }
     return (full_cmd);
 }
 
-char *handle_dquote(int i, char *full_cmd, int *sq, int *dq)
+char *handle_dquote(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0) //si les simple quotes ne sont pas ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si le précédent n'est pas est un backslash
+        if (full_cmd[*i - 1] != BACKSLASH) //si le précédent n'est pas est un backslash
         {
-            full_cmd[i] = DQUOTE;
+            full_cmd[*i] = DQUOTE;
             *dq = *dq + 1;
         }
     }
     return (full_cmd);
 }
 
-char *handle_semicolon(int i, char *full_cmd, int *sq, int *dq)
+char *handle_semicolon(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
-            full_cmd[i] = SEMICOLON;
+        if (full_cmd[*i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
+            full_cmd[*i] = SEMICOLON;
     }
     return (full_cmd);
 }
@@ -98,15 +98,15 @@ char *handle_semicolon(int i, char *full_cmd, int *sq, int *dq)
 ** but is substitute $ token with the corresponding environment variable if it exist
 */
 
-char *handle_dollar(int i, char *full_cmd, int *sq)
+char *handle_dollar(int *i, char *full_cmd, int *sq)
 {
     if ((*sq % 2) == 0) //si ni les simple quotes ne sont ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
+        if (full_cmd[*i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
         {
-            if (full_cmd[i + 1] && full_cmd[i + 1] != ' ')
+            if (full_cmd[*i + 1] && full_cmd[*i + 1] != ' ')
             {
-                full_cmd[i] = DOLLAR;
+                full_cmd[*i] = DOLLAR;
                 full_cmd = set_env_var(full_cmd, i);
             }
         }
@@ -114,58 +114,60 @@ char *handle_dollar(int i, char *full_cmd, int *sq)
     return (full_cmd);
 }
 
-char *handle_pipe(int i, char *full_cmd, int *sq, int *dq)
+char *handle_pipe(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
-            full_cmd[i] = PIPE;
+        if (full_cmd[*i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
+            full_cmd[*i] = PIPE;
     }
     return (full_cmd);
 }
 
-char *handle_lchevron(int i, char *full_cmd, int *sq, int *dq)
+char *handle_lchevron(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
-            full_cmd[i] = LCHEVRON;
+        if (full_cmd[*i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
+            full_cmd[*i] = LCHEVRON;
     }
     return (full_cmd);
 }
 
-char *handle_rchevron(int i, char *full_cmd, int *sq, int *dq)
+char *handle_rchevron(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
-        if (full_cmd[i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
-            full_cmd[i] = RCHEVRON;
+        if (full_cmd[*i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
+            full_cmd[*i] = RCHEVRON;
     }
     return (full_cmd);
 }
 
-char *handle_space(int i, char *full_cmd, int *sq, int *dq)
+char *handle_space(int *i, char *full_cmd, int *sq, int *dq)
 {
     if ((*sq % 2) == 0 && (*dq % 2) == 0) //si ni les simples ni les doubles quotes ne sont ouvertes
     {
-        full_cmd[i] = SPACE; //nous permet de différencier les espaces servant a separer les cmd et leurs arguments des espaces literal
+        full_cmd[*i] = SPACE; //nous permet de différencier les espaces servant a separer les cmd et leurs arguments des espaces literal
     }
     return (full_cmd);
 }
 
-char *check_token(int i, char *full_cmd, int *sq, int *dq)
+char *check_token(int *i, char *full_cmd, int *sq, int *dq)
 {
     int token;
-    token = is_token(full_cmd[i]);
-    if (i == 0) //pour le premier caractere on ne peux pas se fier à son précédent
+    token = is_token(full_cmd[*i]);
+    if (*i == 0) //pour le premier caractere on ne peux pas se fier à son précédent
     {
-        full_cmd[i] = token;
+        full_cmd[*i] = token;
         if (token == QUOTE)
             *sq = *sq + 1;
         else if (token == DQUOTE)
             *dq = *dq + 1;
-        else if (token == DOLLAR)
+        else if (token == DOLLAR && (full_cmd[*i + 1] != ' ' && full_cmd[*i + 1]))
             full_cmd = set_env_var(full_cmd, i);
+        else if (token == DOLLAR && (full_cmd[*i + 1] == ' ' || !full_cmd[*i + 1]))
+            full_cmd[*i] = '$';
     }
     else
     {
@@ -203,8 +205,9 @@ char *code_cmd(char *full_cmd)
     while (full_cmd[i] != 0)
     {
         if (is_token(full_cmd[i]) != 0)                                        //si on trouve un caractere special
-            full_cmd = check_token(i, full_cmd, &simple_quote, &double_quote); //alors on le regarde et on le code au besoin
+            full_cmd = check_token(&i, full_cmd, &simple_quote, &double_quote); //alors on le regarde et on le code au besoin
         i++;
     }
+    printf("FULL_CMD : %s\n", full_cmd);
     return (full_cmd);
 }
