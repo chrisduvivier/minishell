@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 14:09:25 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:37:57 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,5 @@ char *code_cmd(char *full_cmd)
             full_cmd = check_token(&i, full_cmd, &simple_quote, &double_quote); //alors on le regarde et on le code au besoin
         i++;
     }
-    printf("FULL_CMD : %s\n", full_cmd);
     return (full_cmd);
 }
