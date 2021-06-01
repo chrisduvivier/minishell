@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 17:08:43 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 13:20:11 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char *find_var(char *var_name)
 ** Insert the environment variable value inside the command
 */
 
-char *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
+char *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name, int alloc)
 {
     char *new_cmd;
     int i;
@@ -77,7 +77,8 @@ char *rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
         j++;
     }
     new_cmd[i] = '\0';
-    free(full_cmd);
+    if (alloc)
+        free(full_cmd);
     return (new_cmd);
 }
 
@@ -89,8 +90,8 @@ char *insert_msh_status(int pos_i, char *full_cmd)
     status = ft_itoa(g_msh.status);
     if (!status)
         handle_error(ERR_MALLOC);
-    new_cmd = rebuild_cmd(full_cmd, pos_i, status, 2);
-    return (new_cmd);    
+    new_cmd = rebuild_cmd(full_cmd, pos_i, status, 2, 1);
+    return (new_cmd);
 }
 
 /*
@@ -121,7 +122,7 @@ char *set_env_var(char *full_cmd, int i)
         ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
         var = find_var(var_name);
         free(var_name);
-        full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
+        full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var, 1);
         free(var);
     }
     return (full_cmd);
