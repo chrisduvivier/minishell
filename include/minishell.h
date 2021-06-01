@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 14:30:52 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 15:54:58 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-
+# include <sys/stat.h>
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"

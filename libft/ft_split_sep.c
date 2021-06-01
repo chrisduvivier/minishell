@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:03:58 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/04/02 20:29:06 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/01 16:09:13 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_split_free(char **tab)
 		free(tab[i]);
 		i++;
 	}
+	free(tab);
 }
 
 /*
