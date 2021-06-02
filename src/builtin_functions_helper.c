@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_helper.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/01 14:29:26 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/02 13:46:42 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,37 +44,31 @@ int is_our_builtin(char *cmd)
 **		0 is returned when the cmd is not supported or error.
 */
 
-int our_builtin_caller(t_cmd_table t_cmd)
+int builtin_caller_in_parent(t_cmd_table t_cmd)
 {
-	if (ft_strcmp(t_cmd.cmd, "echo") == 0)
-		return (msh_echo(t_cmd));
-	else if (ft_strcmp(t_cmd.cmd, "cd") == 0)
+
+	if (ft_strcmp(t_cmd.cmd, "cd") == 0)
 		return (msh_cd(t_cmd));
-	else if (ft_strcmp(t_cmd.cmd, "pwd") == 0)
-		return (msh_pwd(t_cmd));
-	// else if (ft_strcmp(t_cmd.cmd, "export") == 0)
-	// 	return (msh_export(t_cmd));
-	// else if (ft_strcmp(t_cmd.cmd, "unset") == 0)
-	// 	return (msh_unset(t_cmd));
-	// else if (ft_strcmp(t_cmd.cmd, "env") == 0)
-	// 	return (msh_env(t_cmd));
+	else if (ft_strcmp(t_cmd.cmd, "export") == 0)
+		return (msh_export(t_cmd));
+	else if (ft_strcmp(t_cmd.cmd, "unset") == 0)
+		return (msh_unset(t_cmd));
 	else if (ft_strcmp(t_cmd.cmd, "exit") == 0)
 		return (msh_exit(t_cmd));
 	return (0);
 }
 
 /*
-**  Check if the command requires to be run on a parent process
+**	builtins which have to be called in child process
 */
-int is_parent_cmd(char *cmd)
+
+void	builtin_caller_in_child(t_cmd_table t_cmd)
 {
-	if (ft_strcmp(cmd, "cd") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "export") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "unset") == 0)
-		return (1);
-	else if (ft_strcmp(cmd, "exit") == 0)
-		return (1);
-	return (0);	
+	if (ft_strcmp(t_cmd.cmd, "echo") == 0)
+		msh_echo(t_cmd);
+	else if (ft_strcmp(t_cmd.cmd, "pwd") == 0)
+		msh_pwd(t_cmd);
+	else if (ft_strcmp(t_cmd.cmd, "env") == 0)
+		msh_env(t_cmd);
+	exit(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 16:30:44 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/02 14:23:06 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,19 @@ char	*find_var(char *var_name);
 int 	msh_cd(t_cmd_table cmd_t);
 int 	msh_exit(t_cmd_table cmd_t);
 int 	msh_pwd(t_cmd_table cmd_t);
-
-//TODO
 int 	msh_echo(t_cmd_table cmd_t);
 int 	msh_export(t_cmd_table cmd_t);
 int 	msh_unset(t_cmd_table cmd_t);
 int 	msh_env(t_cmd_table cmd_t);
 
-int		our_builtin_caller(t_cmd_table t_cmd);
+/*
+**  Builtin helper
+*/
+
+int		builtin_caller_in_parent(t_cmd_table t_cmd);
+void	builtin_caller_in_child(t_cmd_table t_cmd);
+
 int		is_our_builtin(char *cmd);
-
-int		is_parent_cmd(char *cmd);
-
 
 void	t_msh_init(void);
 void	t_cmd_table_init(t_cmd_table *cmd_t);

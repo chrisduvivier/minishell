@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 16:28:10 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/02 14:47:07 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,44 +79,28 @@ void	set_cmd_abs_path(t_cmd_table *t_cmd)
 	ft_split_free(list_path);
 }
 
-int exec_with_process(t_cmd_table t_cmd)
-{
-	pid_t pid;
+/*
+**	Command executed on child process. Each function doesn't return value
+*/
 
-	pid = fork();
-	if (pid == 0)
-	{
-		if (is_our_builtin(t_cmd.cmd))
-			return (our_builtin_caller(t_cmd));
-		else
-		{
-			set_cmd_abs_path(&t_cmd);
-			if (t_cmd.cmd_abs_path == NULL)
-			{
-				perror("invalid path abs \n");
-				return (-1);	//error
-			}
-			// printf("PATH=[%s]\n", t_cmd.cmd_abs_path);
-			if (execve(t_cmd.cmd_abs_path, t_cmd.argv, g_msh.env) == -1)
-			{
-				perror("Could not execve");
-			}
-		}
-	}
-	else if (pid > 0)
-	{
-		do
-		{
-			waitpid(pid, &g_msh.status, WUNTRACED);
-		} while (!WIFEXITED(g_msh.status) && !WIFSIGNALED(g_msh.status));
-	}
+void	exec_with_process(t_cmd_table t_cmd)
+{
+	int		exec_res;
+
+	if (is_our_builtin(t_cmd.cmd))
+		return (builtin_caller_in_child(t_cmd));
+	set_cmd_abs_path(&t_cmd);
+	if (t_cmd.cmd_abs_path == NULL)
+		exec_res = -1;
 	else
+		exec_res = execve(t_cmd.cmd_abs_path, t_cmd.argv, g_msh.env);
+	if (exec_res < 0)
 	{
-		// fork error
-		perror("fork error");
-		exit(0);
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(t_cmd.cmd, STDERR_FILENO);
+		ft_putstr_fd(": command not founcd\ns", STDERR_FILENO);
+		exit(127);
 	}
-	return (0);
 }
 
 // int lsh_launch(char **args)
@@ -160,14 +144,30 @@ int exec_with_process(t_cmd_table t_cmd)
 
 int exec_cmd(t_cmd_table t_cmd)
 {
-	// pid_t pid;
+	pid_t pid;
 	
-	// cmd requires no process 
-	if (is_parent_cmd(t_cmd.cmd))
+	if (builtin_caller_in_parent(t_cmd))
 	{
-		our_builtin_caller(t_cmd);
 		free_t_cmd(&t_cmd);
-		return (1);
+		g_msh.pid = -1;
+		return (EXIT_SUCCESS);
 	}
-	return (exec_with_process(t_cmd));
+	pid = fork();
+	if (pid < 0)
+	{
+		ft_putstr_fd("minishell: fork error\n", STDERR_FILENO);
+		exit(127);
+	}
+	else if (pid > 0)
+	{
+		// parent process HERE
+		do
+		{
+			waitpid(pid, &g_msh.status, WUNTRACED);
+		} while (!WIFEXITED(g_msh.status) && !WIFSIGNALED(g_msh.status));
+	}
+	else	//forked child process here
+		exec_with_process(t_cmd);
+	free_t_cmd(&t_cmd);
+	return (EXIT_SUCCESS);
 }
