@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/02 14:23:06 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/02 15:27:10 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	*find_var(char *var_name);
 int 	msh_cd(t_cmd_table cmd_t);
 int 	msh_exit(t_cmd_table cmd_t);
 int 	msh_pwd(t_cmd_table cmd_t);
-int 	msh_echo(t_cmd_table cmd_t);
+void 	msh_echo(t_cmd_table cmd_t);
 int 	msh_export(t_cmd_table cmd_t);
 int 	msh_unset(t_cmd_table cmd_t);
 int 	msh_env(t_cmd_table cmd_t);

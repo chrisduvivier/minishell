@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/02 14:46:18 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/02 15:27:54 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,30 @@ int msh_cd(t_cmd_table t_cmd)
 }
 
 /*
-**	psedocode for echo:
-**	no specific return value expected
+**	echo
 */
 
-int msh_echo(t_cmd_table t_cmd)
+void	msh_echo(t_cmd_table t_cmd)
 {
-	(void)t_cmd;
-	// check if any arguments are given
-		// return if none
-	// check if first argument after echo is an option
-		// if so, no \n at the end
-	// while args[i], write to *OUTPUT_FILE (fd, str, ft_strlen(str))
-	return (1);
+	int i;
+	// int j;
+
+	i = 0;
+	if (t_cmd.argc > 1)
+	{
+		// support -n option
+		i = 1;
+		while (t_cmd.argv[i] != NULL)
+		{
+			ft_printf(t_cmd.argv[i]);
+			i++;
+			if (i < t_cmd.argc)
+				ft_printf(" ");
+		}
+		ft_printf("\n");
+	}
+	else
+		ft_printf("\n");
 }
 
 /*
