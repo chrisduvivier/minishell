@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/02 15:27:54 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/03 14:37:34 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int msh_exit(t_cmd_table t_cmd)
 
 int 	msh_export(t_cmd_table t_cmd)
 {
-	(void)t_cmd;
+	msh_bi_export(t_cmd);
 	return (1);
 }
 
