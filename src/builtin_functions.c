@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/03 14:37:34 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/04 10:59:13 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,27 +48,36 @@ int msh_cd(t_cmd_table t_cmd)
 }
 
 /*
-**	echo
+**	echo function
+**	@option -n supported: no EOL if -n is given and num of arg > 2
 */
 
 void	msh_echo(t_cmd_table t_cmd)
 {
 	int i;
-	// int j;
+	int end_indent;
 
 	i = 0;
+	end_indent = 1;	// TRU by degault
 	if (t_cmd.argc > 1)
 	{
-		// support -n option
 		i = 1;
 		while (t_cmd.argv[i] != NULL)
 		{
+			// support -n option
+			if (i == 1 && !ft_strncmp(t_cmd.argv[1], "-n", ft_strlen(t_cmd.argv[1])))
+			{
+				end_indent = 0;
+				i++;
+				continue ;
+			}
 			ft_printf(t_cmd.argv[i]);
 			i++;
 			if (i < t_cmd.argc)
 				ft_printf(" ");
 		}
-		ft_printf("\n");
+		if (end_indent && t_cmd.argc != 2)	// no indent if: valid option no_end == 1
+			ft_printf("\n");
 	}
 	else
 		ft_printf("\n");
