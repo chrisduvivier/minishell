@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/04 10:59:13 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/04 11:31:19 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,34 +52,47 @@ int msh_cd(t_cmd_table t_cmd)
 **	@option -n supported: no EOL if -n is given and num of arg > 2
 */
 
+/*
+**	check if option -n is valid.
+**	Return 1 (true) if we can print \n;
+*/
+
+int		check_echo_option(t_cmd_table t_cmd)
+{
+	int new_line;
+	
+	new_line = 1;
+	if (ft_strncmp(t_cmd.argv[1], "-n", ft_strlen(t_cmd.argv[1])) && t_cmd.argc > 2)
+	{
+		new_line = 0;
+	}
+	return (new_line);
+}
+
 void	msh_echo(t_cmd_table t_cmd)
 {
 	int i;
-	int end_indent;
+	int new_line;
 
-	i = 0;
-	end_indent = 1;	// TRU by degault
-	if (t_cmd.argc > 1)
+	i = 1;
+	new_line = 1;
+	if (t_cmd.argc == 1)
 	{
-		i = 1;
-		while (t_cmd.argv[i] != NULL)
-		{
-			// support -n option
-			if (i == 1 && !ft_strncmp(t_cmd.argv[1], "-n", ft_strlen(t_cmd.argv[1])))
-			{
-				end_indent = 0;
-				i++;
-				continue ;
-			}
-			ft_printf(t_cmd.argv[i]);
-			i++;
-			if (i < t_cmd.argc)
-				ft_printf(" ");
-		}
-		if (end_indent && t_cmd.argc != 2)	// no indent if: valid option no_end == 1
-			ft_printf("\n");
+		ft_printf("\n");
+		return ;
 	}
-	else
+	if (!ft_strncmp(t_cmd.argv[1], "-n", ft_strlen(t_cmd.argv[1])))
+	{
+		i++;
+		new_line = 0;
+	}
+	while (t_cmd.argv[i] != NULL)
+	{
+		ft_printf(t_cmd.argv[i++]);
+		if (i < t_cmd.argc)
+			ft_printf(" ");
+	}
+	if (new_line == 1)
 		ft_printf("\n");
 }
 
