@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:17:26 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/04 11:41:41 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/06 00:13:44 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void print_t_cmd_table(t_cmd_table t_cmd)
 			ft_printf("argv[%d]			:[%s]\n", i, t_cmd.argv[i]);
 		i++;
 	}
-	ft_printf("output fd		:[%d]\n", t_cmd.out_file_fd);
 	ft_printf("input fd		:[%d]\n", t_cmd.in_file_fd);
+	ft_printf("output fd		:[%d]\n", t_cmd.out_file_fd);
 	ft_printf("=============================================\n");
 	color_reset();
 }

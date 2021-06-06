@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/05/31 00:28:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/05 12:53:09 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,5 @@ void t_cmd_table_init(t_cmd_table *cmd_t)
 	cmd_t->argc = 0;
 	cmd_t->in_file_fd = STDIN_FILENO;
 	cmd_t->out_file_fd = STDOUT_FILENO;
-	cmd_t->err_file_fd = STDERR_FILENO;
-	cmd_t->in_file = NULL;
-	cmd_t->out_file = NULL;
 	cmd_t->next = NULL;
 }

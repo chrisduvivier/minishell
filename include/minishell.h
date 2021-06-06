@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/03 14:37:16 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/04 14:21:05 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,8 @@
 **	- command: holds core command ("cd", "echo", "pwd")
 **	- option: option to cmd if any ("-n")
 **	- arg: arguments of the cmd ("This is a string", "output.txt")
-**	- in_file: name of input file name (NOT SURE IF ACTUALLY NEEDED)
-**	- out_file: name of output file name (NOT SURE IF ACTUALLY NEEDED)
 **	- in_file_fd: file descriptor of input (STD_IN as default)
 **	- out_file_fd: file descriptor of output. This could be a new file (STD_OUT as default)
-**	- err_file_fd: file descriptor of error (STD_ERR as default)
 **	- next: pointer to next cmd
 */
 typedef struct s_cmd_table {
@@ -41,11 +38,8 @@ typedef struct s_cmd_table {
 	char				*cmd_abs_path;
 	int					argc;
 	char 				**argv;
-	char 				*in_file;
-	char 				*out_file;
 	int 				in_file_fd;
 	int 				out_file_fd;
-	int 				err_file_fd;
 	struct s_cmd_table	*next;
 }						t_cmd_table;
 

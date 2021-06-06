@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 15:24:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/06 00:30:35 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,24 @@ t_cmd_table fill_cmd_table(char *cmd)
 
 void	set_pipes(t_cmd_table *t_cmds, int t_size)
 {
-	(void)t_cmds;
-	(void)t_size;
+	int i;
+	int	fd_pipe[2];
+	
+	i = 0;
+	while (i < t_size)
+	{
+		if (i != 0)
+		{
+			pipe(fd_pipe);
+			t_cmds[i - 1].out_file_fd = fd_pipe[1];
+			t_cmds[i].in_file_fd = fd_pipe[0];
+		}
+		if (i == t_size - 1)
+		{
+			t_cmds[i].out_file_fd = STDOUT_FILENO;
+		}
+		++i;
+	}
 }
 
 /*
@@ -97,26 +113,28 @@ void	set_pipes(t_cmd_table *t_cmds, int t_size)
 t_cmd_table *handle_pipes(char *piped_command)
 {
 	char		**single_cmds;
+	int			len_cmds;
 	t_cmd_table	*t_cmds;
 	int			i;
 
-	i = 0;
+	len_cmds = 0;
 	single_cmds = ft_split(piped_command, PIPE);
 	free(piped_command);
 
-	while (single_cmds[i] != NULL)
-		i++;
-	t_cmds = ft_calloc(i + 1, sizeof(t_cmd_table));
+	while (single_cmds[len_cmds] != NULL)
+		len_cmds++;
+	t_cmds = ft_calloc(len_cmds + 1, sizeof(t_cmd_table));
 	if (t_cmds == NULL)
 		return (NULL); //TODO MALLOC ERROR
 	i = 0;
-	while (single_cmds[i] != NULL)
+	while (i < len_cmds)
 	{
 		t_cmds[i] = fill_cmd_table(single_cmds[i]);
 		i++;
 	}
+	t_cmd_table_init(&t_cmds[i]);
 	free(single_cmds);
-	set_pipes(t_cmds, i);
+	set_pipes(t_cmds, len_cmds);
 	return (t_cmds);
 }
 
@@ -166,7 +184,7 @@ void prompt(void)
 {
 	char *full_cmd;
 	
-	while (1)
+	while (1)						// TODO: check status instead?
 	{
 		write(1, NEW_COMMAND_PROMPT, 32);
 		get_cmd(&full_cmd);
@@ -178,6 +196,6 @@ void prompt(void)
 		full_cmd = clean_cmd(full_cmd);
 		// printf("COMMANDE CLEAN : %s\n\n", full_cmd);
 		split_command(full_cmd);
-		g_msh.status = 1;
+		g_msh.status = 1;			//TODO: verify that setting this value in OK
 	}
 }

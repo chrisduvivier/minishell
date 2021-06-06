@@ -6,13 +6,37 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/02 14:47:07 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/06 00:31:33 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_msh g_msh;
+
+/*
+**	close the fds that are piped
+*/
+
+void	close_fd(t_cmd_table t_cmd)
+{
+	if (t_cmd.in_file_fd != 0)
+		close(t_cmd.in_file_fd);
+	if (t_cmd.out_file_fd != 1)
+		close(t_cmd.out_file_fd);
+}
+
+/*
+** redirect the STDIN and STDOUT to the ones specified in t_cmd
+*/
+
+void	redirect_io(t_cmd_table t_cmd)
+{
+	if (t_cmd.in_file_fd != STDIN_FILENO)
+		dup2(t_cmd.in_file_fd, STDIN_FILENO);
+	if (t_cmd.out_file_fd != STDOUT_FILENO)
+		dup2(t_cmd.out_file_fd, STDOUT_FILENO);
+}
 
 void	get_cmd_reltive_path(t_cmd_table *t_cmd)
 {
@@ -87,6 +111,7 @@ void	exec_with_process(t_cmd_table t_cmd)
 {
 	int		exec_res;
 
+	redirect_io(t_cmd);
 	if (is_our_builtin(t_cmd.cmd))
 		return (builtin_caller_in_child(t_cmd));
 	set_cmd_abs_path(&t_cmd);
@@ -98,41 +123,10 @@ void	exec_with_process(t_cmd_table t_cmd)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(t_cmd.cmd, STDERR_FILENO);
-		ft_putstr_fd(": command not founcd\ns", STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 		exit(127);
 	}
 }
-
-// int lsh_launch(char **args)
-// {
-// 	pid_t pid;
-// 	int status;
-
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		if (execve(args[0], args, NULL) == -1)
-// 			perror("Could not execve");
-// 		return 1;
-
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	else if (pid < 0)
-// 	{
-// 		// Error forking
-// 		perror("lsh");
-// 	}
-// 	else
-// 	{
-// 		// Parent process
-// 		do
-// 		{
-// 			waitpid(pid, &status, WUNTRACED);
-// 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-// 	}
-// 	return (1);
-// }
-
 
 /*
 **	Receieve a command table t_cmd
@@ -160,7 +154,6 @@ int exec_cmd(t_cmd_table t_cmd)
 	}
 	else if (pid > 0)
 	{
-		// parent process HERE
 		do
 		{
 			waitpid(pid, &g_msh.status, WUNTRACED);
@@ -168,6 +161,8 @@ int exec_cmd(t_cmd_table t_cmd)
 	}
 	else	//forked child process here
 		exec_with_process(t_cmd);
+	// parent process HERE
+	close_fd(t_cmd);
 	free_t_cmd(&t_cmd);
 	return (EXIT_SUCCESS);
 }
