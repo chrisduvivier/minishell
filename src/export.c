@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 16:17:53 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/07 16:20:24 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void    add_var_to_env(char *key, char *value)
         set_env_value(key, value);
     else
     {
-        printf("hello\n");
         env_size = 0;
         while (g_msh.env[env_size] != NULL)
             env_size++;
