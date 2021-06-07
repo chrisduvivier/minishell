@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/04 14:21:05 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:04:15 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,15 @@ int		is_our_builtin(char *cmd);
 
 void	t_msh_init(void);
 void	t_cmd_table_init(t_cmd_table *cmd_t);
+
+
+/*
+**	input/output management
+*/
+void    check_redirections(t_cmd_table *t_cmds, int t_size);
+void	handle_input_redirection(t_cmd_table *first_t_cmd, char *path);
+void	handle_output_redirection(t_cmd_table *last_t_cmd, char *path, int mode);
+void	set_pipes(t_cmd_table *t_cmds, int t_size);
 
 /*
 **	debug

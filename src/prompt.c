@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/06 00:30:35 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:54:28 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,77 +31,36 @@ void get_cmd(char **full_cmd)
 	{
 		ret = read(0, temp, 1);
 	}
-}
-
-/*
-**	Check for input output settings (>, <, >>)
-*/
-
-void	set_io(t_cmd_table *t_cmd)
-{
-	(void)t_cmd;
-}
+}	
 
 /*
 **	Parse command string and fill data into a command table.
 */
 
-t_cmd_table fill_cmd_table(char *cmd)
+t_cmd_table	fill_cmd_table(char *cmd)
 {
 	t_cmd_table	t_cmd;
 	char		**tokens;
-	int			i;
+	int			j;
 	
-	i = 0;
-	t_cmd_table_init(&t_cmd); 
+	j = 0;
+	t_cmd_table_init(&t_cmd);
 	tokens = ft_split(cmd, SPACE);
-	free(cmd);
-	while (tokens[i] != NULL)
-		i++;
-	t_cmd.argc = i;
+	while (tokens[j] != NULL)
+		j++;
+	t_cmd.argc = j;
 	t_cmd.argv = ft_calloc(t_cmd.argc + 1, sizeof(char *));
-	i = 0;
-	while (tokens[i] != NULL)
+	j = 0;
+	while (tokens[j] != NULL)
 	{
-		t_cmd.argv[i] = ft_strdup(tokens[i]);
+		t_cmd.argv[j] = ft_strdup(tokens[j]);
 		//TODO MALLOC ERROR
-		if (i == 0 && t_cmd.cmd == NULL)
+		if (j == 0 && t_cmd.cmd == NULL)
 			t_cmd.cmd = ft_strdup(tokens[0]);
-		i++;
+		j++;
 	}
-	// Handle '>' and '<', '>>'
-	set_io(&t_cmd);
 	free(tokens);
 	return (t_cmd);
-}
-
-/*
-**	Iterate over piped commands and set their io fd.
-**	@param:
-**		t_cmds	table of single commands
-**		t_size	size of the table (array of t_cmd)
-*/
-
-void	set_pipes(t_cmd_table *t_cmds, int t_size)
-{
-	int i;
-	int	fd_pipe[2];
-	
-	i = 0;
-	while (i < t_size)
-	{
-		if (i != 0)
-		{
-			pipe(fd_pipe);
-			t_cmds[i - 1].out_file_fd = fd_pipe[1];
-			t_cmds[i].in_file_fd = fd_pipe[0];
-		}
-		if (i == t_size - 1)
-		{
-			t_cmds[i].out_file_fd = STDOUT_FILENO;
-		}
-		++i;
-	}
 }
 
 /*
@@ -130,11 +89,13 @@ t_cmd_table *handle_pipes(char *piped_command)
 	while (i < len_cmds)
 	{
 		t_cmds[i] = fill_cmd_table(single_cmds[i]);
+		// fill_cmd_table(&t_cmds, i, len_cmds, single_cmds[i]);
 		i++;
 	}
 	t_cmd_table_init(&t_cmds[i]);
-	free(single_cmds);
+	ft_split_free(single_cmds);
 	set_pipes(t_cmds, len_cmds);
+	check_redirections(t_cmds, len_cmds);
 	return (t_cmds);
 }
 

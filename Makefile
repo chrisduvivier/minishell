@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+         #
+#    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/03 14:36:30 by rlinkov          ###   ########.fr        #
+#    Updated: 2021/06/07 14:09:11 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS		:=	main.c \
 				./src/set_env_var.c \
 				./src/debug.c \
 				./src/free_functions.c \
+				./src/io_redirection.c \
 				./src/export.c
 
 OBJ			:=	$(SRCS:%.c=%.o)
