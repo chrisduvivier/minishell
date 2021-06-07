@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/07 16:25:14 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/07 17:54:39 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ int msh_exit(t_cmd_table t_cmd)
 
 int 	msh_export(t_cmd_table t_cmd)
 {
-	msh_bi_export(t_cmd);
+	if (t_cmd.argv[1])
+		msh_bi_export(t_cmd);
 	return (1);
 }
 

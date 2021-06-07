@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 17:42:24 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/07 17:53:45 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,16 +202,15 @@ void msh_bi_export(t_cmd_table t_cmd)
     int     pos_equal;
 
     i = 0;
-
     while(i < (int)ft_strlen(t_cmd.argv[1]) && t_cmd.argv[1][i] != '=')
         i++;
-    if (t_cmd.argv[1][i] != '=')
-        return ;
     if (i == 0 || t_cmd.argv[1][0] == '$' || !is_key_valid(t_cmd.argv[1], i)) //si on a rien avant le = ou si on a juste $ comme key ou si la clé est invalide
     {
         printf("msh: export: `%s': not a valid identifier\n", t_cmd.argv[1]);
         return ; //gerer l'erreur comme ca ?
     }
+    if (t_cmd.argv[1][i] != '=')
+        return ;
     key = malloc(sizeof(char) * i); //i car on est sur le = donc un trop loin | proteger le malloc
     ft_strlcpy(key, t_cmd.argv[1], i + 1); //i + 1 car on ft_strlcpy copies n - 1 char and we don't want to copy the equal
     pos_equal = i;
