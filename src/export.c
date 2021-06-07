@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 15:43:42 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/07 16:17:53 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,35 @@
 
 extern t_msh g_msh;
 
-void    create_new_env_var(char *str, char *key, char *value)
+/*
+** This function free the array of string ENV
+*/
+
+void    free_env(char **env)
+{
+    int i;
+
+    i = 0;
+    while (env[i] != NULL)
+    {
+        free(env[i]);
+        i++;
+    }
+    free(env);
+}
+
+
+/*
+** This function create a new key with is associated value
+** Then return it
+*/
+
+char    *create_new_env_var(char *key, char *value)
 {
     int i;
     int size_key;
     int size_value;
+    char *str;
 
     i = 0;
     size_key = (int)ft_strlen(key);
@@ -32,13 +56,14 @@ void    create_new_env_var(char *str, char *key, char *value)
     }
     str[i] = '=';
     i++;
-    while(i < size_value)
+    while(i < size_value + size_key + 1)
     {
         str[i] = *value;
         i++;
         value++;
     }
     str[i] = '\0';
+    return (str);
 }
 
 
@@ -51,11 +76,11 @@ void    add_var_to_env(char *key, char *value)
 {
     int env_size;
     char **new_env;
-
-    if (find_var(key) != '\0')
+    if ((int)ft_strlen(find_var(key)) != 0)
         set_env_value(key, value);
     else
     {
+        printf("hello\n");
         env_size = 0;
         while (g_msh.env[env_size] != NULL)
             env_size++;
@@ -63,14 +88,13 @@ void    add_var_to_env(char *key, char *value)
         env_size = 0;
         while(g_msh.env[env_size] != NULL)
         {
-            new_env[env_size] = g_msh.env[env_size];
+            new_env[env_size] = ft_strdup(g_msh.env[env_size]);
             env_size++;
         }
-        create_new_env_var(g_msh.env[env_size], key, value);
+        new_env[env_size] = create_new_env_var(key, value);
         new_env[env_size + 1] = NULL;
-        free(g_msh.env);
+        free_env(g_msh.env);
         g_msh.env = new_env;
-        printf("%s\n", g_msh.env[0]);
     }
 }
 
