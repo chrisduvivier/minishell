@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 16:20:24 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/07 16:42:16 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,31 @@ char    *create_new_env_var(char *key, char *value)
     return (str);
 }
 
+/*
+** This function check if the key already exist
+** Return 1 if it exist
+** Return 0 if it doesn't exist
+*/
+
+int is_key_existing(char *key)
+{
+    int i;
+    int len;
+
+    i = 0;
+    len = ft_strlen(key);
+    while (g_msh.env[i] && g_msh.env[i] != NULL)
+    {
+        if (ft_strncmp(key, g_msh.env[i], len) == 0)
+        {
+            if (g_msh.env[i][len] && g_msh.env[i][len] == '=')
+                return (1);
+        }
+        i++;
+    }
+    return (0);
+}
+
 
 /*
 ** This function update the value of a key
@@ -76,7 +101,7 @@ void    add_var_to_env(char *key, char *value)
 {
     int env_size;
     char **new_env;
-    if ((int)ft_strlen(find_var(key)) != 0)
+    if (is_key_existing(key))
         set_env_value(key, value);
     else
     {
