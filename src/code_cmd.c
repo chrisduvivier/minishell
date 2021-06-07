@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/01 16:37:57 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/07 14:58:17 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char *handle_dollar(int *i, char *full_cmd, int *sq)
     {
         if (full_cmd[*i - 1] != BACKSLASH) //si il n'est pas précédé par un backslash
         {
-            if (full_cmd[*i + 1] && full_cmd[*i + 1] != ' ')
+            if (full_cmd[*i + 1] && full_cmd[*i + 1] != ' ' && full_cmd[*i + 1] != '=')
             {
                 full_cmd[*i] = DOLLAR;
                 full_cmd = set_env_var(full_cmd, i);
