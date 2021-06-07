@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 16:04:15 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/07 18:31:42 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char    *clean_cmd(char *str);
 int		exec_cmd(t_cmd_table t_cmd);
 
 char	*find_var(char *var_name);
+void	set_env_value(char *key, char *value);
 
 
 /*

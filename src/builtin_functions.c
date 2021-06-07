@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/07 18:16:13 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/07 18:32:01 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ int msh_exit(t_cmd_table t_cmd)
 
 int 	msh_export(t_cmd_table t_cmd)
 {
-	msh_bi_export(t_cmd);
+	if (t_cmd.argv[1])
+		msh_bi_export(t_cmd);
 	return (1);
 }
 
@@ -143,5 +144,13 @@ int 	msh_unset(t_cmd_table t_cmd)
 int 	msh_env(t_cmd_table t_cmd)
 {
 	(void)t_cmd;
+	int i;
+	
+	i = 0;
+	while(g_msh.env[i] != NULL)
+	{
+		printf("%s\n", g_msh.env[i]);
+		i++;
+	}
 	return (1);
 }
