@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 17:50:45 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 15:04:57 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 10:53:14 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 /*
 **	declaration of the only global variable
 */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/01 13:57:27 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 11:15:22 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 extern t_msh g_msh;
 
-void    free_t_cmd(t_cmd_table *t_cmd)
+void	free_t_cmd(t_cmd_table *t_cmd)
 {
-    int i;
+	int i;
 
-    i = 0;
-    if (t_cmd->cmd)
-        free(t_cmd->cmd);
-    while (i < t_cmd->argc)
-    {
-        if (t_cmd->argv[i] != NULL)
-            free(t_cmd->argv[i]);
-        i++;
-    }
-    if (t_cmd->argv != NULL)
-        free(t_cmd->argv);
+	i = 0;
+	if (t_cmd->cmd)
+		free(t_cmd->cmd);
+	while (i < t_cmd->argc)
+	{
+		if (t_cmd->argv[i] != NULL)
+			free(t_cmd->argv[i]);
+		i++;
+	}
+	if (t_cmd->argv != NULL)
+		free(t_cmd->argv);
 }

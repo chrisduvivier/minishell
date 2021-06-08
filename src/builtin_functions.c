@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/07 18:32:01 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 11:17:36 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,8 @@ void	msh_echo(t_cmd_table t_cmd)
 }
 
 /*
-**	psedocode for pwd:
-**	pwd - print name of current/working directory
-**
-**	Description:
+**	print name of current/working directory
+**	@Description:
 **		getcwd is called just to get the pointer to the path string.
 */
 

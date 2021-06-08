@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/06 00:31:33 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 11:08:18 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,12 @@
 extern t_msh g_msh;
 
 /*
-**	close the fds that are piped
+**	Verify if the path given in cmd string is executable,
+**	and copy the path cmd_abs_path.  
+**	(ex: cmd="/bin/ls" -> verify with stat if OK to exec)
+**	@params:
+**		*t_cmd: ptr to the single command table 
 */
-
-void	close_fd(t_cmd_table t_cmd)
-{
-	if (t_cmd.in_file_fd != 0)
-		close(t_cmd.in_file_fd);
-	if (t_cmd.out_file_fd != 1)
-		close(t_cmd.out_file_fd);
-}
-
-/*
-** redirect the STDIN and STDOUT to the ones specified in t_cmd
-*/
-
-void	redirect_io(t_cmd_table t_cmd)
-{
-	if (t_cmd.in_file_fd != STDIN_FILENO)
-		dup2(t_cmd.in_file_fd, STDIN_FILENO);
-	if (t_cmd.out_file_fd != STDOUT_FILENO)
-		dup2(t_cmd.out_file_fd, STDOUT_FILENO);
-}
 
 void	get_cmd_reltive_path(t_cmd_table *t_cmd)
 {
@@ -49,7 +33,10 @@ void	get_cmd_reltive_path(t_cmd_table *t_cmd)
 }
 
 /*
-**	Take path string and command str to create a path to the binary
+**	concat and return complete path to the binary specified in cmd
+**	@params:
+**		path: path 
+**		cmd: str of the name of the command
 */
 
 char	*create_path_name(const char *path, const char *cmd)
@@ -105,6 +92,8 @@ void	set_cmd_abs_path(t_cmd_table *t_cmd)
 
 /*
 **	Command executed on child process. Each function doesn't return value
+**	@params:
+**		t_cmd: the command table
 */
 
 void	exec_with_process(t_cmd_table t_cmd)
@@ -129,11 +118,12 @@ void	exec_with_process(t_cmd_table t_cmd)
 }
 
 /*
-**	Receieve a command table t_cmd
 **	Execute the command:
-**		if matches one of our own builtin, execute it (ex: echo, pwd, exit...)
-**		otherwise, execute as native builtin function (ex: ls)
-**	Input:
+**		if matches one of our own builtin which needs to be executed without
+**		child process, exec and return (ex: cd, export, unset exit)
+**		otherwise, execute it in a child process.
+**	@params:
+**		t_cmd: the command table 
 */
 
 int exec_cmd(t_cmd_table t_cmd)
@@ -159,9 +149,8 @@ int exec_cmd(t_cmd_table t_cmd)
 			waitpid(pid, &g_msh.status, WUNTRACED);
 		} while (!WIFEXITED(g_msh.status) && !WIFSIGNALED(g_msh.status));
 	}
-	else	//forked child process here
+	else
 		exec_with_process(t_cmd);
-	// parent process HERE
 	close_fd(t_cmd);
 	free_t_cmd(&t_cmd);
 	return (EXIT_SUCCESS);

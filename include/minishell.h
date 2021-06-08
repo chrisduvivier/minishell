@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 18:31:42 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 11:11:04 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,22 @@ void	t_cmd_table_init(t_cmd_table *cmd_t);
 
 
 /*
-**	input/output management
+**	pipes/input/output management
 */
+
+void	close_fd(t_cmd_table t_cmd);
+void	redirect_io(t_cmd_table t_cmd);
+
 void    check_redirections(t_cmd_table *t_cmds, int t_size);
 void	handle_input_redirection(t_cmd_table *first_t_cmd, char *path);
 void	handle_output_redirection(t_cmd_table *last_t_cmd, char *path, int mode);
 void	set_pipes(t_cmd_table *t_cmds, int t_size);
+
+/*
+**	utility functions
+*/
+
+void    clean_empty_arg(t_cmd_table *t_cmd);
 
 /*
 **	debug
