@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 18:20:10 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 16:44:34 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,14 @@ char *set_env_var(char *full_cmd, int *i)
     char *var;
 
     pos_i = *i;
-    len_var = 0;
+    len_var = 1; //pour le $
+    *i = *i + 1; //pour commencer a verifier apres le $
     if (full_cmd[pos_i + 1] && full_cmd[pos_i + 1] == '?')
         full_cmd = insert_msh_status(pos_i, full_cmd);
     else
     {
-        while (full_cmd[*i] != ' ' && full_cmd[*i] != '=' && full_cmd[*i] != '"' && full_cmd[*i])
+        //while (full_cmd[*i] != ' ' && full_cmd[*i] != '=' && full_cmd[*i] != '"' && full_cmd[*i])
+        while (ft_isalnum_underscore(full_cmd[*i]))
         {
             len_var++;
             *i = *i + 1;
