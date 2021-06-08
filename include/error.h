@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:23:00 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/04/28 15:44:45 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 15:25:04 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,9 @@
 # define ERR_PARS_PIPE "msh : syntax error near unexpected token `|'"
 # define ERR_PARS_SEMI "msh : syntax error near unexpected token `;'"
 # define ERR_MALLOC "msh : error while allocating memory with malloc(3)"
+# define ERR_PARS_NL "msh: syntax error near unexpected token `newline'"
+# define ERR_PARS_LC "msh: syntax error near unexpected token `<'"
+# define ERR_PARS_RC "msh: syntax error near unexpected token `>'"
+# define ERR_PARS_RRC "msh: syntax error near unexpected token `>>'"
+
 #endif
