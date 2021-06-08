@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 11:10:34 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 19:27:50 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,16 @@ void	handle_output_redirection(t_cmd_table *last_t_cmd, char *path, int mode)
 {
 	int flags;
 	int	fd;
-
+	
 	if (mode == 1)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
 	else if (mode == 2)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
+	else
+	{
+		ft_printf("minishell: wrong file mode %s\n", path);
+		return ;
+	}
 	fd = open(path, flags, 0666);
 	if (fd < 0)
 		ft_printf("minishell: cannot create %s\n", path);
