@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
+#    By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/08 11:11:21 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/08 13:14:40 by rlinkov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS		:=	main.c \
 				./src/io_redirection.c \
 				./src/handle_pipe.c \
 				./src/utilities_1.c \
-				./src/export.c
+				./src/export.c \
+				./src/unset.c \
 
 OBJ			:=	$(SRCS:%.c=%.o)
 

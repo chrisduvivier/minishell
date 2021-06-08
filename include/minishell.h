@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 11:11:04 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 13:59:18 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ int		exec_cmd(t_cmd_table t_cmd);
 
 char	*find_var(char *var_name);
 void	set_env_value(char *key, char *value);
+int		is_key_existing(char *key);
+int		is_key_valid(char *key, int size);
+void    free_env(char **env);
 
 
 /*
@@ -95,6 +98,7 @@ void 	msh_echo(t_cmd_table cmd_t);
 int 	msh_export(t_cmd_table cmd_t);
 void	msh_bi_export(t_cmd_table cmt_t);
 int 	msh_unset(t_cmd_table cmd_t);
+void	msh_bi_unset(t_cmd_table cmd_t);
 int 	msh_env(t_cmd_table cmd_t);
 
 /*

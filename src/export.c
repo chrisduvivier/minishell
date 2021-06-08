@@ -6,13 +6,34 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 17:53:45 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 14:11:20 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_msh g_msh;
+
+
+/*
+** As the key of the environment variable can contain "_"
+** ft_isalpha is not sufficient to check if the key is correct
+*/
+
+int	ft_isalpha_underscore(int c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_');
+}
+
+/*
+** As the key of the environment variable can contain "_"
+** ft_isalnum is not sufficient to check if the key is correct
+*/
+
+int	ft_isalnum_underscore(int c)
+{
+	return (ft_isdigit(c) || ft_isalpha_underscore(c));
+}
 
 /*
 ** This function free the array of string ENV
@@ -170,14 +191,14 @@ int is_key_valid(char *key, int size)
     int i;
     if (size != 0)
     {
-        if (!ft_isalpha(key[0]))
+        if (!ft_isalpha_underscore(key[0]))
             return (0);
         if (key[size - 1] == '+')
             return (2);
         i = 1;
         while (i < size)
         {
-            if (!ft_isalnum(key[i]))
+            if (!ft_isalnum_underscore(key[i]))
                 return (0);
             i++;
         }
