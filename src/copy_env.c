@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:52:02 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 16:23:51 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 16:50:23 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,15 @@ void    set_shlvl()
     int shlvl_int;
 
     shlvl = find_var("SHLVL");
-    shlvl_int = ft_atoi(shlvl);
-    shlvl_int = shlvl_int + 1;
-    shlvl = ft_itoa(shlvl_int);
-    set_env_value("SHLVL", shlvl);
+    if (shlvl[0] != '\0')
+    {
+        shlvl_int = ft_atoi(shlvl);
+        shlvl_int = shlvl_int + 1;
+        shlvl = ft_itoa(shlvl_int);
+        set_env_value("SHLVL", shlvl);
+    }
+    else
+        add_var_to_env("SHLVL", "1");
     free(shlvl);
 }
 
