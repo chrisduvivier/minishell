@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 13:59:18 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 16:19:19 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <signal.h>
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
@@ -79,6 +80,7 @@ int		syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
 char    *clean_cmd(char *str);
 int		exec_cmd(t_cmd_table t_cmd);
+void	handle_signals(void);
 
 char	*find_var(char *var_name);
 void	set_env_value(char *key, char *value);

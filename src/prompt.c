@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/07 15:54:28 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/08 16:19:27 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void prompt(void)
 	while (1)						// TODO: check status instead?
 	{
 		write(1, NEW_COMMAND_PROMPT, 32);
+		handle_signals();
 		get_cmd(&full_cmd);
 		// printf("COMMANDE RECUE : %s\n", full_cmd);
 		full_cmd = code_cmd(full_cmd);
