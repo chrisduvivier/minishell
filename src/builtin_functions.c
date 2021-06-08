@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/08 13:16:21 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/08 14:31:08 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ int msh_pwd(t_cmd_table t_cmd)
 int msh_exit(t_cmd_table t_cmd)
 {
 	(void)t_cmd;
+
+	write(1, "exit\n", 6);
+	exit(EXIT_SUCCESS);
 	return (1);
 }
 
