@@ -6,17 +6,17 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:27:35 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:33:44 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:44:59 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh    g_msh;
+extern t_msh	g_msh;
 
-void    append_var_to_env_2(char *temp, char *n_key, char *value)
+void	append_var_to_env_2(char *temp, char *n_key, char *value)
 {
-    char	*n_value;
+	char	*n_value;
 
 	n_value = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(value) + 1));
 	if (!n_value)
@@ -59,5 +59,5 @@ void	append_var_to_env(char *key, char *value)
 			temp[i] = ' ';
 		i++;
 	}
-    append_var_to_env_2(temp, n_key, value);
+	append_var_to_env_2(temp, n_key, value);
 }

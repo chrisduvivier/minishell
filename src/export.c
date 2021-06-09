@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:41:58 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:43:47 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ void	add_var_to_env(char *key, char *value)
 	}
 }
 
-void    msh_bi_export_2(char *key, int i, int pos_equal, t_cmd_table t_cmd)
+void	msh_bi_export_2(char *key, int i, int pos_equal, t_cmd_table t_cmd)
 {
-    char	*value;
+	char	*value;
+
 	value = malloc(sizeof(char) * i);
 	if (!value)
 	{
@@ -135,7 +136,7 @@ void	msh_bi_export(t_cmd_table t_cmd)
 		i++;
 	if (i == 0 || t_cmd.argv[1][0] == '$' || !is_key_valid(t_cmd.argv[1], i))
 	{
-        g_msh.status = 1;
+		g_msh.status = 1;
 		printf("msh: export: `%s': not a valid identifier\n", t_cmd.argv[1]);
 		return ;
 	}
@@ -149,5 +150,5 @@ void	msh_bi_export(t_cmd_table t_cmd)
 	i = 0;
 	while (i + pos_equal < (int)ft_strlen(t_cmd.argv[1]))
 		i++;
-    msh_bi_export_2(key, i, pos_equal, t_cmd);
+	msh_bi_export_2(key, i, pos_equal, t_cmd);
 }
