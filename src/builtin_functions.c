@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/09 15:32:56 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:26:00 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,36 @@ int msh_pwd(t_cmd_table t_cmd)
 }
 
 /*
-**	
-**	TODO:
-**		- call free_anc_exit function 
+**	Exit
+**	@Description:
 */
 
 int msh_exit(t_cmd_table t_cmd)
 {
-	(void)t_cmd;
-
-	write(1, "exit\n", 6);
-	exit(EXIT_SUCCESS);
+	if (t_cmd.argc == 1)
+	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		free_msh_and_exit(EXIT_SUCCESS);
+	}
+	else if (t_cmd.argc > 1)
+	{
+		if (ft_isdigit_string(t_cmd.argv[1]) == 1)
+		{
+			ft_putstr_fd("exit\n", STDOUT_FILENO);
+			if (t_cmd.argc == 2)
+				free_msh_and_exit(ft_atoi(t_cmd.argv[1]));
+			else
+			{
+				ft_printf("minishell: exit: too many arguments\n");
+				g_msh.status = EXIT_FAILURE;
+			}
+		}
+		else
+		{
+			ft_printf("minishell: exit: %s: numeric argument required\n", t_cmd.argv[1]);
+			free_msh_and_exit(CMD_EXIT_ARG_FAILURE);
+		}
+	}
 	return (1);
 }
 

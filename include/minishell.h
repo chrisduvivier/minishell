@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:17:50 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 17:06:45 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,6 @@ void	print_t_cmd_table(t_cmd_table t_cmd);
 */
 
 void    free_t_cmd(t_cmd_table *t_cmd);
-
+void	free_msh_and_exit(int exit_status);
 
 #endif
