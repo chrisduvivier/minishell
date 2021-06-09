@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:39:42 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:59:09 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void    get_cmd(char **str);
 void	handle_error(char *err_tag, int status);
 char	*code_cmd(char *str);
 char	*set_env_var(char *full_cmd, int *i);
-int		syntaxe_cmd(char *full_cmd);
+void	syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
 char    *clean_cmd(char *str);
 int		exec_cmd(t_cmd_table t_cmd);

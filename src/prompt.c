@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:52:09 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 17:10:39 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_cmd_table	fill_cmd_table(char *cmd)
 	while (tokens[j] != NULL)
 	{
 		t_cmd.argv[j] = ft_strdup(tokens[j]);
-		if (!t_cmd.argc[j])
+		if (!t_cmd.argv[j])
 			handle_error(ERR_MALLOC, MALLOC_FAILED);
 		if (j == 0 && t_cmd.cmd == NULL)
 			t_cmd.cmd = ft_strdup(tokens[0]);
