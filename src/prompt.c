@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:19:50 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:24:43 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,10 @@ void prompt(void)
 		get_cmd(&full_cmd);
 		full_cmd = code_cmd(full_cmd);
 		full_cmd = remove_space(full_cmd);
+		g_msh.status = 0;
 		syntaxe_cmd(full_cmd);
 		full_cmd = clean_cmd(full_cmd);
-		split_command(full_cmd);
+		if (g_msh.status == 0)
+			split_command(full_cmd);
 	}
 }
