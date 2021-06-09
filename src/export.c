@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:01:30 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:13:58 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ char	*create_new_env_var(char *key, char *value)
 	size_key = (int)ft_strlen(key);
 	size_value = (int)ft_strlen(value);
 	str = malloc(size_key + size_value + 2);
+	if (!str)
+		handle_error(ERR_MALLOC);
 	while (i < size_key)
-	{
-		str[i] = *key;
-		i++;
-		key++;
-	}
+		str[i++] = *(key++);
 	str[i] = '=';
 	i++;
 	while (i < size_value + size_key + 1)
@@ -80,7 +78,7 @@ void	add_var_to_env(char *key, char *value)
 	else
 	{
 		env_size = 0;
-		while (g_msh.env[env_size] != NULL)
+		while (g_msh.env[env_size++] != NULL)
 			env_size++;
 		new_env = malloc(sizeof(char *) * (env_size + 2));
 		env_size = 0;
@@ -108,6 +106,8 @@ void	append_var_to_env(char *key, char *value)
 	int		i;
 
 	n_key = malloc(ft_strlen(key) - 1);
+	if (!n_key)
+		handle_error(ERR_MALLOC);
 	ft_strlcpy(n_key, key, ft_strlen(key));
 	if (!is_key_existing(n_key))
 	{
@@ -123,6 +123,11 @@ void	append_var_to_env(char *key, char *value)
 		i++;
 	}
 	n_value = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(value) + 1));
+	if (!n_value)
+	{
+		free(n_key);
+		handle_error(ERR_MALLOC);
+	}
 	ft_strlcpy(n_value, temp, ft_strlen(temp) + 1);
 	ft_strlcat(n_value, value, ft_strlen(temp) + ft_strlen(value) + 1);
 	set_env_value(n_key, n_value);
