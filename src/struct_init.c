@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/05 12:53:09 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:35:51 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ extern t_msh g_msh;
 
 void t_msh_init(void)
 {
-	g_msh.status = 1;
+	g_msh.status = 0;
 	g_msh.cmd_t = NULL;
 	g_msh.env = NULL;
 }

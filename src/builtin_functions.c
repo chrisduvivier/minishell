@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/08 14:31:08 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:32:56 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,14 @@ int msh_cd(t_cmd_table t_cmd)
 		path = find_var("HOME");
 		chdir(path);
 		free(path);
-		// TODO set OK status
+		g_msh.status = 0;
+		return (0);
 	}
 	else if (t_cmd.argc > 2)
-	{
 		ft_printf("cd: too many arguments\n");
-		// TODO set ERROR status
-		return (0);
-	}
 	else if (chdir(t_cmd.argv[1]) < 0)
-	{
 		ft_printf("cd: no such file or directory: %s\n", t_cmd.argv[1]);
-		// TODO set ERROR status
-		return (0);
-	}
+	g_msh.status = 1;
 	return (1);
 }
 
@@ -106,12 +100,12 @@ int msh_pwd(t_cmd_table t_cmd)
 {	
 	char	*ptr;
 
-	// TODO should be able to support ex: pwd > pwd.txt 
 	ptr = NULL;
 	ptr = getcwd(ptr, 0);
 	ft_putstr_fd(ptr, t_cmd.out_file_fd);
 	ft_putchar_fd('\n', t_cmd.out_file_fd);
-	return (1);
+	g_msh.status = 0;
+	return (0);
 }
 
 /*

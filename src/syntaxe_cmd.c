@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 15:40:19 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:04:53 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int syntaxe_cmd(char *full_cmd)
             return (0);
         }
     }
-    while (full_cmd[i] != 0 && g_msh.status == 1)
+    while (full_cmd[i] != 0)
     {
         if (full_cmd[i] == QUOTE)
             sq++;

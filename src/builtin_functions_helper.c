@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions_helper.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/02 13:46:42 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:32:43 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

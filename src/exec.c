@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 11:08:18 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:42:28 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int exec_cmd(t_cmd_table t_cmd)
 	}
 	else if (pid > 0)
 	{
-		do
+		do	//TODO
 		{
 			waitpid(pid, &g_msh.status, WUNTRACED);
 		} while (!WIFEXITED(g_msh.status) && !WIFSIGNALED(g_msh.status));

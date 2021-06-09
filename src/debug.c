@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:17:26 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/06 00:13:44 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:44:17 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void print_t_cmd_table(t_cmd_table t_cmd)
 	}
 	ft_printf("input fd		:[%d]\n", t_cmd.in_file_fd);
 	ft_printf("output fd		:[%d]\n", t_cmd.out_file_fd);
+	ft_printf("g_msh status		:[%d]\n", g_msh.status);
 	ft_printf("=============================================\n");
 	color_reset();
 }

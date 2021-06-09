@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 14:42:18 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:12:27 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ t_cmd_table *handle_pipes(char *piped_command)
 	while (i < len_cmds)
 	{
 		t_cmds[i] = fill_cmd_table(single_cmds[i]);
-		// fill_cmd_table(&t_cmds, i, len_cmds, single_cmds[i]);
 		i++;
 	}
 	t_cmd_table_init(&t_cmds[i]);
@@ -115,24 +114,21 @@ void	split_command(char *full_cmd) //attention des free a rajouter (pour les spl
 	int		j;
 	t_cmd_table *t_cmd;
 	
-	if (g_msh.status == 1)
-	{
-		i = 0;
-		cmds = ft_split(full_cmd, SEMICOLON);
-		free(full_cmd);
-		while (cmds[i] != NULL)
-		{	
-			t_cmd = handle_pipes(cmds[i]);
-			j = 0;
-			while (t_cmd[j].argc > 0 && t_cmd[j].argv[0] != NULL)
-			{
-				print_t_cmd_table(t_cmd[j]);
-				exec_cmd(t_cmd[j]);
-				j++;
-			}
-			i++;
-			free(t_cmd);
+	i = 0;
+	cmds = ft_split(full_cmd, SEMICOLON);
+	free(full_cmd);
+	while (cmds[i] != NULL)
+	{	
+		t_cmd = handle_pipes(cmds[i]);
+		j = 0;
+		while (t_cmd[j].argc > 0 && t_cmd[j].argv[0] != NULL)
+		{
+			print_t_cmd_table(t_cmd[j]);
+			exec_cmd(t_cmd[j]);
+			j++;
 		}
+		i++;
+		free(t_cmd);
 	}
 }
 
@@ -145,7 +141,7 @@ void prompt(void)
 {
 	char *full_cmd;
 	
-	while (1)						// TODO: check status instead?
+	while (1)
 	{
 		ft_putstr_fd(NEW_COMMAND_PROMPT, STDOUT_FILENO);
 		handle_signals();
@@ -155,6 +151,5 @@ void prompt(void)
 		syntaxe_cmd(full_cmd);
 		full_cmd = clean_cmd(full_cmd);
 		split_command(full_cmd);
-		g_msh.status = 1;			//TODO: verify that setting this value in OK
 	}
 }
