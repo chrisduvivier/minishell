@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 16:19:27 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 14:42:18 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,16 +147,13 @@ void prompt(void)
 	
 	while (1)						// TODO: check status instead?
 	{
-		write(1, NEW_COMMAND_PROMPT, 32);
+		ft_putstr_fd(NEW_COMMAND_PROMPT, STDOUT_FILENO);
 		handle_signals();
 		get_cmd(&full_cmd);
-		// printf("COMMANDE RECUE : %s\n", full_cmd);
 		full_cmd = code_cmd(full_cmd);
-		// printf("COMMANDE CODEE : %s\n", full_cmd);
 		full_cmd = remove_space(full_cmd);
 		syntaxe_cmd(full_cmd);
 		full_cmd = clean_cmd(full_cmd);
-		// printf("COMMANDE CLEAN : %s\n\n", full_cmd);
 		split_command(full_cmd);
 		g_msh.status = 1;			//TODO: verify that setting this value in OK
 	}

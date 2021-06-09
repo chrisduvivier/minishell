@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:18:15 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 16:30:45 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 14:42:07 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_ctrl_c(int signal)
 	if (!g_msh.pid)
 	{
 		g_msh.status = 130;
-		write(1, NEW_COMMAND_PROMPT, 32);
+		ft_putstr_fd(NEW_COMMAND_PROMPT, STDOUT_FILENO);
 	}
 	else
 		kill(g_msh.pid, signal);
