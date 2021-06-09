@@ -6,7 +6,7 @@
 #    By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/09 17:17:10 by rlinkov          ###   ########.fr        #
+#    Updated: 2021/06/09 18:25:39 by rlinkov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ INCLUDE 	:= 	-Iinclude/
 SRCS		:=	main.c \
 				./src/clean_cmd.c \
 				./src/code_cmd.c \
+				./src/code_cmd_2.c \
+				./src/code_cmd_3.c \
 				./src/error.c \
 				./src/prompt.c \
 				./src/syntaxe_cmd.c \

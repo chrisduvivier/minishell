@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/06/09 17:06:45 by cduvivie         ###   ########.fr       */
-=======
-/*   Updated: 2021/06/09 16:59:09 by rlinkov          ###   ########.fr       */
->>>>>>> eab8b0ad8cba452d0747ade99cec80bbdf388bff
+/*   Updated: 2021/06/09 18:27:15 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +75,15 @@ void	prompt(void);
 void    get_cmd(char **str);
 void	handle_error(char *err_tag, int status);
 char	*code_cmd(char *str);
+char 	*handle_dollar(int *i, char *full_cmd, int *sq);
+char 	*handle_pipe(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_lchevron(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_rchevron(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_space(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_backslash(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_quote(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_dquote(int *i, char *full_cmd, int *sq, int *dq);
+char 	*handle_semicolon(int *i, char *full_cmd, int *sq, int *dq);
 char	*set_env_var(char *full_cmd, int *i);
 void	syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
