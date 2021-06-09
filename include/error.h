@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:23:00 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 15:25:04 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:10:47 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@
 # define ERR_PARS_LC "msh: syntax error near unexpected token `<'"
 # define ERR_PARS_RC "msh: syntax error near unexpected token `>'"
 # define ERR_PARS_RRC "msh: syntax error near unexpected token `>>'"
+# define SYNT_ERR 258
+# define SIGN_C 130
+# define SIGN_BSLACH 131
+# define MALLOC_FAILED 404
 
 #endif

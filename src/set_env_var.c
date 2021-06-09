@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:20:57 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:13:41 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *find_var(char *var_name)
     i = 0;
     var = malloc(sizeof(char));
     if (!var)
-        handle_error(ERR_MALLOC);
+        handle_error(ERR_MALLOC, MALLOC_FAILED);
     var[0] = '\0';
     len = ft_strlen(var_name);
     while (g_msh.env[i] && g_msh.env[i] != NULL)
@@ -96,7 +96,7 @@ char *insert_msh_status(int pos_i, char *full_cmd)
     
     status = ft_itoa(g_msh.status);
     if (!status)
-        handle_error(ERR_MALLOC);
+        handle_error(ERR_MALLOC, MALLOC_FAILED);
     new_cmd = rebuild_cmd(full_cmd, pos_i, status, 2, 1);
     free(status);
     return (new_cmd);

@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:27:35 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:44:59 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:14:22 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	append_var_to_env_2(char *temp, char *n_key, char *value)
 	if (!n_value)
 	{
 		free(n_key);
-		handle_error(ERR_MALLOC);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	}
 	ft_strlcpy(n_value, temp, ft_strlen(temp) + 1);
 	ft_strlcat(n_value, value, ft_strlen(temp) + ft_strlen(value) + 1);
@@ -44,7 +44,7 @@ void	append_var_to_env(char *key, char *value)
 
 	n_key = malloc(ft_strlen(key) - 1);
 	if (!n_key)
-		handle_error(ERR_MALLOC);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	ft_strlcpy(n_key, key, ft_strlen(key));
 	if (!is_key_existing(n_key))
 	{
