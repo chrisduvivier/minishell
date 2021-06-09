@@ -6,26 +6,26 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/09 15:35:51 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:53:41 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh g_msh;
+extern t_msh	g_msh;
 
 /*
-**	initialize global var g_msh
-*/
+ **	initialize global var g_msh
+ */
 
-void t_msh_init(void)
+void	t_msh_init(void)
 {
 	g_msh.status = 0;
 	g_msh.cmd_t = NULL;
 	g_msh.env = NULL;
 }
 
-void t_cmd_table_init(t_cmd_table *cmd_t)
+void	t_cmd_table_init(t_cmd_table *cmd_t)
 {
 	cmd_t->cmd = NULL;
 	cmd_t->argv = NULL;
