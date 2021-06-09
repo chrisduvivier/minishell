@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:42:55 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/18 16:24:46 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:12:14 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char *join_cmd(char **strs)
     cleaned_cmd = (char *)malloc(sizeof(char *) * (len + 1)); //pour le 0 a la fin
     if (cleaned_cmd == NULL)                                  //gestion erreur
     {
-        handle_error(ERR_MALLOC);
+        handle_error(ERR_MALLOC, MALLOC_FAILED);
         return (0);
     }
     join_split(strs, cleaned_cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:47:07 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:17:50 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_msh {
 void	copy_env(char **envp);
 void	prompt(void);
 void    get_cmd(char **str);
-void	handle_error(char *err_tag);
+void	handle_error(char *err_tag, int status);
 char	*code_cmd(char *str);
 char	*set_env_var(char *full_cmd, int *i);
 int		syntaxe_cmd(char *full_cmd);

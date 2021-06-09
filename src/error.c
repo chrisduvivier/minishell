@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:25:32 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/05/31 16:20:48 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:11:14 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 extern t_msh g_msh;
 
-void handle_error(char *err_tag)
+void handle_error(char *err_tag, int status)
 {
 	ft_putstr_fd(RED, 1);
 	ft_putendl_fd(err_tag, 1);
 	ft_putstr_fd(RESET, 1);
-	g_msh.status = 0;
-	//exit(EXIT_FAILURE);
+	g_msh.status = status;
+	if (status == MALLOC_FAILED)
+		exit(EXIT_FAILURE);
 }

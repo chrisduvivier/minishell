@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:43:47 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:14:03 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*create_new_env_var(char *key, char *value)
 	size_value = (int)ft_strlen(value);
 	str = malloc(size_key + size_value + 2);
 	if (!str)
-		handle_error(ERR_MALLOC);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	while (i < size_key)
 		str[i++] = *(key++);
 	str[i] = '=';
@@ -102,7 +102,7 @@ void	msh_bi_export_2(char *key, int i, int pos_equal, t_cmd_table t_cmd)
 	if (!value)
 	{
 		free(key);
-		handle_error(ERR_MALLOC);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	}
 	ft_strlcpy(value, t_cmd.argv[1] + pos_equal + 1, i);
 	if (is_key_valid(key, (int)ft_strlen(key)) == 2)
@@ -144,7 +144,7 @@ void	msh_bi_export(t_cmd_table t_cmd)
 		return ;
 	key = malloc(sizeof(char) * i);
 	if (!key)
-		handle_error(ERR_MALLOC);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	ft_strlcpy(key, t_cmd.argv[1], i + 1);
 	pos_equal = i;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:04:53 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:19:43 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int syntaxe_cmd(char *full_cmd)
     {
         if (full_cmd[i] == PIPE)
         {
-            handle_error(ERR_PARS_PIPE);
+            handle_error(ERR_PARS_PIPE, SYNT_ERR);
             return (0);
         }
         else if (full_cmd[i] == SEMICOLON)
         {
-            handle_error(ERR_PARS_SEMI);
+            handle_error(ERR_PARS_SEMI, SYNT_ERR);
             return (0);
         }
     }
@@ -73,17 +73,17 @@ int syntaxe_cmd(char *full_cmd)
         {
             if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == PIPE)
             {
-                handle_error(ERR_PARS_PIPE);
+                handle_error(ERR_PARS_PIPE, SYNT_ERR);
                 return (0);
             }
             if (full_cmd[i + 1] == 0)
             {
-                handle_error(ERR_MULTILINE);
+                handle_error(ERR_MULTILINE, SYNT_ERR);
                 return (0);
             }
             if (full_cmd[i - 1] == SEMICOLON)
             {
-                handle_error(ERR_PARS_PIPE);
+                handle_error(ERR_PARS_PIPE, SYNT_ERR);
                 return (0);
             }
         }
@@ -91,28 +91,28 @@ int syntaxe_cmd(char *full_cmd)
         {
             if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == SEMICOLON)
             {
-                handle_error(ERR_PARS_SEMI);
+                handle_error(ERR_PARS_SEMI, SYNT_ERR);
                 return (0);
             }
         }
         if (full_cmd[i] == LCHEVRON || full_cmd[i] == RCHEVRON)
         {
             if (next_to_chevron(full_cmd, i) == 1)
-                handle_error(ERR_PARS_NL);
+                handle_error(ERR_PARS_NL, SYNT_ERR);
             else if (next_to_chevron(full_cmd, i) == 2)
-                handle_error(ERR_PARS_SEMI);
+                handle_error(ERR_PARS_SEMI, SYNT_ERR);
             else if (next_to_chevron(full_cmd, i) == 3)
-                handle_error(ERR_PARS_LC);
+                handle_error(ERR_PARS_LC, SYNT_ERR);
             else if (next_to_chevron(full_cmd, i) == 4)
-                handle_error(ERR_PARS_RC);
+                handle_error(ERR_PARS_RC, SYNT_ERR);
             else if (next_to_chevron(full_cmd, i) == 5)
-                handle_error(ERR_PARS_RRC);
+                handle_error(ERR_PARS_RRC, SYNT_ERR);
         }
         i++;
     }
     if ((sq % 2) != 0 || (dq % 2) != 0)
     {
-        handle_error(ERR_MULTILINE);
+        handle_error(ERR_MULTILINE, SYNT_ERR);
         return (0);
     }
     return (1);

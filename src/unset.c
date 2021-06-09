@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 13:12:54 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 14:46:33 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:14:36 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	delete_env_entry(int entry_pos)
 		env_size++;
 	new_env = malloc(sizeof(char *) * (env_size));
 	if (!new_env)
-		handle_error(ERR_MALLOC);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	i = 0;
 	j = 0;
 	while (g_msh.env[j] != NULL)
