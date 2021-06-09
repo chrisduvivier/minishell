@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/08 16:49:38 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:28:43 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	handle_signals(void);
 char	*find_var(char *var_name);
 void    add_var_to_env(char *key, char *value);
 void	set_env_value(char *key, char *value);
+void	append_var_to_env(char *key, char *value);
 int		is_key_existing(char *key);
 int		is_key_valid(char *key, int size);
 int		ft_isalpha_underscore(int c);
