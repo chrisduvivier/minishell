@@ -6,7 +6,7 @@
 #    By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/08 16:23:54 by rlinkov          ###   ########.fr        #
+#    Updated: 2021/06/09 15:27:26 by rlinkov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS		:=	main.c \
 				./src/handle_pipe.c \
 				./src/utilities_1.c \
 				./src/export.c \
+				./src/export_bis.c \
 				./src/unset.c \
 				./src/signals.c \
 

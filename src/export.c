@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 14:36:16 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:13:58 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:43:47 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,46 +94,23 @@ void	add_var_to_env(char *key, char *value)
 	}
 }
 
-/*
- ** Append a value to the value of an existing environment var
- **/
-
-void	append_var_to_env(char *key, char *value)
+void	msh_bi_export_2(char *key, int i, int pos_equal, t_cmd_table t_cmd)
 {
-	char	*n_key;
-	char	*n_value;
-	char	*temp;
-	int		i;
+	char	*value;
 
-	n_key = malloc(ft_strlen(key) - 1);
-	if (!n_key)
-		handle_error(ERR_MALLOC);
-	ft_strlcpy(n_key, key, ft_strlen(key));
-	if (!is_key_existing(n_key))
+	value = malloc(sizeof(char) * i);
+	if (!value)
 	{
-		free(n_key);
-		return (add_var_to_env(key, value));
-	}
-	temp = find_var(n_key);
-	i = 0;
-	while (i < (int)ft_strlen(temp))
-	{
-		if (temp[i] == SPACE)
-			temp[i] = ' ';
-		i++;
-	}
-	n_value = malloc(sizeof(char) * (ft_strlen(temp) + ft_strlen(value) + 1));
-	if (!n_value)
-	{
-		free(n_key);
+		free(key);
 		handle_error(ERR_MALLOC);
 	}
-	ft_strlcpy(n_value, temp, ft_strlen(temp) + 1);
-	ft_strlcat(n_value, value, ft_strlen(temp) + ft_strlen(value) + 1);
-	set_env_value(n_key, n_value);
-	free(n_key);
-	free(n_value);
-	free(temp);
+	ft_strlcpy(value, t_cmd.argv[1] + pos_equal + 1, i);
+	if (is_key_valid(key, (int)ft_strlen(key)) == 2)
+		append_var_to_env(key, value);
+	else
+		add_var_to_env(key, value);
+	free(key);
+	free(value);
 }
 
 /*
@@ -151,7 +128,6 @@ void	append_var_to_env(char *key, char *value)
 void	msh_bi_export(t_cmd_table t_cmd)
 {
 	char	*key;
-	char	*value;
 	int		i;
 	int		pos_equal;
 
@@ -160,6 +136,7 @@ void	msh_bi_export(t_cmd_table t_cmd)
 		i++;
 	if (i == 0 || t_cmd.argv[1][0] == '$' || !is_key_valid(t_cmd.argv[1], i))
 	{
+		g_msh.status = 1;
 		printf("msh: export: `%s': not a valid identifier\n", t_cmd.argv[1]);
 		return ;
 	}
@@ -173,17 +150,5 @@ void	msh_bi_export(t_cmd_table t_cmd)
 	i = 0;
 	while (i + pos_equal < (int)ft_strlen(t_cmd.argv[1]))
 		i++;
-	value = malloc(sizeof(char) * i);
-	if (!value)
-	{
-		free(key);
-		handle_error(ERR_MALLOC);
-	}
-	ft_strlcpy(value, t_cmd.argv[1] + pos_equal + 1, i);
-	if (is_key_valid(key, (int)ft_strlen(key)) == 2)
-		append_var_to_env(key, value);
-	else
-		add_var_to_env(key, value);
-	free(key);
-	free(value);
+	msh_bi_export_2(key, i, pos_equal, t_cmd);
 }
