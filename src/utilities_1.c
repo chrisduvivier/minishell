@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:31 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/09 15:01:35 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:39:22 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,21 @@ int	is_key_existing(char *key)
 		i++;
 	}
 	return (0);
+}
+
+/*
+** FREE an array of string terminated by a NULL
+*/
+
+void	free_split(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i] != 0)
+	{
+		free(strs[i]);
+		i++;
+	}
+	free(strs);
 }

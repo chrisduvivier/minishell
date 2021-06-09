@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:17:50 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/09 16:39:42 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		is_key_existing(char *key);
 int		is_key_valid(char *key, int size);
 int		ft_isalpha_underscore(int c);
 int		ft_isalnum_underscore(int c);
+void	free_split(char **strs);
 void    free_env(char **env);
 
 
