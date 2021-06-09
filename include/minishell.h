@@ -6,7 +6,11 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/09 17:06:45 by cduvivie         ###   ########.fr       */
+=======
+/*   Updated: 2021/06/09 16:59:09 by rlinkov          ###   ########.fr       */
+>>>>>>> eab8b0ad8cba452d0747ade99cec80bbdf388bff
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +80,7 @@ void    get_cmd(char **str);
 void	handle_error(char *err_tag, int status);
 char	*code_cmd(char *str);
 char	*set_env_var(char *full_cmd, int *i);
-int		syntaxe_cmd(char *full_cmd);
+void	syntaxe_cmd(char *full_cmd);
 char    *remove_space(char *full_cmd);
 char    *clean_cmd(char *str);
 int		exec_cmd(t_cmd_table t_cmd);
@@ -90,6 +94,7 @@ int		is_key_existing(char *key);
 int		is_key_valid(char *key, int size);
 int		ft_isalpha_underscore(int c);
 int		ft_isalnum_underscore(int c);
+void	free_split(char **strs);
 void    free_env(char **env);
 
 

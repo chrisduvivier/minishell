@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:23:00 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 17:25:17 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:36:35 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@
 # define SIGN_BSLACH 131
 # define MALLOC_FAILED 404
 # define CMD_EXIT_ARG_FAILURE 255
+# define CMD_NF 127
 
 #endif
