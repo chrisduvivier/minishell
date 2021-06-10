@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:42:55 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:42:24 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/10 16:06:22 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*remove_space(char *full_cmd)
 	strs = ft_split(full_cmd, SPACERM);
 	free(full_cmd);
 	clean_cmd = join_cmd(strs);
-	free(strs);
+	free_split(strs);
 	return (clean_cmd);
 }
 
