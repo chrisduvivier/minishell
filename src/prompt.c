@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 18:11:53 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/10 15:44:46 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	get_cmd(char **full_cmd)
 	{
 		write(1, "exit\n", 6);
 		free(*full_cmd);
+		free_env(g_msh.env);
 		exit(EXIT_SUCCESS);
 	}
 	while (ret == 0)

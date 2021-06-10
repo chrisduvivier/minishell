@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:52:02 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:35:37 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/10 16:02:55 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	set_shlvl(void)
 	{
 		shlvl_int = ft_atoi(shlvl);
 		shlvl_int = shlvl_int + 1;
+		free(shlvl);
 		shlvl = ft_itoa(shlvl_int);
 		set_env_value("SHLVL", shlvl);
 	}
@@ -105,6 +106,11 @@ void	copy_env(char **envp)
 	while (envp[i] && envp)
 	{
 		env[i] = ft_strdup(envp[i]);
+		if (!env[i])
+		{
+			free_env(env);
+			handle_error(ERR_MALLOC, MALLOC_FAILED);
+		}
 		i++;
 	}
 	env[i] = NULL;
