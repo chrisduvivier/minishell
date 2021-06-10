@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:16:31 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 17:18:18 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/10 16:22:50 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_split(char **strs)
 	int	i;
 
 	i = 0;
-	while (strs[i] != 0)
+	while (strs[i] != NULL)
 	{
 		free(strs[i]);
 		i++;

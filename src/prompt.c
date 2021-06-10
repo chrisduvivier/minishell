@@ -6,7 +6,7 @@
 /*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 15:44:46 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/10 17:43:24 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	split_command(char *full_cmd)
 		i++;
 		free(t_cmd);
 	}
+	free(cmds);
 }
 
 /*
@@ -162,5 +163,7 @@ void	prompt(void)
 		full_cmd = clean_cmd(full_cmd);
 		if (g_msh.status == 0)
 			split_command(full_cmd);
+		else
+			free(full_cmd);
 	}
 }
