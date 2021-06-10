@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/09 15:32:43 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 02:17:06 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **		cmd		string containing command name
 */
 
-int is_our_builtin(char *cmd)
+int	is_our_builtin(char *cmd)
 {
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (1);
@@ -44,9 +44,8 @@ int is_our_builtin(char *cmd)
 **		0 is returned when the cmd is not supported or error.
 */
 
-int builtin_caller_in_parent(t_cmd_table t_cmd)
+int	builtin_caller_in_parent(t_cmd_table t_cmd)
 {
-
 	if (ft_strcmp(t_cmd.cmd, "cd") == 0)
 		return (msh_cd(t_cmd));
 	else if (ft_strcmp(t_cmd.cmd, "export") == 0)
@@ -54,7 +53,10 @@ int builtin_caller_in_parent(t_cmd_table t_cmd)
 	else if (ft_strcmp(t_cmd.cmd, "unset") == 0)
 		return (msh_unset(t_cmd));
 	else if (ft_strcmp(t_cmd.cmd, "exit") == 0)
-		return (msh_exit(t_cmd));
+	{
+		msh_exit(t_cmd);
+		return (1);
+	}
 	return (0);
 }
 

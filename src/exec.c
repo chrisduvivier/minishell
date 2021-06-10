@@ -6,13 +6,13 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 15:42:28 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 00:55:12 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh g_msh;
+extern t_msh	g_msh;
 
 /*
 **	Verify if the path given in cmd string is executable,
@@ -24,7 +24,7 @@ extern t_msh g_msh;
 
 void	get_cmd_reltive_path(t_cmd_table *t_cmd)
 {
-	struct stat buf;
+	struct stat	buf;
 
 	if (stat(t_cmd->cmd, &buf) == 0)
 	{
@@ -41,8 +41,8 @@ void	get_cmd_reltive_path(t_cmd_table *t_cmd)
 
 char	*create_path_name(const char *path, const char *cmd)
 {
-	char *tmp;
-	char *res;
+	char	*tmp;
+	char	*res;
 
 	tmp = ft_strjoin(path, "/");
 	if (tmp == NULL)
@@ -61,12 +61,16 @@ char	*create_path_name(const char *path, const char *cmd)
 **	"../bin/ls" -> "../bin/ls" (no change if relative path is given)
 */
 
+/*
+**	//TODO: malloc error
+*/
+
 void	set_cmd_abs_path(t_cmd_table *t_cmd)
 {
 	int			i;
 	char		*path;
 	char		**list_path;
-	struct stat buf;
+	struct stat	buf;
 
 	i = 0;
 	if (t_cmd->cmd[0] == '.' || ft_strncmp(t_cmd->cmd, "./", 2) == 0)
@@ -76,7 +80,7 @@ void	set_cmd_abs_path(t_cmd_table *t_cmd)
 	while (list_path[i] != NULL)
 	{
 		path = create_path_name(list_path[i], t_cmd->cmd);
-		if (path == NULL)	//malloc error
+		if (path == NULL)
 			return ;
 		if (stat(path, &buf) == 0)
 		{
@@ -126,10 +130,14 @@ void	exec_with_process(t_cmd_table t_cmd)
 **		t_cmd: the command table 
 */
 
-int exec_cmd(t_cmd_table t_cmd)
+/*
+**		//TODO replace do while loop
+*/
+
+int	exec_cmd(t_cmd_table t_cmd)
 {
-	pid_t pid;
-	
+	pid_t	pid;
+
 	if (builtin_caller_in_parent(t_cmd))
 	{
 		free_t_cmd(&t_cmd);
@@ -144,7 +152,7 @@ int exec_cmd(t_cmd_table t_cmd)
 	}
 	else if (pid > 0)
 	{
-		do	//TODO
+		do
 		{
 			waitpid(pid, &g_msh.status, WUNTRACED);
 		} while (!WIFEXITED(g_msh.status) && !WIFSIGNALED(g_msh.status));

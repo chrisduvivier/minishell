@@ -6,17 +6,17 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/09 17:26:20 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 00:52:38 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh g_msh;
+extern t_msh	g_msh;
 
 void	free_t_cmd(t_cmd_table *t_cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (t_cmd->cmd)

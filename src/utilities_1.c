@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:31 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/09 17:16:44 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/11 00:45:58 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh g_msh;
+extern t_msh	g_msh;
 
 /*
 **  clean up t_cmd->argv and argc by removing empty argument.
 **  @params:
 **      *t_cmd: ptr to the command table
+**    //TODO EXIT
 */
 
 void	clean_empty_arg(t_cmd_table *t_cmd)
@@ -26,17 +27,16 @@ void	clean_empty_arg(t_cmd_table *t_cmd)
 	int		count;
 	int		i;
 
-	i = 0;
+	i = -1;
 	count = 0;
-	while (i < t_cmd->argc)
+	while (++i < t_cmd->argc)
 	{
 		if (t_cmd->argv[i][0] != '\0')
 			count++;
-		i++;
 	}
 	new_argv = (char **)ft_calloc(count + 1, sizeof(char *));
 	if (!new_argv)
-		exit(1);    //TODO
+		exit(1);
 	i = 0;
 	count = 0;
 	while (i < t_cmd->argc)

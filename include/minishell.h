@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 18:27:15 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/11 02:16:36 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,16 @@
 **	- command: holds core command ("cd", "echo", "pwd")
 **	- option: option to cmd if any ("-n")
 **	- arg: arguments of the cmd ("This is a string", "output.txt")
-**	- in_file_fd: file descriptor of input (STD_IN as default)
-**	- out_file_fd: file descriptor of output. This could be a new file (STD_OUT as default)
-**	- next: pointer to next cmd
+**	- in/out_file_fd: file descriptor of input/output
 */
+
 typedef struct s_cmd_table {
-	char 				*cmd;
+	char				*cmd;
 	char				*cmd_abs_path;
 	int					argc;
-	char 				**argv;
-	int 				in_file_fd;
-	int 				out_file_fd;
+	char				**argv;
+	int					in_file_fd;
+	int					out_file_fd;
 	struct s_cmd_table	*next;
 }						t_cmd_table;
 
@@ -72,27 +71,27 @@ typedef struct s_msh {
 
 void	copy_env(char **envp);
 void	prompt(void);
-void    get_cmd(char **str);
+void	get_cmd(char **str);
 void	handle_error(char *err_tag, int status);
 char	*code_cmd(char *str);
-char 	*handle_dollar(int *i, char *full_cmd, int *sq);
-char 	*handle_pipe(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_lchevron(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_rchevron(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_space(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_backslash(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_quote(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_dquote(int *i, char *full_cmd, int *sq, int *dq);
-char 	*handle_semicolon(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_dollar(int *i, char *full_cmd, int *sq);
+char	*handle_pipe(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_lchevron(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_rchevron(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_space(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_backslash(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_quote(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_dquote(int *i, char *full_cmd, int *sq, int *dq);
+char	*handle_semicolon(int *i, char *full_cmd, int *sq, int *dq);
 char	*set_env_var(char *full_cmd, int *i);
 void	syntaxe_cmd(char *full_cmd);
-char    *remove_space(char *full_cmd);
-char    *clean_cmd(char *str);
+char	*remove_space(char *full_cmd);
+char	*clean_cmd(char *str);
 int		exec_cmd(t_cmd_table t_cmd);
 void	handle_signals(void);
 
 char	*find_var(char *var_name);
-void    add_var_to_env(char *key, char *value);
+void	add_var_to_env(char *key, char *value);
 void	set_env_value(char *key, char *value);
 void	append_var_to_env(char *key, char *value);
 int		is_key_existing(char *key);
@@ -100,22 +99,21 @@ int		is_key_valid(char *key, int size);
 int		ft_isalpha_underscore(int c);
 int		ft_isalnum_underscore(int c);
 void	free_split(char **strs);
-void    free_env(char **env);
-
+void	free_env(char **env);
 
 /*
 **  Function Declarations for builtin shell commands:
 */
 
-int 	msh_cd(t_cmd_table cmd_t);
-int 	msh_exit(t_cmd_table cmd_t);
-int 	msh_pwd(t_cmd_table cmd_t);
-void 	msh_echo(t_cmd_table cmd_t);
-int 	msh_export(t_cmd_table cmd_t);
+int		msh_cd(t_cmd_table cmd_t);
+void	msh_exit(t_cmd_table t_cmd);
+int		msh_pwd(t_cmd_table cmd_t);
+void	msh_echo(t_cmd_table cmd_t);
+int		msh_export(t_cmd_table cmd_t);
 void	msh_bi_export(t_cmd_table cmt_t);
-int 	msh_unset(t_cmd_table cmd_t);
+int		msh_unset(t_cmd_table cmd_t);
 void	msh_bi_unset(t_cmd_table cmd_t);
-int 	msh_env(t_cmd_table cmd_t);
+int		msh_env(t_cmd_table cmd_t);
 
 /*
 **  Builtin helper
@@ -129,7 +127,6 @@ int		is_our_builtin(char *cmd);
 void	t_msh_init(void);
 void	t_cmd_table_init(t_cmd_table *cmd_t);
 
-
 /*
 **	pipes/input/output management
 */
@@ -137,16 +134,16 @@ void	t_cmd_table_init(t_cmd_table *cmd_t);
 void	close_fd(t_cmd_table t_cmd);
 void	redirect_io(t_cmd_table t_cmd);
 
-void    check_redirections(t_cmd_table *t_cmds, int t_size);
-void	handle_input_redirection(t_cmd_table *first_t_cmd, char *path);
-void	handle_output_redirection(t_cmd_table *last_t_cmd, char *path, int mode);
+void	check_redirections(t_cmd_table *t_cmds, int t_size);
+void	handle_input_redirect(t_cmd_table *first_t_cmd, char *path);
+void	handle_output_redirect(t_cmd_table *last_t_cmd, char *path, int mode);
 void	set_pipes(t_cmd_table *t_cmds, int t_size);
 
 /*
 **	utility functions
 */
 
-void    clean_empty_arg(t_cmd_table *t_cmd);
+void	clean_empty_arg(t_cmd_table *t_cmd);
 
 /*
 **	debug
@@ -158,7 +155,7 @@ void	print_t_cmd_table(t_cmd_table t_cmd);
 **	free and exit
 */
 
-void    free_t_cmd(t_cmd_table *t_cmd);
+void	free_t_cmd(t_cmd_table *t_cmd);
 void	free_msh_and_exit(int exit_status);
 
 #endif

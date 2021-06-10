@@ -6,13 +6,13 @@
 /*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:18:15 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 14:44:36 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/10 22:53:51 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_msh g_msh;
+extern t_msh	g_msh;
 
 /*
 ** Catch the signal sent by the user when CTRL + C is typed
@@ -44,14 +44,13 @@ void	handle_ctrl_backslash(int signal)
 	}
 }
 
-
 /*
 ** Handle the signals call the appropriate function
 */
 
-void    handle_signals(void)
+void	handle_signals(void)
 {
-    if (signal(SIGINT, &handle_ctrl_c) == SIG_ERR)
+	if (signal(SIGINT, &handle_ctrl_c) == SIG_ERR)
 		ft_printf("Could not set SIGINT handler\n");
 	if (signal(SIGQUIT, &handle_ctrl_backslash) == SIG_ERR)
 		ft_printf("Could not set SIGQUIT handler\n");
