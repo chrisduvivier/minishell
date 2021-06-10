@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/11 02:16:36 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/10 23:26:24 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ typedef struct s_cmd_table {
 typedef struct s_msh {
 	int				status;
 	int				pid;
-	t_cmd_table		*cmd_t;
+	t_cmd_table		*t_cmds;
+	int				t_cmds_len;
+	char			**raw_cmds;
+	int				raw_cmds_len;
 	char			**env;
 }				t_msh;
 

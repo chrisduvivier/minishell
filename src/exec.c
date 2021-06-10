@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/11 00:55:12 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/10 23:12:53 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,6 @@ void	exec_with_process(t_cmd_table t_cmd)
 **		t_cmd: the command table 
 */
 
-/*
-**		//TODO replace do while loop
-*/
-
 int	exec_cmd(t_cmd_table t_cmd)
 {
 	pid_t	pid;
@@ -152,10 +148,8 @@ int	exec_cmd(t_cmd_table t_cmd)
 	}
 	else if (pid > 0)
 	{
-		do
-		{
-			waitpid(pid, &g_msh.status, WUNTRACED);
-		} while (!WIFEXITED(g_msh.status) && !WIFSIGNALED(g_msh.status));
+		while (wait(&g_msh.pid) > 0)
+			(void)g_msh.pid;
 	}
 	else
 		exec_with_process(t_cmd);

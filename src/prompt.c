@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 17:43:24 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/10 23:53:31 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_cmd(char **full_cmd)
 	ret = get_next_line(0, full_cmd);
 	if (ret == 0 && ft_strlen(*full_cmd) == 0)
 	{
-		write(1, "exit\n", 6);
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		free(*full_cmd);
 		free_env(g_msh.env);
 		exit(EXIT_SUCCESS);
@@ -56,7 +56,7 @@ t_cmd_table	fill_cmd_table(char *cmd)
 	while (tokens[j] != NULL)
 		j++;
 	t_cmd.argc = j;
-	t_cmd.argv = ft_calloc(t_cmd.argc + 1, sizeof(char *));
+	t_cmd.argv = ft_calloc(t_cmd.argc, sizeof(char *));
 	if (!t_cmd.argv)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	j = 0;
@@ -88,7 +88,6 @@ t_cmd_table	*handle_pipes(char *piped_command)
 
 	len_cmds = 0;
 	single_cmds = ft_split(piped_command, PIPE);
-	free(piped_command);
 	while (single_cmds[len_cmds] != NULL)
 		len_cmds++;
 	t_cmds = ft_calloc(len_cmds + 1, sizeof(t_cmd_table));
@@ -104,6 +103,8 @@ t_cmd_table	*handle_pipes(char *piped_command)
 	ft_split_free(single_cmds);
 	set_pipes(t_cmds, len_cmds);
 	check_redirections(t_cmds, len_cmds);
+	g_msh.t_cmds = t_cmds;
+	g_msh.t_cmds_len = len_cmds;
 	return (t_cmds);
 }
 
@@ -126,9 +127,13 @@ void	split_command(char *full_cmd)
 	i = 0;
 	cmds = ft_split(full_cmd, SEMICOLON);
 	free(full_cmd);
+	g_msh.raw_cmds = cmds;
+	g_msh.raw_cmds_len = ft_str_array_len((const char**)cmds);
 	while (cmds[i] != NULL)
 	{	
 		t_cmd = handle_pipes(cmds[i]);
+		free(cmds[i]);
+		cmds[i] = NULL;
 		j = 0;
 		while (t_cmd[j].argc > 0 && t_cmd[j].argv[0] != NULL)
 		{
