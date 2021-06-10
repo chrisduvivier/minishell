@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+         #
+#    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/09 18:25:39 by rlinkov          ###   ########.fr        #
+#    Updated: 2021/06/10 19:35:33 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS		:=	main.c \
 				./src/syntaxe_cmd.c \
 				./src/exec.c \
 				./src/builtin_functions.c \
+				./src/builtin_functions2.c \
 				./src/builtin_functions_helper.c \
 				./src/struct_init.c \
 				./src/copy_env.c \
