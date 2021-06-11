@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:52:02 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 16:02:55 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/11 12:56:05 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	copy_env(char **envp)
 	i = 0;
 	while (envp[i] && envp)
 		i++;
-	env = (char **)malloc(sizeof(char *) * i + 1);
+	env = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!env)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	env[i] = NULL;
