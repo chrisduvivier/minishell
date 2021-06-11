@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/10 23:26:37 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:03:22 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	t_msh_init(void)
 void	t_cmd_table_init(t_cmd_table *cmd_t)
 {
 	cmd_t->cmd = NULL;
+	cmd_t->cmd_abs_path = NULL;
 	cmd_t->argv = NULL;
 	cmd_t->argc = 0;
 	cmd_t->in_file_fd = STDIN_FILENO;
 	cmd_t->out_file_fd = STDOUT_FILENO;
-	cmd_t->next = NULL;
 }

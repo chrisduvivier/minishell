@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/10 23:50:38 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:01:34 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	free_t_cmd(t_cmd_table *t_cmd)
 	{
 		free(t_cmd->cmd);
 		t_cmd->cmd = NULL;
+	}
+	if (t_cmd->cmd_abs_path)
+	{
+		free(t_cmd->cmd_abs_path);
+		t_cmd->cmd_abs_path = NULL;
 	}
 	while (i <= t_cmd->argc)
 	{

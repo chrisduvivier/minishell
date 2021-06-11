@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:16:31 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 16:22:50 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/11 15:57:26 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ void	free_split(char **strs)
 	while (strs[i] != NULL)
 	{
 		free(strs[i]);
+		strs[i] = NULL;
 		i++;
 	}
 	free(strs);
+	strs = NULL;
 }

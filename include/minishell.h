@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 23:26:24 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:02:52 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_cmd_table {
 	char				**argv;
 	int					in_file_fd;
 	int					out_file_fd;
-	struct s_cmd_table	*next;
 }						t_cmd_table;
 
 /*
