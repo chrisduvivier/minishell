@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 23:12:53 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/11 16:40:34 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	get_cmd_reltive_path(t_cmd_table *t_cmd)
 	if (stat(t_cmd->cmd, &buf) == 0)
 	{
 		t_cmd->cmd_abs_path = ft_strdup(t_cmd->cmd);
+		if (t_cmd->cmd_abs_path == NULL)
+			handle_error(ERR_MALLOC, MALLOC_FAILED);
 	}
 }
 
@@ -46,8 +48,10 @@ char	*create_path_name(const char *path, const char *cmd)
 
 	tmp = ft_strjoin(path, "/");
 	if (tmp == NULL)
-		return (NULL);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	res = ft_strjoin(tmp, cmd);
+	if (res == NULL)
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	free(tmp);
 	return (res);
 }
@@ -77,21 +81,20 @@ void	set_cmd_abs_path(t_cmd_table *t_cmd)
 		return (get_cmd_reltive_path(t_cmd));
 	path = find_var("PATH");
 	list_path = ft_split(path, ':');
+	free(path);
 	while (list_path[i] != NULL)
 	{
 		path = create_path_name(list_path[i], t_cmd->cmd);
-		if (path == NULL)
-			return ;
 		if (stat(path, &buf) == 0)
 		{
-			ft_split_free(list_path);
+			free_split(list_path);
 			t_cmd->cmd_abs_path = path;
 			return ;
 		}
 		free(path);
 		i++;
 	}
-	ft_split_free(list_path);
+	free_split(list_path);
 }
 
 /*
