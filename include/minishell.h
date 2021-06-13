@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/11 16:02:52 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/13 01:17:02 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 # include "../libft/get_next_line.h"
 # include "error.h"
 
+typedef struct	s_heredoc {
+	char		*eof_str;
+	int			pipe_len;
+	int			tmp_file_fd;
+}				t_heredoc;
+
 /*
 **	struct for organizing data needed to execute commands
 **	Description:
@@ -34,17 +40,19 @@
 */
 
 typedef struct s_cmd_table {
-	char				*cmd;
-	char				*cmd_abs_path;
-	int					argc;
-	char				**argv;
-	int					in_file_fd;
-	int					out_file_fd;
-}						t_cmd_table;
+	char			*cmd;
+	char			*cmd_abs_path;
+	int				argc;
+	char			**argv;
+	int				in_file_fd;
+	int				out_file_fd;
+	t_heredoc		*heredoc;
+}					t_cmd_table;
 
 /*
 ** Core struct which carries data of the minishell. 
 */
+
 typedef struct s_msh {
 	int				status;
 	int				pid;
@@ -70,6 +78,7 @@ typedef struct s_msh {
 # define MALLOC_FAILURE 1
 
 # define NEW_COMMAND_PROMPT "(╯°□°)╯︵ ┻━┻$> "
+# define TMP_FILE_NAME "tmp_minishell_file.txt"
 
 void	copy_env(char **envp);
 void	prompt(void);

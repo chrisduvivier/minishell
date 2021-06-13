@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/11 16:01:34 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/12 18:47:21 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	free_t_cmd(t_cmd_table *t_cmd)
 	{
 		free(t_cmd->argv);
 		t_cmd->argv = NULL;
+	}
+	if (t_cmd->heredoc != NULL)
+	{
+		free(t_cmd->heredoc);
+		t_cmd->heredoc = NULL;
 	}
 }
 

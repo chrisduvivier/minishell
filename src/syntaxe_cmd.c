@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntaxe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 17:12:59 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/13 01:44:31 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ extern t_msh	g_msh;
 
 int	next_to_chevron_bis(char *full_cmd, int i, int start_i)
 {
-	if (full_cmd[start_i] == LCHEVRON && full_cmd[start_i + 1] == LCHEVRON)
+	if (full_cmd[start_i] == LCHEVRON && full_cmd[start_i + 1] == LCHEVRON
+		&& full_cmd[start_i + 2] == LCHEVRON)
 		return (3);
 	if (full_cmd[start_i] == RCHEVRON && full_cmd[i] == LCHEVRON)
 		return (3);

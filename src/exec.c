@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/11 16:40:34 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/13 01:59:45 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,61 @@ void	set_cmd_abs_path(t_cmd_table *t_cmd)
 }
 
 /*
+**
+*/
+
+void	heredoc_prompt(t_cmd_table *t_cmd)
+{
+	int i;
+	
+	i = 0;
+	while (i < t_cmd->heredoc->pipe_len)
+	{
+		ft_putstr_fd("pipe ", STDOUT_FILENO);
+		i++;
+	}
+	ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+}
+
+/*
+**	Handles heredoc (<<) functionality of bash.
+**	keep writing on STDINT until eof_string is given by user.
+**	Doesn't not return by EOF signal. 
+*/
+
+void	exec_heredoc(t_cmd_table *t_cmd)
+{
+	int		ret;
+	char	*user_input;
+
+	heredoc_prompt(t_cmd);
+	ret = get_next_line(STDIN_FILENO, &user_input);
+	while (ret >= 0 && user_input)
+	{
+		if (ret > 0)
+		{
+			if (ft_strncmp(t_cmd->heredoc->eof_str, user_input, ft_strlen(t_cmd->heredoc->eof_str)) == 0)
+			{
+				ft_putstr_fd("\0", t_cmd->heredoc->tmp_file_fd);
+				break ;
+			}
+			ft_putstr_fd(user_input, t_cmd->heredoc->tmp_file_fd);
+			ft_putstr_fd("\n", t_cmd->heredoc->tmp_file_fd);
+			heredoc_prompt(t_cmd);
+		}
+		ret = get_next_line(STDIN_FILENO, &user_input);
+	}
+	free(user_input);
+	close(t_cmd->heredoc->tmp_file_fd);
+	t_cmd->heredoc->tmp_file_fd = open(TMP_FILE_NAME, O_RDONLY);
+	if (t_cmd->heredoc->tmp_file_fd < 0)
+		ft_printf("minishell: cannot read %s\n", TMP_FILE_NAME);
+	dup2(t_cmd->in_file_fd, t_cmd->heredoc->tmp_file_fd);
+	// if (unlink(TMP_FILE_NAME) < 0)
+	// 	printf("error: unlink fail\n");
+}
+
+/*
 **	Command executed on child process. Each function doesn't return value
 **	@params:
 **		t_cmd: the command table
@@ -108,6 +163,8 @@ void	exec_with_process(t_cmd_table t_cmd)
 	int		exec_res;
 
 	redirect_io(t_cmd);
+	if (t_cmd.heredoc != NULL)
+		exec_heredoc(&t_cmd);
 	if (is_our_builtin(t_cmd.cmd))
 		return (builtin_caller_in_child(t_cmd));
 	set_cmd_abs_path(&t_cmd);

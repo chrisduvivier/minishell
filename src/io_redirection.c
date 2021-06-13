@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/11 00:50:46 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/13 01:58:44 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern t_msh	g_msh;
 
 /*
 **	Check if string cmd is one of the fd redirection.
+**	Supports: `>` `>>` `<` `<<`
+**	Mode:	   1   2    3   4
 */
 
 int	check_mode(char *cmd)
@@ -32,8 +34,33 @@ int	check_mode(char *cmd)
 		}
 	}
 	else if (*cmd == LCHEVRON)
+	{
 		mode = 3;
+		if (ft_strlen(cmd) == 2 && cmd[1] == LCHEVRON)
+		{
+			mode = 4;
+		}
+	}
 	return (mode);
+}
+
+void	handle_heredoc(t_cmd_table *first_t_cmd, char *eof_str, int pipe_len)
+{
+	t_heredoc	*heredoc;
+	int			fd;
+
+	heredoc = (t_heredoc *)ft_calloc(1, sizeof(t_heredoc));
+	if (heredoc == NULL)
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
+	heredoc->eof_str = ft_strdup(eof_str);
+	heredoc->pipe_len = pipe_len - 1;
+	if (heredoc->eof_str == NULL)
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
+	fd = open(TMP_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (fd < 0)
+		ft_printf("minishell: cannot create %s\n", TMP_FILE_NAME);
+	heredoc->tmp_file_fd = fd;
+	first_t_cmd->heredoc = heredoc;
 }
 
 /*
@@ -44,7 +71,6 @@ int	check_mode(char *cmd)
 void	handle_input_redirect(t_cmd_table *first_t_cmd, char *path)
 {
 	int	fd;
-
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		ft_printf("minishell: cannot read %s\n", path);
@@ -92,6 +118,7 @@ void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table *t_cmds, int len)
 	while (i < t_cmd->argc)
 	{
 		mode = check_mode(t_cmd->argv[i]);
+		printf("mode [%d]\n", mode);
 		if (mode == 0)
 		{
 			i++;
@@ -99,11 +126,12 @@ void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table *t_cmds, int len)
 		}
 		else if (mode == 1 || mode == 2)
 		{
-			printf("mode [%d]\n", mode);
 			handle_output_redirect(&t_cmds[len - 1], t_cmd->argv[i + 1], mode);
 		}
 		else if (mode == 3)
 			handle_input_redirect(&t_cmds[0], t_cmd->argv[i + 1]);
+		else if (mode == 4)
+			handle_heredoc(&t_cmds[0], t_cmd->argv[i + 1], len);
 		free(t_cmd->argv[i]);
 		t_cmd->argv[i++] = ft_strdup("");
 		free(t_cmd->argv[i]);
