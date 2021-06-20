@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:18:15 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 22:53:51 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/14 16:59:57 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_ctrl_backslash(int signal)
 	{
 		kill(g_msh.pid, signal);
 		g_msh.status = 131;
-		ft_printf("\nQuit: %d\n", signal);
+		printf("\nQuit: %d\n", signal);
 	}
 }
 
@@ -51,7 +51,7 @@ void	handle_ctrl_backslash(int signal)
 void	handle_signals(void)
 {
 	if (signal(SIGINT, &handle_ctrl_c) == SIG_ERR)
-		ft_printf("Could not set SIGINT handler\n");
+		printf("Could not set SIGINT handler\n");
 	if (signal(SIGQUIT, &handle_ctrl_backslash) == SIG_ERR)
-		ft_printf("Could not set SIGQUIT handler\n");
+		printf("Could not set SIGQUIT handler\n");
 }

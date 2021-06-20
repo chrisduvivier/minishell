@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/11 01:00:48 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/11 02:18:29 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/14 16:59:57 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	msh_exit(t_cmd_table t_cmd)
 				free_msh_and_exit(ft_atoi(t_cmd.argv[1]));
 			else
 			{
-				ft_printf("minishell: exit: too many arguments\n");
+				printf("minishell: exit: too many arguments\n");
 				g_msh.status = EXIT_FAILURE;
 			}
 		}
 		else
 		{
-			ft_printf("minishell: exit: %s: numeric argument required\n",
+			printf("minishell: exit: %s: numeric argument required\n",
 				t_cmd.argv[1]);
 			free_msh_and_exit(CMD_EXIT_ARG_FAILURE);
 		}

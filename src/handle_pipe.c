@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:35 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/11 00:51:30 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/15 11:08:27 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ extern t_msh	g_msh;
 **		t_cmd: single command table
 */
 
-void	close_fd(t_cmd_table t_cmd)
+void	close_fd(t_cmd_table *t_cmd)
 {
-	if (t_cmd.in_file_fd != 0)
-		close(t_cmd.in_file_fd);
-	if (t_cmd.out_file_fd != 1)
-		close(t_cmd.out_file_fd);
+	if (t_cmd->in_file_fd != 0)
+		close(t_cmd->in_file_fd);
+	if (t_cmd->out_file_fd != 1)
+		close(t_cmd->out_file_fd);
 }
 
 /*
@@ -37,12 +37,12 @@ void	close_fd(t_cmd_table t_cmd)
 **		t_cmd: single command table 
 */
 
-void	redirect_io(t_cmd_table t_cmd)
+void	redirect_io(t_cmd_table *t_cmd)
 {
-	if (t_cmd.in_file_fd != STDIN_FILENO)
-		dup2(t_cmd.in_file_fd, STDIN_FILENO);
-	if (t_cmd.out_file_fd != STDOUT_FILENO)
-		dup2(t_cmd.out_file_fd, STDOUT_FILENO);
+	if (t_cmd->in_file_fd != STDIN_FILENO)
+		dup2(t_cmd->in_file_fd, STDIN_FILENO);
+	if (t_cmd->out_file_fd != STDOUT_FILENO)
+		dup2(t_cmd->out_file_fd, STDOUT_FILENO);
 }
 
 /*
@@ -52,23 +52,23 @@ void	redirect_io(t_cmd_table t_cmd)
 **		t_size	size of the table (array of t_cmd)
 */
 
-void	set_pipes(t_cmd_table *t_cmds, int t_size)
+void	set_pipes(t_cmd_table **t_cmds, int t_size)
 {
 	int	i;
 	int	fd_pipe[2];
 
 	i = 0;
-	while (i < t_size)
+	while (i < t_size && t_cmds[i] != NULL)
 	{
 		if (i != 0)
 		{
 			pipe(fd_pipe);
-			t_cmds[i - 1].out_file_fd = fd_pipe[1];
-			t_cmds[i].in_file_fd = fd_pipe[0];
+			t_cmds[i - 1]->out_file_fd = fd_pipe[1];
+			t_cmds[i]->in_file_fd = fd_pipe[0];
 		}
 		if (i == t_size - 1)
 		{
-			t_cmds[i].out_file_fd = STDOUT_FILENO;
+			t_cmds[i]->out_file_fd = STDOUT_FILENO;
 		}
 		++i;
 	}

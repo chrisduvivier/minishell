@@ -6,14 +6,14 @@
 #    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/10 19:35:33 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/15 12:26:19 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:= minishell
 
 CC 			:=	gcc
-CFLAGS	 	:=	-Wall -Wextra -Werror
+CFLAGS	 	:=	-Wall -Wextra -Werror -g
 RM 			:=	/bin/rm -f
 
 LIBFT		:= ./libft/libft.a
@@ -29,6 +29,7 @@ SRCS		:=	main.c \
 				./src/prompt.c \
 				./src/syntaxe_cmd.c \
 				./src/exec.c \
+				./src/exec_heredoc.c \
 				./src/builtin_functions.c \
 				./src/builtin_functions2.c \
 				./src/builtin_functions_helper.c \

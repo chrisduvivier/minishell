@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/13 01:17:02 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/20 11:45:27 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_cmd_table {
 typedef struct s_msh {
 	int				status;
 	int				pid;
-	t_cmd_table		*t_cmds;
+	t_cmd_table		**t_cmds;
 	int				t_cmds_len;
 	char			**raw_cmds;
 	int				raw_cmds_len;
@@ -78,6 +78,7 @@ typedef struct s_msh {
 # define MALLOC_FAILURE 1
 
 # define NEW_COMMAND_PROMPT "(╯°□°)╯︵ ┻━┻$> "
+# define HERE_DOC_PROMPT "> "
 # define TMP_FILE_NAME "tmp_minishell_file.txt"
 
 void	copy_env(char **envp);
@@ -98,7 +99,7 @@ char	*set_env_var(char *full_cmd, int *i);
 void	syntaxe_cmd(char *full_cmd);
 char	*remove_space(char *full_cmd);
 char	*clean_cmd(char *str);
-int		exec_cmd(t_cmd_table t_cmd);
+int		exec_cmd(t_cmd_table *t_cmd);
 void	handle_signals(void);
 
 char	*find_var(char *var_name);
@@ -116,39 +117,41 @@ void	free_env(char **env);
 **  Function Declarations for builtin shell commands:
 */
 
-int		msh_cd(t_cmd_table cmd_t);
+int		msh_cd(t_cmd_table t_cmd);
 void	msh_exit(t_cmd_table t_cmd);
-int		msh_pwd(t_cmd_table cmd_t);
-void	msh_echo(t_cmd_table cmd_t);
-int		msh_export(t_cmd_table cmd_t);
-void	msh_bi_export(t_cmd_table cmt_t);
-int		msh_unset(t_cmd_table cmd_t);
-void	msh_bi_unset(t_cmd_table cmd_t);
-int		msh_env(t_cmd_table cmd_t);
+int		msh_pwd(t_cmd_table t_cmd);
+void	msh_echo(t_cmd_table t_cmd);
+int		msh_export(t_cmd_table t_cmd);
+void	msh_bi_export(t_cmd_table t_cmd);
+int		msh_unset(t_cmd_table t_cmd);
+void	msh_bi_unset(t_cmd_table t_cmd);
+int		msh_env(t_cmd_table t_cmd);
 
 /*
 **  Builtin helper
 */
 
-int		builtin_caller_in_parent(t_cmd_table t_cmd);
-void	builtin_caller_in_child(t_cmd_table t_cmd);
+int		builtin_caller_in_parent(t_cmd_table *t_cmd);
+void	builtin_caller_in_child(t_cmd_table *t_cmd);
 
 int		is_our_builtin(char *cmd);
 
 void	t_msh_init(void);
-void	t_cmd_table_init(t_cmd_table *cmd_t);
+void	t_cmd_table_init(t_cmd_table *t_cmd);
 
 /*
 **	pipes/input/output management
 */
 
-void	close_fd(t_cmd_table t_cmd);
-void	redirect_io(t_cmd_table t_cmd);
+void	close_fd(t_cmd_table *t_cmd);
+void	redirect_io(t_cmd_table *t_cmd);
 
-void	check_redirections(t_cmd_table *t_cmds, int t_size);
+void	exec_heredoc(t_cmd_table *t_cmd);
+
+void	check_redirections(t_cmd_table **t_cmds, int t_size);
 void	handle_input_redirect(t_cmd_table *first_t_cmd, char *path);
 void	handle_output_redirect(t_cmd_table *last_t_cmd, char *path, int mode);
-void	set_pipes(t_cmd_table *t_cmds, int t_size);
+void	set_pipes(t_cmd_table **t_cmds, int t_size);
 
 /*
 **	utility functions
@@ -160,13 +163,15 @@ void	clean_empty_arg(t_cmd_table *t_cmd);
 **	debug
 */
 
-void	print_t_cmd_table(t_cmd_table t_cmd);
+void	print_t_cmd_table(t_cmd_table *t_cmd);
+void	print_list_t_cmd_table(t_cmd_table **t_cmd);
 
 /*
 **	free and exit
 */
 
 void	free_t_cmd(t_cmd_table *t_cmd);
+void	free_array_t_cmd(t_cmd_table **t_cmds, int len_t_cmds);
 void	free_msh_and_exit(int exit_status);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/11 01:39:46 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/14 17:10:55 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	msh_cd(t_cmd_table t_cmd)
 		return (0);
 	}
 	else if (t_cmd.argc > 2)
-		ft_printf("cd: too many arguments\n");
+		printf("cd: too many arguments\n");
 	else if (chdir(t_cmd.argv[1]) < 0)
-		ft_printf("cd: no such file or directory: %s\n", t_cmd.argv[1]);
+		printf("cd: no such file or directory: %s\n", t_cmd.argv[1]);
 	g_msh.status = 1;
 	return (1);
 }
@@ -72,7 +72,7 @@ void	msh_echo(t_cmd_table t_cmd)
 	new_line = 1;
 	if (t_cmd.argc == 1)
 	{
-		ft_printf("\n");
+		printf("\n");
 		return ;
 	}
 	if (!ft_strncmp(t_cmd.argv[1], "-n", ft_strlen(t_cmd.argv[1])))
@@ -82,12 +82,12 @@ void	msh_echo(t_cmd_table t_cmd)
 	}
 	while (t_cmd.argv[i] != NULL)
 	{
-		ft_printf(t_cmd.argv[i++]);
+		ft_printf("%s", t_cmd.argv[i++]);
 		if (i < t_cmd.argc)
-			ft_printf(" ");
+			printf(" ");
 	}
 	if (new_line == 1)
-		ft_printf("\n");
+		printf("\n");
 }
 
 /*

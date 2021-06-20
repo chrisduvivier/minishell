@@ -6,12 +6,12 @@
 #    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/23 09:41:00 by cduvivie          #+#    #+#              #
-#    Updated: 2021/06/10 21:21:58 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/14 13:24:47 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CFLAGS = -Wall -Wextra -Werror -I. -c
+CFLAGS = -Wall -Wextra -Werror -I. -c -g
 
 RM = /bin/rm -f
 

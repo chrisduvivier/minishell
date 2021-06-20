@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/13 01:58:44 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/20 11:47:56 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	handle_heredoc(t_cmd_table *first_t_cmd, char *eof_str, int pipe_len)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	fd = open(TMP_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd < 0)
-		ft_printf("minishell: cannot create %s\n", TMP_FILE_NAME);
+		printf("minishell: cannot create %s\n", TMP_FILE_NAME);
 	heredoc->tmp_file_fd = fd;
 	first_t_cmd->heredoc = heredoc;
 }
@@ -73,7 +73,7 @@ void	handle_input_redirect(t_cmd_table *first_t_cmd, char *path)
 	int	fd;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_printf("minishell: cannot read %s\n", path);
+		printf("minishell: cannot read %s\n", path);
 	first_t_cmd->in_file_fd = fd;
 }
 
@@ -96,12 +96,12 @@ void	handle_output_redirect(t_cmd_table *last_t_cmd, char *path, int mode)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else
 	{
-		ft_printf("minishell: wrong file mode %s\n", path);
+		printf("minishell: wrong file mode %s\n", path);
 		return ;
 	}
 	fd = open(path, flags, 0666);
 	if (fd < 0)
-		ft_printf("minishell: cannot create %s\n", path);
+		printf("minishell: cannot create %s\n", path);
 	last_t_cmd->out_file_fd = fd;
 }
 
@@ -109,7 +109,7 @@ void	handle_output_redirect(t_cmd_table *last_t_cmd, char *path, int mode)
 **	Check for input output settings (>, <, >>)
 */
 
-void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table *t_cmds, int len)
+void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table **t_cmds, int len)
 {
 	int	i;
 	int	mode;
@@ -118,7 +118,6 @@ void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table *t_cmds, int len)
 	while (i < t_cmd->argc)
 	{
 		mode = check_mode(t_cmd->argv[i]);
-		printf("mode [%d]\n", mode);
 		if (mode == 0)
 		{
 			i++;
@@ -126,12 +125,12 @@ void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table *t_cmds, int len)
 		}
 		else if (mode == 1 || mode == 2)
 		{
-			handle_output_redirect(&t_cmds[len - 1], t_cmd->argv[i + 1], mode);
+			handle_output_redirect(t_cmds[len - 1], t_cmd->argv[i + 1], mode);
 		}
 		else if (mode == 3)
-			handle_input_redirect(&t_cmds[0], t_cmd->argv[i + 1]);
+			handle_input_redirect(t_cmds[0], t_cmd->argv[i + 1]);
 		else if (mode == 4)
-			handle_heredoc(&t_cmds[0], t_cmd->argv[i + 1], len);
+			handle_heredoc(t_cmds[0], t_cmd->argv[i + 1], len);
 		free(t_cmd->argv[i]);
 		t_cmd->argv[i++] = ft_strdup("");
 		free(t_cmd->argv[i]);
@@ -145,15 +144,15 @@ void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table *t_cmds, int len)
 **		t_size	size of the table (array of t_cmd)
 */
 
-void	check_redirections(t_cmd_table *t_cmds, int t_size)
+void	check_redirections(t_cmd_table **t_cmds, int t_size)
 {
 	int	i;
 
 	i = 0;
-	while (i < t_size)
+	while (i < t_size && t_cmds[i] != NULL)
 	{
-		set_io_redirection(&t_cmds[i], t_cmds, t_size);
-		clean_empty_arg(&t_cmds[i]);
+		set_io_redirection(t_cmds[i], t_cmds, t_size);
+		clean_empty_arg(t_cmds[i]);
 		i++;
 	}
 }
