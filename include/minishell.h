@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/20 11:45:27 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 18:53:40 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,26 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <errno.h>
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
 # include "error.h"
+
+/*
+**	struct for keeping history of minishell
+*/
+
+typedef struct s_hist {
+	int				fd;
+	char			**history;
+	unsigned int	cursor;
+}					t_hist;
+
+/*
+**	struct for heredoc `<<`
+*/
 
 typedef struct	s_heredoc {
 	char		*eof_str;
@@ -61,6 +77,7 @@ typedef struct s_msh {
 	char			**raw_cmds;
 	int				raw_cmds_len;
 	char			**env;
+	t_hist			hist;
 }				t_msh;
 
 //TOKEN
@@ -79,7 +96,9 @@ typedef struct s_msh {
 
 # define NEW_COMMAND_PROMPT "(╯°□°)╯︵ ┻━┻$> "
 # define HERE_DOC_PROMPT "> "
-# define TMP_FILE_NAME "tmp_minishell_file.txt"
+# define TMP_FILE_NAME "./.tmp_minishell_file.txt"
+# define HISTORY_MSH "./.minishell_history"
+# define HISTORY_MAX_SIZE 100
 
 void	copy_env(char **envp);
 void	prompt(void);
@@ -158,6 +177,17 @@ void	set_pipes(t_cmd_table **t_cmds, int t_size);
 */
 
 void	clean_empty_arg(t_cmd_table *t_cmd);
+int		is_empty_str(const char *str);
+
+/*
+**	fuctions for history functionality
+*/
+
+int		open_history_file(void);
+void	add_command_to_history(const char *command);
+void	create_hist_list(t_hist *hist);
+void	write_history_file(int fd);
+void	update_history_file(void);
 
 /*
 **	debug
@@ -173,5 +203,6 @@ void	print_list_t_cmd_table(t_cmd_table **t_cmd);
 void	free_t_cmd(t_cmd_table *t_cmd);
 void	free_array_t_cmd(t_cmd_table **t_cmds, int len_t_cmds);
 void	free_msh_and_exit(int exit_status);
+void	free_array_str(char **s, int len);
 
 #endif

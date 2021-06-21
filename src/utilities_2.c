@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:16:31 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/11 15:57:26 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 16:25:47 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,24 @@ void	free_split(char **strs)
 	}
 	free(strs);
 	strs = NULL;
+}
+
+/*
+**	1 if string contains a non empty char
+*/
+
+int	is_empty_str(const char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]) == 0)
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }

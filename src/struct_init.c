@@ -6,13 +6,26 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/12 17:20:00 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 15:46:18 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_msh	g_msh;
+
+void	init_t_hist(t_hist *hist)
+{
+	hist->fd = open_history_file();
+	if (hist->fd < 0)
+		printf("error: failed to get history_file\n");
+	hist->cursor = 0;
+	hist->history = (char **)ft_calloc((HISTORY_MAX_SIZE), sizeof(char *));
+	if (hist->history == NULL)
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
+	create_hist_list(hist);
+	close(hist->fd);
+}
 
 /*
  **	initialize global var g_msh
@@ -26,6 +39,7 @@ void	t_msh_init(void)
 	g_msh.raw_cmds = NULL;
 	g_msh.raw_cmds_len = 0;
 	g_msh.env = NULL;
+	init_t_hist(&g_msh.hist);
 }
 
 void	t_cmd_table_init(t_cmd_table *cmd_t)

@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/15 12:26:19 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/21 14:06:42 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS		:=	main.c \
 				./src/export_bis.c \
 				./src/unset.c \
 				./src/signals.c \
+				./src/history.c \
 
 OBJ			:=	$(SRCS:%.c=%.o)
 

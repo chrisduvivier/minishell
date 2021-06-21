@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/20 11:49:24 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 18:52:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ void	get_cmd(char **full_cmd)
 	int		ret;
 	char	temp[1];
 
-	ret = get_next_line(0, full_cmd);
+	ret = get_next_line(STDIN_FILENO, full_cmd);
 	if (ret == 0 && ft_strlen(*full_cmd) == 0)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		free(*full_cmd);
-		free_env(g_msh.env);
-		exit(EXIT_SUCCESS);
+		free_msh_and_exit(EXIT_SUCCESS);
 	}
 	while (ret == 0)
 	{
@@ -166,13 +165,24 @@ void	prompt(void)
 		ft_putstr_fd(NEW_COMMAND_PROMPT, STDOUT_FILENO);
 		handle_signals();
 		get_cmd(&full_cmd);
+		add_command_to_history(full_cmd);
 		full_cmd = code_cmd(full_cmd);
 		full_cmd = remove_space(full_cmd);
 		g_msh.status = 0;
 		syntaxe_cmd(full_cmd);
 		full_cmd = clean_cmd(full_cmd);
 		if (g_msh.status == 0)
+		{
 			split_command(full_cmd);
+			// if (g_msh.raw_cmds_len > 0 && g_msh.raw_cmds != NULL)
+			// 	free_array_str(g_msh.raw_cmds, g_msh.raw_cmds_len);
+			// if (g_msh.t_cmds_len > 0)
+			// 	free_array_t_cmd(g_msh.t_cmds, g_msh.t_cmds_len);
+			g_msh.raw_cmds_len = 0;
+			g_msh.raw_cmds = NULL;
+			g_msh.t_cmds_len = 0;
+			g_msh.t_cmds = NULL;
+		}
 		else
 			free(full_cmd);
 	}

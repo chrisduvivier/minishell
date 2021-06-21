@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/14 16:31:40 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 18:13:51 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,8 @@ void	free_array_str(char **s, int len)
 	i = 0;
 	while (i < len)
 	{
-		if (s[i])
-		{
-			free(s[i]);
-			s[i] = NULL;
-		}
+		free(s[i]);
+		s[i] = NULL;
 		i++;
 	}
 }
@@ -89,6 +86,7 @@ void	free_msh_and_exit(int exit_status)
 		free_array_str(g_msh.raw_cmds, g_msh.raw_cmds_len);
 	if (g_msh.t_cmds_len > 0)
 		free_array_t_cmd(g_msh.t_cmds, g_msh.t_cmds_len);
+	update_history_file();
 	if (exit_status == 0 && g_msh.status != 0)
 		exit(g_msh.status);
 	else
