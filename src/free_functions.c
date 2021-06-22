@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/21 18:13:51 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 20:02:02 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_array_t_cmd(t_cmd_table **t_cmds, int len_t_cmds)
 	int i;
 
 	i = 0;
-	while (i < len_t_cmds)
+	while (i <= len_t_cmds)
 	{
 		if (t_cmds)
 		{

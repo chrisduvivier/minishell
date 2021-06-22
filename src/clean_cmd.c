@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:42:55 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 16:06:22 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ char	*remove_space(char *full_cmd)
 	int		i;
 
 	i = 0;
-	while (full_cmd[i] == SPACE)
+	while (full_cmd[i] == SPACE_TOK)
 		full_cmd[i++] = SPACERM;
 	while (full_cmd[i] != 0)
 	{
 		if (full_cmd[i] == PIPE || full_cmd[i] == SEMICOLON)
 		{
 			i++;
-			while (full_cmd[i] == SPACE && full_cmd[i])
+			while (full_cmd[i] == SPACE_TOK && full_cmd[i])
 				full_cmd[i++] = SPACERM;
 		}
 		else

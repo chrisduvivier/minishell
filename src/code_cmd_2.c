@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   code_cmd_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:25:03 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 18:35:56 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*handle_space(int *i, char *full_cmd, int *sq, int *dq)
 {
 	if ((*sq % 2) == 0 && (*dq % 2) == 0)
 	{
-		full_cmd[*i] = SPACE;
+		full_cmd[*i] = SPACE_TOK;
 	}
 	return (full_cmd);
 }

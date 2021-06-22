@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   code_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 18:24:09 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_token(char c)
 	else if (c == '>')
 		return (RCHEVRON);
 	else if (c == ' ')
-		return (SPACE);
+		return (SPACE_TOK);
 	return (0);
 }
 
@@ -58,7 +58,7 @@ char	*check_token_in_cmd(int *i, char *full_cmd, int *sq, int *dq)
 		full_cmd = handle_lchevron(i, full_cmd, sq, dq);
 	else if (token == RCHEVRON)
 		full_cmd = handle_rchevron(i, full_cmd, sq, dq);
-	else if (token == SPACE)
+	else if (token == SPACE_TOK)
 		full_cmd = handle_space(i, full_cmd, sq, dq);
 	return (full_cmd);
 }

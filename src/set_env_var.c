@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 23:15:22 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_space(char *str)
 	while (str && str[i])
 	{
 		if (str[i] == ' ')
-			str[i] = SPACE;
+			str[i] = SPACE_TOK;
 		i++;
 	}
 }

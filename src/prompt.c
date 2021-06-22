@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 18:52:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 23:07:37 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_cmd_table	*fill_cmd_table(char *cmd)
 	if (!t_cmd)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	t_cmd_table_init(t_cmd);
-	tokens = ft_split(cmd, SPACE);
+	tokens = ft_split(cmd, SPACE_TOK);
 	j = 0;
 	while (tokens[j] != NULL)
 		j++;
@@ -138,7 +138,7 @@ void	split_command(char *full_cmd)
 		j = 0;
 		while (t_cmds[j] && t_cmds[j]->argc > 0 && t_cmds[j]->argv[0] != NULL)
 		{
-			print_t_cmd_table(t_cmds[j]);
+			// print_t_cmd_table(t_cmds[j]); while debugging now
 			exec_cmd(t_cmds[j]);
 			j++;
 		}
@@ -174,10 +174,6 @@ void	prompt(void)
 		if (g_msh.status == 0)
 		{
 			split_command(full_cmd);
-			// if (g_msh.raw_cmds_len > 0 && g_msh.raw_cmds != NULL)
-			// 	free_array_str(g_msh.raw_cmds, g_msh.raw_cmds_len);
-			// if (g_msh.t_cmds_len > 0)
-			// 	free_array_t_cmd(g_msh.t_cmds, g_msh.t_cmds_len);
 			g_msh.raw_cmds_len = 0;
 			g_msh.raw_cmds = NULL;
 			g_msh.t_cmds_len = 0;

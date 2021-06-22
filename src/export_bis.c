@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_bis.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 15:27:35 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 16:14:22 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	append_var_to_env(char *key, char *value)
 	i = 0;
 	while (i < (int)ft_strlen(temp))
 	{
-		if (temp[i] == SPACE)
+		if (temp[i] == SPACE_TOK)
 			temp[i] = ' ';
 		i++;
 	}

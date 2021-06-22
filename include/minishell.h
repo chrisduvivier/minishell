@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 18:53:40 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
@@ -90,7 +92,7 @@ typedef struct s_msh {
 # define LCHEVRON -7
 # define RCHEVRON -8
 # define SPACERM -9
-# define SPACE -10
+# define SPACE_TOK -10
 
 # define MALLOC_FAILURE 1
 

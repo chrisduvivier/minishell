@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 11:22:00 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/21 19:03:47 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 19:19:45 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	write_history_file(int fd)
 		i++;
 	}
 }
-
 
 /*
 **	 Exit function for history file

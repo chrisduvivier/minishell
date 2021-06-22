@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/13 01:44:31 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	next_to_chevron(char *full_cmd, int i)
 	if (full_cmd[i] == RCHEVRON && full_cmd[i - 1] == RCHEVRON
 		&& full_cmd[i + 1] == RCHEVRON)
 		return (5);
-	while (full_cmd[i] == SPACE || full_cmd[i] == SEMICOLON)
+	while (full_cmd[i] == SPACE_TOK || full_cmd[i] == SEMICOLON)
 		i++;
-	if (full_cmd[i - 1] == SPACE && !full_cmd[i])
+	if (full_cmd[i - 1] == SPACE_TOK && !full_cmd[i])
 		return (1);
 	if (full_cmd[i - 1] == SEMICOLON && !full_cmd[i])
 		return (2);
