@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:31 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/11 00:45:58 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 01:25:49 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clean_empty_arg(t_cmd_table *t_cmd)
 	}
 	new_argv = (char **)ft_calloc(count + 1, sizeof(char *));
 	if (!new_argv)
-		exit(1);
+		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	i = 0;
 	count = 0;
 	while (i < t_cmd->argc)

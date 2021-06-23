@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/21 20:02:02 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 14:55:01 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ void	free_msh_and_exit(int exit_status)
 	if (g_msh.t_cmds_len > 0)
 		free_array_t_cmd(g_msh.t_cmds, g_msh.t_cmds_len);
 	update_history_file();
-	if (exit_status == 0 && g_msh.status != 0)
+	if (exit_status == EXIT_SUCCESS && g_msh.status != 0)
+	{
 		exit(g_msh.status);
+	}
 	else
 	{
 		g_msh.status = exit_status;

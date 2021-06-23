@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/21 14:06:42 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/23 14:56:20 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ all			:	$(NAME)
 	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE)
 
 $(NAME)		:	$(OBJ) $(LIBFT)
-	@ $(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME) $(LIBFT)
+	@ $(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME) $(LIBFT) -lreadline
 
 $(LIBFT)	:
 	@ $(MAKE) -C ./libft

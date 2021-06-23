@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/15 12:25:15 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 22:46:25 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	set_cmd_abs_path(t_cmd_table *t_cmd)
 	struct stat	buf;
 
 	i = 0;
-	if (t_cmd->cmd[0] == '.' || ft_strncmp(t_cmd->cmd, "./", 2) == 0)
+	if (t_cmd->cmd[0] == '/' || ft_strncmp(t_cmd->cmd, "./", 2) == 0)
 		return (get_cmd_reltive_path(t_cmd));
 	path = find_var("PATH");
 	list_path = ft_split(path, ':');
@@ -107,9 +107,9 @@ void	exec_with_process(t_cmd_table *t_cmd)
 {
 	int		exec_res;
 
-	redirect_io(t_cmd);
 	if (t_cmd->heredoc != NULL)
 		exec_heredoc(t_cmd);
+	redirect_io(t_cmd);
 	if (is_our_builtin(t_cmd->cmd))
 		return (builtin_caller_in_child(t_cmd));
 	set_cmd_abs_path(t_cmd);
@@ -122,7 +122,8 @@ void	exec_with_process(t_cmd_table *t_cmd)
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(t_cmd->cmd, STDERR_FILENO);
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		exit(127);
+		g_msh.status = CMD_NOTFOUND;
+		exit(CMD_NOTFOUND);
 	}
 }
 
@@ -138,6 +139,7 @@ void	exec_with_process(t_cmd_table *t_cmd)
 int	exec_cmd(t_cmd_table *t_cmd)
 {
 	pid_t	pid;
+	int		status;
 
 	if (builtin_caller_in_parent(t_cmd))
 	{
@@ -149,13 +151,14 @@ int	exec_cmd(t_cmd_table *t_cmd)
 	if (pid < 0)
 	{
 		ft_putstr_fd("minishell: fork error\n", STDERR_FILENO);
-		exit(127);
+		exit(CMD_NOTFOUND);
 	}
 	else if (pid > 0)
 	{
 		g_msh.pid = pid;
-		while (wait(&g_msh.pid) > 0)
-			(void)g_msh.pid;
+		waitpid(pid, &status, 0);
+		if ( WIFEXITED(status) )
+			g_msh.status = WEXITSTATUS(status);
 	}
 	else
 		exec_with_process(t_cmd);

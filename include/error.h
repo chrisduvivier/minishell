@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:23:00 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/09 17:36:35 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 01:22:47 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@
 # define SIGN_BSLACH 131
 # define MALLOC_FAILED 404
 # define CMD_EXIT_ARG_FAILURE 255
-# define CMD_NF 127
+# define CMD_NOTFOUND 127
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 11:22:00 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/21 19:19:45 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 00:38:33 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	create_hist_list(t_hist *hist)
 		{
 			hist->history[hist->cursor] = ft_strdup(cmd);
 			hist->cursor++;
+			add_history(cmd);
 		}
 		free(cmd);
 		cmd = NULL;

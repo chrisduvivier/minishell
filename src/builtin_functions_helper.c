@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:42:39 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/15 11:19:27 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 01:21:33 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ void	builtin_caller_in_child(t_cmd_table *t_cmd)
 		msh_pwd(*t_cmd);
 	else if (ft_strcmp(t_cmd->cmd, "env") == 0)
 		msh_env(*t_cmd);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/14 17:10:55 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 12:07:16 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	msh_cd(t_cmd_table t_cmd)
 		path = find_var("HOME");
 		chdir(path);
 		free(path);
-		g_msh.status = 0;
-		return (0);
+		g_msh.status = EXIT_SUCCESS;
+		return (EXIT_SUCCESS);
 	}
 	else if (t_cmd.argc > 2)
 		printf("cd: too many arguments\n");
 	else if (chdir(t_cmd.argv[1]) < 0)
 		printf("cd: no such file or directory: %s\n", t_cmd.argv[1]);
-	g_msh.status = 1;
-	return (1);
+	g_msh.status = EXIT_FAILURE;
+	return (EXIT_FAILURE);
 }
 
 /*
@@ -104,6 +104,6 @@ int	msh_pwd(t_cmd_table t_cmd)
 	ptr = getcwd(ptr, 0);
 	ft_putstr_fd(ptr, t_cmd.out_file_fd);
 	ft_putchar_fd('\n', t_cmd.out_file_fd);
-	g_msh.status = 0;
-	return (0);
+	g_msh.status = EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
