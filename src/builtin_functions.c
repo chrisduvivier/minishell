@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/23 12:07:16 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 21:53:09 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ int	msh_pwd(t_cmd_table t_cmd)
 	ft_putstr_fd(ptr, t_cmd.out_file_fd);
 	ft_putchar_fd('\n', t_cmd.out_file_fd);
 	g_msh.status = EXIT_SUCCESS;
+	free(ptr);
 	return (EXIT_SUCCESS);
 }

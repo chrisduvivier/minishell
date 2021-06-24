@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 10:46:21 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/10 23:21:49 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 21:24:10 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
+/*
+**	Assumes that the array of string is fill with non NULL str
+**	except teh last element.
+*/
 
 size_t	ft_str_array_len(const char **s)
 {
