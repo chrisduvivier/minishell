@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:25:32 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/10 15:44:24 by rlinkov          ###   ########.fr       */
+/*   Updated: 2021/06/24 00:05:12 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_msh	g_msh;
+
+/*
+**	Prints out error message and set the status of the error to the
+**	global status variable. Only call exit in case of memory allocation error.
+*/
 
 void	handle_error(char *err_tag, int status)
 {

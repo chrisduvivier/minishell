@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:23:00 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/23 01:22:47 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:53:58 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 # define RED "\033[0;31m"
 # define RESET "\033[0m"
 
-# define ERR_MULTILINE "msh : multiline detected !"
-# define ERR_PARS_PIPE "msh : syntax error near unexpected token `|'"
-# define ERR_PARS_SEMI "msh : syntax error near unexpected token `;'"
-# define ERR_MALLOC "msh : error while allocating memory with malloc(3)"
-# define ERR_PARS_NL "msh: syntax error near unexpected token `newline'"
-# define ERR_PARS_LC "msh: syntax error near unexpected token `<'"
-# define ERR_PARS_RC "msh: syntax error near unexpected token `>'"
-# define ERR_PARS_RRC "msh: syntax error near unexpected token `>>'"
-# define SYNT_ERR 258
+# define ERR_MULTILINE "minishell: multiline detected !"
+# define ERR_PARS_PIPE "minishell: syntax error near unexpected token `|'"
+# define ERR_PARS_SEMI "minishell: syntax error near unexpected token `;'"
+# define ERR_MALLOC "minishell: error while allocating memory with malloc(3)"
+# define ERR_PARS_NL "minishell: syntax error near unexpected token `newline'"
+# define ERR_PARS_LC "minishell: syntax error near unexpected token `<'"
+# define ERR_PARS_RC "minishell: syntax error near unexpected token `>'"
+# define ERR_PARS_RRC "minishell: syntax error near unexpected token `>>'"
+# define SYNTAX_ERR 2
 # define SIGN_C 130
 # define SIGN_BSLACH 131
-# define MALLOC_FAILED 404
-# define CMD_EXIT_ARG_FAILURE 255
+# define MALLOC_FAILED 1
+# define CMD_EXIT_ARG_FAILURE 2
 # define CMD_NOTFOUND 127
 
 #endif

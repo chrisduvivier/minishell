@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/20 11:47:56 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/23 23:53:15 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ extern t_msh	g_msh;
 /*
 **	Check if string cmd is one of the fd redirection.
 **	Supports: `>` `>>` `<` `<<`
-**	Mode:	   1   2    3   4
 */
 
 int	check_mode(char *cmd)
@@ -27,18 +26,18 @@ int	check_mode(char *cmd)
 	mode = 0;
 	if (*cmd == RCHEVRON)
 	{
-		mode = 1;
+		mode = RCHEVRON;
 		if (ft_strlen(cmd) == 2 && cmd[1] == RCHEVRON)
 		{
-			mode = 2;
+			mode = DOUBLE_RCHEVRON;
 		}
 	}
 	else if (*cmd == LCHEVRON)
 	{
-		mode = 3;
+		mode = LCHEVRON;
 		if (ft_strlen(cmd) == 2 && cmd[1] == LCHEVRON)
 		{
-			mode = 4;
+			mode = DOUBLE_LCHEVRON;
 		}
 	}
 	return (mode);
@@ -80,7 +79,6 @@ void	handle_input_redirect(t_cmd_table *first_t_cmd, char *path)
 /*
 **	@params:
 **		path: the name of the file to open/create
-**		mode: 1 for '>', 2 for '>>'.
 **
 **		0666: to give permission 
 */
@@ -90,9 +88,9 @@ void	handle_output_redirect(t_cmd_table *last_t_cmd, char *path, int mode)
 	int	flags;
 	int	fd;
 
-	if (mode == 1)
+	if (mode == RCHEVRON)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
-	else if (mode == 2)
+	else if (mode == DOUBLE_RCHEVRON)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
 	else
 	{
@@ -123,13 +121,13 @@ void	set_io_redirection(t_cmd_table *t_cmd, t_cmd_table **t_cmds, int len)
 			i++;
 			continue ;
 		}
-		else if (mode == 1 || mode == 2)
+		else if (mode == RCHEVRON || mode == DOUBLE_RCHEVRON)
 		{
 			handle_output_redirect(t_cmds[len - 1], t_cmd->argv[i + 1], mode);
 		}
-		else if (mode == 3)
+		else if (mode == LCHEVRON)
 			handle_input_redirect(t_cmds[0], t_cmd->argv[i + 1]);
-		else if (mode == 4)
+		else if (mode == DOUBLE_LCHEVRON)
 			handle_heredoc(t_cmds[0], t_cmd->argv[i + 1], len);
 		free(t_cmd->argv[i]);
 		t_cmd->argv[i++] = ft_strdup("");

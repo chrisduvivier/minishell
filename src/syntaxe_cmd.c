@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:13:41 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:53:58 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ void	check_part_two(char *full_cmd, int i)
 	if (full_cmd[i] == LCHEVRON || full_cmd[i] == RCHEVRON)
 	{
 		if (next_to_chevron(full_cmd, i) == 1)
-			handle_error(ERR_PARS_NL, SYNT_ERR);
+			handle_error(ERR_PARS_NL, SYNTAX_ERR);
 		else if (next_to_chevron(full_cmd, i) == 2)
-			handle_error(ERR_PARS_SEMI, SYNT_ERR);
+			handle_error(ERR_PARS_SEMI, SYNTAX_ERR);
 		else if (next_to_chevron(full_cmd, i) == 3)
-			handle_error(ERR_PARS_LC, SYNT_ERR);
+			handle_error(ERR_PARS_LC, SYNTAX_ERR);
 		else if (next_to_chevron(full_cmd, i) == 4)
-			handle_error(ERR_PARS_RC, SYNT_ERR);
+			handle_error(ERR_PARS_RC, SYNTAX_ERR);
 		else if (next_to_chevron(full_cmd, i) == 5)
-			handle_error(ERR_PARS_RRC, SYNT_ERR);
+			handle_error(ERR_PARS_RRC, SYNTAX_ERR);
 	}
 }
 
@@ -78,16 +78,16 @@ void	check_part_one(char *full_cmd, int i, int *sq, int *dq)
 	if (full_cmd[i] == PIPE)
 	{
 		if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == PIPE)
-			handle_error(ERR_PARS_PIPE, SYNT_ERR);
+			handle_error(ERR_PARS_PIPE, SYNTAX_ERR);
 		if (full_cmd[i + 1] == 0)
-			handle_error(ERR_MULTILINE, SYNT_ERR);
+			handle_error(ERR_MULTILINE, SYNTAX_ERR);
 		if (full_cmd[i - 1] == SEMICOLON)
-			handle_error(ERR_PARS_PIPE, SYNT_ERR);
+			handle_error(ERR_PARS_PIPE, SYNTAX_ERR);
 	}
 	if (full_cmd[i] == SEMICOLON)
 	{
 		if (full_cmd[i + 1] != 0 && full_cmd[i + 1] == SEMICOLON)
-			handle_error(ERR_PARS_SEMI, SYNT_ERR);
+			handle_error(ERR_PARS_SEMI, SYNTAX_ERR);
 	}
 }
 
@@ -103,9 +103,9 @@ void	syntaxe_cmd(char *full_cmd)
 	if (i == 0)
 	{
 		if (full_cmd[i] == PIPE)
-			handle_error(ERR_PARS_PIPE, SYNT_ERR);
+			handle_error(ERR_PARS_PIPE, SYNTAX_ERR);
 		else if (full_cmd[i] == SEMICOLON)
-			handle_error(ERR_PARS_SEMI, SYNT_ERR);
+			handle_error(ERR_PARS_SEMI, SYNTAX_ERR);
 	}
 	while (full_cmd[i] != 0 && g_msh.status == 0)
 	{
@@ -114,5 +114,5 @@ void	syntaxe_cmd(char *full_cmd)
 		i++;
 	}
 	if ((sq % 2) != 0 || (dq % 2) != 0)
-		handle_error(ERR_MULTILINE, SYNT_ERR);
+		handle_error(ERR_MULTILINE, SYNTAX_ERR);
 }

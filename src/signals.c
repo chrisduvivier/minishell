@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:18:15 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/23 21:25:00 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 14:02:43 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,23 @@
 extern t_msh	g_msh;
 
 /*
-** Catch the signal sent by the user when CTRL + C is typed
+**	Catch the signal sent by the user when CTRL + C is typed
+**	Whenever signal detected in get_cmd, it clears the line and reset
+**	its content.
 */
 
 void	handle_ctrl_c(int signal)
 {
+	g_msh.status = 130;
 	printf("\n");
 	if (!g_msh.pid)
 	{
-		g_msh.status = 130;
+		rl_replace_line("", 0);
+		rl_redisplay();
 		ft_putstr_fd(NEW_COMMAND_PROMPT, STDOUT_FILENO);
 	}
 	else
-	{
-		g_msh.status = 130;
 		kill(g_msh.pid, signal);
-	}
 }
 
 /*

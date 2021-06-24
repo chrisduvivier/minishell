@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/23 13:15:08 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 12:53:58 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ void	split_command(char *full_cmd)
 }
 
 /*
- **	Prompt new line in shell
- **	
+ **	Prompt new line in shell.
+ ** reset of status to 0 done after any insert of `echo $?`.
  */
 
 void	prompt(void)
@@ -160,10 +160,12 @@ void	prompt(void)
 		get_cmd(&full_cmd);
 		add_command_to_history(full_cmd);
 		full_cmd = code_cmd(full_cmd);
+		g_msh.status = 0;
 		full_cmd = remove_space(full_cmd);
 		syntaxe_cmd(full_cmd);
 		full_cmd = clean_cmd(full_cmd);
-		g_msh.status = 0;	
+		if (g_msh.status == SYNTAX_ERR)
+			continue ;
 		split_command(full_cmd);
 		g_msh.raw_cmds_len = 0;
 		g_msh.raw_cmds = NULL;

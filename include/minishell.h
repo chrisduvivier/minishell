@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 14:08:27 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct s_msh {
 # define RCHEVRON -8
 # define SPACERM -9
 # define SPACE_TOK -10
+# define DOUBLE_LCHEVRON -11
+# define DOUBLE_RCHEVRON -12
 
 # define MALLOC_FAILURE 1
 
