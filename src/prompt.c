@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/24 12:53:58 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/24 22:08:56 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,14 @@ t_cmd_table	*fill_cmd_table(char *cmd)
 {
 	t_cmd_table	*t_cmd;
 	char		**tokens;
-	int			j;
+	size_t		j;
 
 	t_cmd = malloc(sizeof(t_cmd_table));
 	if (!t_cmd)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	t_cmd_table_init(t_cmd);
 	tokens = ft_split(cmd, SPACE_TOK);
-	j = 0;
-	while (tokens[j] != NULL)
-		j++;
+	j = ft_str_array_len((const char **)tokens);
 	t_cmd->argc = j;
 	t_cmd->argv = (char **)ft_calloc(j + 1, sizeof(char *));
 	if (!t_cmd->argv)
@@ -82,10 +80,8 @@ t_cmd_table	**handle_pipes(char *piped_command)
 	t_cmd_table	**t_cmds;
 	int			i;
 
-	len_cmds = 0;
 	single_cmds = ft_split(piped_command, PIPE);
-	while (single_cmds[len_cmds] != NULL)
-		len_cmds++;
+	len_cmds = ft_str_array_len((const char **)single_cmds);
 	t_cmds = (t_cmd_table **)ft_calloc(len_cmds + 1, sizeof(t_cmd_table *));
 	if (t_cmds == NULL)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);

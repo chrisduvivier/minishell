@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 14:13:53 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 02:06:37 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*code_cmd(char *full_cmd)
 	i = 0;
 	simple_quote = 0;
 	double_quote = 0;
-	while (full_cmd[i] != 0)
+	while (full_cmd[i])
 	{
 		if (is_token(full_cmd[i]) != 0)
 			full_cmd = check_token(&i, full_cmd, &simple_quote, &double_quote);

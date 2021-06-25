@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:31 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/23 01:25:49 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 02:16:15 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,33 @@ extern t_msh	g_msh;
 void	clean_empty_arg(t_cmd_table *t_cmd)
 {
 	char	**new_argv;
-	int		count;
+	size_t	count;
 	int		i;
 
-	i = -1;
+	i = 0;
 	count = 0;
-	while (++i < t_cmd->argc)
+	while (i < t_cmd->argc)
 	{
-		if (t_cmd->argv[i][0] != '\0')
+		if (t_cmd->argv[i] && ft_strlen(t_cmd->argv[i]) > 0)
 			count++;
+		i++;
 	}
 	new_argv = (char **)ft_calloc(count + 1, sizeof(char *));
 	if (!new_argv)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	i = 0;
 	count = 0;
-	while (i < t_cmd->argc)
+	while (i <= t_cmd->argc)
 	{
-		if (t_cmd->argv[i] != NULL && t_cmd->argv[i][0] != '\0')
+		if (t_cmd->argv[i] && ft_strlen(t_cmd->argv[i]) > 0)
+		{
 			new_argv[count++] = ft_strdup(t_cmd->argv[i]);
-		free(t_cmd->argv[i++]);
+		}
+		free(t_cmd->argv[i]);
+		i++;
 	}
 	new_argv[count] = NULL;
+	free(t_cmd->argv);
 	t_cmd->argv = new_argv;
 	t_cmd->argc = count;
 }

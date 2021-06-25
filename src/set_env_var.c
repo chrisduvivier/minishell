@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 21:38:11 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 02:24:41 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,19 @@ char	*rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name, int al
 	int		i;
 	int		j;
 
-	new_cmd = malloc(ft_strlen(var) - len_var_name + ft_strlen(full_cmd) + 1);
+	new_cmd = ft_calloc(ft_strlen(var) - len_var_name + ft_strlen(full_cmd) + 2, sizeof(char));
 	i = -1;
 	while (i++ < pos_i - 1)
 		new_cmd[i] = full_cmd[i];
 	while (var && *var)
 	{
-		new_cmd[i] = *var;
+		new_cmd[i++] = *var;
 		var++;
-		i++;
 	}
 	j = 0;
 	while (full_cmd[pos_i + len_var_name + j])
 	{
-		new_cmd[i] = full_cmd[pos_i + len_var_name + j];
-		i++;
-		j++;
+		new_cmd[i++] = full_cmd[pos_i + len_var_name + j++];
 	}
 	new_cmd[i] = '\0';
 	if (alloc)

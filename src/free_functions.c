@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/23 14:55:01 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 02:29:52 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@ void	free_t_cmd(t_cmd_table *t_cmd)
 		t_cmd->argv[i] = NULL;
 		i++;
 	}
-	if (t_cmd->argv != NULL)
+	if (t_cmd->argc > 0 || t_cmd->argv != NULL)
 	{
 		free(t_cmd->argv);
 		t_cmd->argv = NULL;
 	}
 	if (t_cmd->heredoc != NULL)
 	{
+		free(t_cmd->heredoc->eof_str);
 		free(t_cmd->heredoc);
 		t_cmd->heredoc = NULL;
 	}
+	free(t_cmd);
 }
 
 void	free_array_t_cmd(t_cmd_table **t_cmds, int len_t_cmds)
