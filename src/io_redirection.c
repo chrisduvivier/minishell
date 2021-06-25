@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/25 19:32:58 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/26 00:33:02 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	handle_output_redirect(t_cmd_table *last_t_cmd, char *path, int mode)
 	else
 	{
 		handle_error("minishell: error\n", EXIT_FAILURE);
+		return ;
 	}
 	fd = open(path, flags, 0666);
 	if (fd < 0)
