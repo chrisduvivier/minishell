@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/24 22:30:16 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:39:06 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_hist {
 **	struct for heredoc `<<`
 */
 
-typedef struct	s_heredoc {
+typedef struct s_heredoc {
 	char		*eof_str;
 	int			pipe_len;
 	int			tmp_file_fd;
@@ -170,6 +170,7 @@ void	close_fd(t_cmd_table *t_cmd);
 void	redirect_io(t_cmd_table *t_cmd);
 
 void	exec_heredoc(t_cmd_table *t_cmd);
+void	handle_heredoc(t_cmd_table *first_t_cmd, char *eof_str, int pipe_len);
 
 void	check_redirections(t_cmd_table **t_cmds, int t_size);
 void	handle_input_redirect(t_cmd_table *first_t_cmd, char *path);
@@ -182,6 +183,9 @@ void	set_pipes(t_cmd_table **t_cmds, int t_size);
 
 void	clean_empty_arg(t_cmd_table *t_cmd);
 int		is_empty_str(const char *str);
+void	exec_cmd_helper(int pid);
+void	free_array_str(char **s, int len);
+void	fill_t_cmd_argv(t_cmd_table	*t_cmd, char **tokens);
 
 /*
 **	fuctions for history functionality

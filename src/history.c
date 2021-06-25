@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 11:22:00 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/23 00:38:33 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:43:21 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ extern t_msh	g_msh;
 
 int	open_history_file(void)
 {
-	int fd;
+	int	fd;
 
 	fd = open(HISTORY_MSH, O_CREAT | O_RDWR | O_EXCL, S_IRUSR | S_IWUSR);
 	if (fd < 0)
@@ -70,8 +70,8 @@ void	create_hist_list(t_hist *hist)
 
 void	add_command_to_history(const char *command)
 {
-	unsigned int index;
-	
+	unsigned int	index;
+
 	if (is_empty_str(command) == 0 || *command == '\n' || *command == '\0')
 		return ;
 	index = (g_msh.hist.cursor % HISTORY_MAX_SIZE);
@@ -90,9 +90,9 @@ void	add_command_to_history(const char *command)
 
 void	write_history_file(int fd)
 {
-	int i;
-	int n;
-	
+	int	i;
+	int	n;
+
 	n = HISTORY_MAX_SIZE;
 	i = g_msh.hist.cursor;
 	while (n-- > 0)
@@ -115,7 +115,7 @@ void	write_history_file(int fd)
 void	update_history_file(void)
 {
 	int	fd;
-	
+
 	fd = open(HISTORY_MSH, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd < 0)
 		printf("error: failed to update history file\n");

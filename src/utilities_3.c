@@ -1,43 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 10:46:21 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/25 14:09:19 by cduvivie         ###   ########.fr       */
+/*   Created: 2021/06/25 19:06:37 by cduvivie          #+#    #+#             */
+/*   Updated: 2021/06/25 19:39:21 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *s)
+extern t_msh	g_msh;
+
+void	free_array_str(char **s, int len)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (s[i])
+	while (i < len)
+	{
+		free(s[i]);
+		s[i] = NULL;
 		i++;
-	return (i);
+	}
 }
 
-/*
-**	Assumes that the array of string is fill with non NULL str
-**	except teh last element.
-*/
-
-size_t	ft_str_array_len(const char **s)
+void	fill_t_cmd_argv(t_cmd_table	*t_cmd, char **tokens)
 {
-	size_t	i;
+	size_t	j;
 
-	i = 0;
-	if (s)
+	j = 0;
+	while (tokens[j] != NULL)
 	{
-		while (s[i] != NULL)
-		{
-			i++;
-		}
+		t_cmd->argv[j] = ft_strdup(tokens[j]);
+		if (!t_cmd->argv[j])
+			handle_error(ERR_MALLOC, MALLOC_FAILED);
+		if (j == 0 && t_cmd->cmd == NULL)
+			t_cmd->cmd = ft_strdup(tokens[0]);
+		j++;
 	}
-	return (i);
 }

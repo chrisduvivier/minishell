@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/23 14:56:20 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/25 19:07:33 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS		:=	main.c \
 				./src/prompt.c \
 				./src/syntaxe_cmd.c \
 				./src/exec.c \
-				./src/exec_heredoc.c \
+				./src/heredoc.c \
 				./src/builtin_functions.c \
 				./src/builtin_functions2.c \
 				./src/builtin_functions_helper.c \
@@ -42,6 +42,7 @@ SRCS		:=	main.c \
 				./src/handle_pipe.c \
 				./src/utilities_1.c \
 				./src/utilities_2.c \
+				./src/utilities_3.c \
 				./src/export.c \
 				./src/export_bis.c \
 				./src/unset.c \

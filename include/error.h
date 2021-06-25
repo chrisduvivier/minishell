@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 13:23:00 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/24 12:53:58 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:25:28 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define SYNTAX_ERR 2
 # define SIGN_C 130
 # define SIGN_BSLACH 131
-# define MALLOC_FAILED 1
+# define MALLOC_FAILED -100
 # define CMD_EXIT_ARG_FAILURE 2
 # define CMD_NOTFOUND 127
 

@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:17:26 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/21 21:23:39 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:42:30 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,12 @@ void	print_list_t_cmd_table(t_cmd_table **t_cmds)
 
 	i = 0;
 	ft_printf("############## DEBUG:print_list_t_cmd_table ###############\n");
-
 	while (t_cmds[i])
 	{
 		print_t_cmd_table(t_cmds[i]);
 		i++;
 	}
 	ft_printf("###########################################################\n");
-
 }
 
 void	print_t_cmd_table(t_cmd_table *t_cmd)
@@ -52,16 +50,10 @@ void	print_t_cmd_table(t_cmd_table *t_cmd)
 	i = 0;
 	color_set_yellow();
 	ft_printf("========== DEBUG:print_t_cmd_table ==========\n");
-	if (t_cmd->cmd)
-		ft_printf("cmd			:[%s]\n", t_cmd->cmd);
-	else
-		ft_printf("cmd			:[NULL]\n");
-	if (t_cmd->cmd_abs_path)
-		ft_printf("cmd_abs_path		:[%s]\n", t_cmd->cmd_abs_path);
-	else
-		ft_printf("cmd_abs_path		:[NULL]\n");
-	if (t_cmd->argc)
-		ft_printf("argc			:[%d]\n", t_cmd->argc);
+	ft_printf("cmd			:[%s]\n", t_cmd->cmd);
+	ft_printf("cmd			:[NULL]\n");
+	ft_printf("cmd_abs_path		:[%s]\n", t_cmd->cmd_abs_path);
+	ft_printf("argc			:[%d]\n", t_cmd->argc);
 	while (i < t_cmd->argc)
 	{
 		if (t_cmd->argv && t_cmd->argv[i])

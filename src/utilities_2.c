@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:16:31 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/21 16:25:47 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:08:27 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	free_split(char **strs)
 
 int	is_empty_str(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -104,4 +104,20 @@ int	is_empty_str(const char *str)
 		i++;
 	}
 	return (0);
+}
+
+/*
+**	Helper function for exec_cmd to set the value of the process id
+** 	and wait for the execution of child process before proceeding in
+**	parent. At end of child process, the exit status gets updated. 
+*/
+
+void	exec_cmd_helper(int pid)
+{
+	int	status;
+
+	g_msh.pid = pid;
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_msh.status = WEXITSTATUS(status);
 }

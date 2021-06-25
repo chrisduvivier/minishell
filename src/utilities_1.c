@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:31 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/25 02:16:15 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:09:43 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,10 @@
 
 extern t_msh	g_msh;
 
-/*
-**  clean up t_cmd->argv and argc by removing empty argument.
-**  @params:
-**      *t_cmd: ptr to the command table
-**    //TODO EXIT
-*/
-
-void	clean_empty_arg(t_cmd_table *t_cmd)
+int	count_non_empty_arg(t_cmd_table *t_cmd)
 {
-	char	**new_argv;
-	size_t	count;
 	int		i;
+	int		count;
 
 	i = 0;
 	count = 0;
@@ -35,6 +27,22 @@ void	clean_empty_arg(t_cmd_table *t_cmd)
 			count++;
 		i++;
 	}
+	return (count);
+}
+
+/*
+**  clean up t_cmd->argv and argc by removing empty argument.
+**  @params:
+**      *t_cmd: ptr to the command table
+*/
+
+void	clean_empty_arg(t_cmd_table *t_cmd)
+{
+	char	**new_argv;
+	int		i;
+	size_t	count;
+
+	count = count_non_empty_arg(t_cmd);
 	new_argv = (char **)ft_calloc(count + 1, sizeof(char *));
 	if (!new_argv)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);

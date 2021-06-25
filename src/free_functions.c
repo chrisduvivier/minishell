@@ -6,13 +6,28 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 13:52:53 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/25 02:29:52 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:08:05 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_msh	g_msh;
+
+void	free_t_cmd_helper(t_cmd_table *t_cmd)
+{
+	if (t_cmd->argc > 0 || t_cmd->argv != NULL)
+	{
+		free(t_cmd->argv);
+		t_cmd->argv = NULL;
+	}
+	if (t_cmd->heredoc != NULL)
+	{
+		free(t_cmd->heredoc->eof_str);
+		free(t_cmd->heredoc);
+		t_cmd->heredoc = NULL;
+	}
+}
 
 void	free_t_cmd(t_cmd_table *t_cmd)
 {
@@ -35,23 +50,14 @@ void	free_t_cmd(t_cmd_table *t_cmd)
 		t_cmd->argv[i] = NULL;
 		i++;
 	}
-	if (t_cmd->argc > 0 || t_cmd->argv != NULL)
-	{
-		free(t_cmd->argv);
-		t_cmd->argv = NULL;
-	}
-	if (t_cmd->heredoc != NULL)
-	{
-		free(t_cmd->heredoc->eof_str);
-		free(t_cmd->heredoc);
-		t_cmd->heredoc = NULL;
-	}
+	free_t_cmd_helper(t_cmd);
+	close_fd(t_cmd);
 	free(t_cmd);
 }
 
 void	free_array_t_cmd(t_cmd_table **t_cmds, int len_t_cmds)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i <= len_t_cmds)
@@ -65,19 +71,6 @@ void	free_array_t_cmd(t_cmd_table **t_cmds, int len_t_cmds)
 	}
 	free(t_cmds);
 	t_cmds = NULL;
-}
-
-void	free_array_str(char **s, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		free(s[i]);
-		s[i] = NULL;
-		i++;
-	}
 }
 
 void	free_msh_and_exit(int exit_status)

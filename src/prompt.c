@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/24 22:08:56 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:38:46 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,7 @@ t_cmd_table	*fill_cmd_table(char *cmd)
 	t_cmd->argv = (char **)ft_calloc(j + 1, sizeof(char *));
 	if (!t_cmd->argv)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
-	j = 0;
-	while (tokens[j] != NULL)
-	{
-		t_cmd->argv[j] = ft_strdup(tokens[j]);
-		if (!t_cmd->argv[j])
-			handle_error(ERR_MALLOC, MALLOC_FAILED);
-		if (j == 0 && t_cmd->cmd == NULL)
-			t_cmd->cmd = ft_strdup(tokens[0]);
-		j++;
-	}
+	fill_t_cmd_argv(t_cmd, tokens);
 	free_split(tokens);
 	return (t_cmd);
 }
@@ -83,6 +74,8 @@ t_cmd_table	**handle_pipes(char *piped_command)
 	single_cmds = ft_split(piped_command, PIPE);
 	len_cmds = ft_str_array_len((const char **)single_cmds);
 	t_cmds = (t_cmd_table **)ft_calloc(len_cmds + 1, sizeof(t_cmd_table *));
+	g_msh.t_cmds = t_cmds;
+	g_msh.t_cmds_len = len_cmds;
 	if (t_cmds == NULL)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
 	i = 0;
@@ -94,8 +87,6 @@ t_cmd_table	**handle_pipes(char *piped_command)
 	free_split(single_cmds);
 	set_pipes(t_cmds, len_cmds);
 	check_redirections(t_cmds, len_cmds);
-	g_msh.t_cmds = t_cmds;
-	g_msh.t_cmds_len = len_cmds;
 	return (t_cmds);
 }
 
@@ -119,7 +110,7 @@ void	split_command(char *full_cmd)
 	free(full_cmd);
 	full_cmd = NULL;
 	g_msh.raw_cmds = cmds;
-	g_msh.raw_cmds_len = ft_str_array_len((const char**)cmds);
+	g_msh.raw_cmds_len = ft_str_array_len((const char **)cmds);
 	t_cmds = NULL;
 	i = 0;
 	while (cmds[i] != NULL)
@@ -127,11 +118,7 @@ void	split_command(char *full_cmd)
 		t_cmds = handle_pipes(cmds[i]);
 		j = 0;
 		while (t_cmds[j] && t_cmds[j]->argc > 0 && t_cmds[j]->argv[0] != NULL)
-		{
-			// print_t_cmd_table(t_cmds[j]); while debugging now
-			exec_cmd(t_cmds[j]);
-			j++;
-		}
+			exec_cmd(t_cmds[j++]);
 		free(t_cmds[j]);
 		free(t_cmds);
 		t_cmds = NULL;

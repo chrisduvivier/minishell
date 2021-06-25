@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/23 22:46:25 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:39:30 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ void	exec_with_process(t_cmd_table *t_cmd)
 int	exec_cmd(t_cmd_table *t_cmd)
 {
 	pid_t	pid;
-	int		status;
 
 	if (builtin_caller_in_parent(t_cmd))
 	{
@@ -154,15 +153,9 @@ int	exec_cmd(t_cmd_table *t_cmd)
 		exit(CMD_NOTFOUND);
 	}
 	else if (pid > 0)
-	{
-		g_msh.pid = pid;
-		waitpid(pid, &status, 0);
-		if ( WIFEXITED(status) )
-			g_msh.status = WEXITSTATUS(status);
-	}
+		exec_cmd_helper(pid);
 	else
 		exec_with_process(t_cmd);
-	close_fd(t_cmd);
 	free_t_cmd(t_cmd);
 	t_cmd = NULL;
 	return (EXIT_SUCCESS);

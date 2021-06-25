@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/25 02:24:41 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 14:20:51 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ char	*find_var(char *var_name)
  ** Insert the environment variable value inside the command
  */
 
-char	*rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name, int alloc)
+char	*rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name)
 {
 	char	*new_cmd;
 	int		i;
 	int		j;
 
-	new_cmd = ft_calloc(ft_strlen(var) - len_var_name + ft_strlen(full_cmd) + 2, sizeof(char));
+	new_cmd = ft_calloc(ft_strlen(var) - len_var_name
+			 + ft_strlen(full_cmd) + 2, sizeof(char));
 	i = -1;
 	while (i++ < pos_i - 1)
 		new_cmd[i] = full_cmd[i];
@@ -85,8 +86,7 @@ char	*rebuild_cmd(char *full_cmd, int pos_i, char *var, int len_var_name, int al
 		new_cmd[i++] = full_cmd[pos_i + len_var_name + j++];
 	}
 	new_cmd[i] = '\0';
-	if (alloc)
-		free(full_cmd);
+	free(full_cmd);
 	return (new_cmd);
 }
 
@@ -98,7 +98,7 @@ char	*insert_msh_status(int pos_i, char *full_cmd)
 	status = ft_itoa(g_msh.status);
 	if (!status)
 		handle_error(ERR_MALLOC, MALLOC_FAILED);
-	new_cmd = rebuild_cmd(full_cmd, pos_i, status, 2, 1);
+	new_cmd = rebuild_cmd(full_cmd, pos_i, status, 2);
 	free(status);
 	return (new_cmd);
 }
@@ -129,7 +129,7 @@ char	*set_env_var(char *full_cmd, int *i)
 		ft_strlcpy(var_name, full_cmd + pos_i + 1, len_var);
 		var = find_var(var_name);
 		free(var_name);
-		full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var, 1);
+		full_cmd = rebuild_cmd(full_cmd, pos_i, var, len_var);
 		*i = pos_i + (int)ft_strlen(var) - 1;
 		free(var);
 	}

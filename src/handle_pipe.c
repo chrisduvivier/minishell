@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 11:13:35 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/15 11:08:27 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/25 19:18:11 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ extern t_msh	g_msh;
 
 void	close_fd(t_cmd_table *t_cmd)
 {
-	if (t_cmd->in_file_fd != 0)
+	if (t_cmd->in_file_fd > 0)
 		close(t_cmd->in_file_fd);
-	if (t_cmd->out_file_fd != 1)
+	if (t_cmd->out_file_fd > 1)
 		close(t_cmd->out_file_fd);
 }
 
