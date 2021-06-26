@@ -16,6 +16,10 @@
 Starting point to learn how the whole process works
 - https://brennan.io/2015/01/16/write-a-shell-in-c/
 
+## To make it run
+- Install readline library. have brew working on OS 
+https://code2care.org/zsh/fix-zsh-command-not-found-brew
+
 # Allowed Function
 - `chdir` : `int chdir(const char *path);`
     changes the current working directory of the calling process to the directory specified in path.

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
+#    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/25 19:07:33 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/26 16:02:44 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RM 			:=	/bin/rm -f
 
 LIBFT		:= ./libft/libft.a
 
-INCLUDE 	:= 	-Iinclude/
+INCLUDE 	:= 	-Iinclude/ -I/Users/$(USER)/.brew/opt/readline/include
 
 SRCS		:=	main.c \
 				./src/clean_cmd.c \
@@ -57,7 +57,7 @@ all			:	$(NAME)
 	$(CC) -c $< -o $@ $(CFLAGS) $(INCLUDE)
 
 $(NAME)		:	$(OBJ) $(LIBFT)
-	@ $(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME) $(LIBFT) -lreadline
+	@ $(CC) $(CFLAGS) $(INCLUDE) $(SRCS) -o $(NAME) $(LIBFT) -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 $(LIBFT)	:
 	@ $(MAKE) -C ./libft
