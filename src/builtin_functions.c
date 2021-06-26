@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 16:40:50 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/24 21:53:09 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/26 23:49:46 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	msh_echo(t_cmd_table t_cmd)
 	}
 	while (t_cmd.argv[i] != NULL)
 	{
-		ft_printf("%s", t_cmd.argv[i++]);
+		printf("%s", t_cmd.argv[i++]);
 		if (i < t_cmd.argc)
 			printf(" ");
 	}
