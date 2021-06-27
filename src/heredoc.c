@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_heredoc.c                                     :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 12:25:36 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/25 18:31:18 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/26 23:55:48 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	exec_heredoc_helper(t_cmd_table *t_cmd)
 	dup2(t_cmd->heredoc->tmp_file_fd, t_cmd->in_file_fd);
 	if (unlink(TMP_FILE_NAME) < 0)
 		printf("error: unlink fail\n");
+	g_msh.heredoc = 0;
 }
 
 /*
@@ -50,6 +51,7 @@ void	exec_heredoc(t_cmd_table *t_cmd)
 	size_t	len;
 	char	*user_input;
 
+	g_msh.heredoc = 1;
 	heredoc_prompt(STDOUT_FILENO);
 	ret = get_next_line(STDIN_FILENO, &user_input);
 	while (ret >= 0 && user_input)

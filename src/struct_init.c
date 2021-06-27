@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/08 18:12:56 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/21 15:46:18 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/26 23:54:38 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	init_t_hist(t_hist *hist)
 void	t_msh_init(void)
 {
 	g_msh.status = 0;
+	g_msh.pid = 0;
+	g_msh.heredoc = 0;
 	g_msh.t_cmds = NULL;
 	g_msh.t_cmds_len = 0;
 	g_msh.raw_cmds = NULL;

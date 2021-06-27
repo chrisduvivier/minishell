@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 16:18:15 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/24 14:02:43 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/27 01:28:46 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ extern t_msh	g_msh;
 
 void	handle_ctrl_c(int signal)
 {
+	(void) signal;
+	if (g_msh.heredoc != 1)
+		printf("\n");
 	g_msh.status = 130;
-	printf("\n");
-	if (!g_msh.pid)
+	if (g_msh.pid == 0)
 	{
 		rl_replace_line("", 0);
 		rl_redisplay();
 		ft_putstr_fd(NEW_COMMAND_PROMPT, STDOUT_FILENO);
 	}
 	else
-		kill(g_msh.pid, signal);
+		kill(g_msh.pid, SIGKILL);
 }
 
 /*

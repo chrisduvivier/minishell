@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 17:01:52 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/25 14:39:30 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/27 01:48:41 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	exec_with_process(t_cmd_table *t_cmd)
 {
 	int		exec_res;
 
+	if (t_cmd->in_file_fd < 0 || t_cmd->out_file_fd < 0)
+		exit(EXIT_FAILURE);
 	if (t_cmd->heredoc != NULL)
 		exec_heredoc(t_cmd);
 	redirect_io(t_cmd);

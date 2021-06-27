@@ -54,6 +54,7 @@ dkms.conf
 # Added Manually
 a.out
 
-# Added Manually by rlinkov
+# Added Manually by us
 .DS_Store
 .minishell
+.minishell_history

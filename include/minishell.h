@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/25 19:39:06 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/26 23:53:43 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_cmd_table {
 typedef struct s_msh {
 	int				status;
 	int				pid;
+	int				heredoc;
 	t_cmd_table		**t_cmds;
 	int				t_cmds_len;
 	char			**raw_cmds;
