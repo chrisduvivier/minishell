@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cduvivie <cduvivie@student.42.fr>          +#+  +:+       +#+         #
+#    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/26 16:02:44 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/29 15:46:17 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		:=	main.c \
 				./src/code_cmd.c \
 				./src/code_cmd_2.c \
 				./src/code_cmd_3.c \
+				./src/code_cmd_4.c \
 				./src/error.c \
 				./src/prompt.c \
 				./src/syntaxe_cmd.c \

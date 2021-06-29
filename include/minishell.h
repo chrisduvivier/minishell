@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 14:43:58 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/26 23:53:43 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/29 15:47:15 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char	*remove_space(char *full_cmd);
 char	*clean_cmd(char *str);
 int		exec_cmd(t_cmd_table *t_cmd);
 void	handle_signals(void);
+void	add_space_for_chevron(char **cmd);
 
 char	*find_var(char *var_name);
 void	add_var_to_env(char *key, char *value);
