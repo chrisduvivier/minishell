@@ -6,7 +6,7 @@
 #    By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/28 17:09:16 by rlinkov           #+#    #+#              #
-#    Updated: 2021/06/29 15:46:17 by cduvivie         ###   ########.fr        #
+#    Updated: 2021/06/29 15:51:15 by cduvivie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT		:= ./libft/libft.a
 
 INCLUDE 	:= 	-Iinclude/ -I/Users/$(USER)/.brew/opt/readline/include
 
-SRCS		:=	main.c \
+SRCS		:=	./src/main.c \
 				./src/clean_cmd.c \
 				./src/code_cmd.c \
 				./src/code_cmd_2.c \
