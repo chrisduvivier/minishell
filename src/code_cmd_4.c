@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 15:44:14 by cduvivie          #+#    #+#             */
-/*   Updated: 2021/06/29 15:46:48 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/30 14:52:35 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	add_space_for_chevron(char **cmd)
 	while (pos > 0)
 	{
 		new_cmd = add_token_at_pos(*cmd, pos, SPACE_TOK);
-		printf("one_more_clean_cmd\n");
 		free(*cmd);
 		*cmd = new_cmd;
 		pos = find_space_pos_for_chevron(*cmd, ft_strlen(*cmd));
