@@ -6,7 +6,7 @@
 /*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 17:07:07 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/29 15:46:55 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/06/30 15:34:56 by cduvivie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,10 @@ void	prompt(void)
 		syntaxe_cmd(full_cmd);
 		full_cmd = clean_cmd(full_cmd);
 		if (g_msh.status == SYNTAX_ERR)
+		{
+			free(full_cmd);
 			continue ;
+		}
 		add_space_for_chevron(&full_cmd);
 		split_command(full_cmd);
 		g_msh.raw_cmds_len = 0;
