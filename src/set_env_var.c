@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cduvivie <cduvivie@student.s19.be>         +#+  +:+       +#+        */
+/*   By: rlinkov <rlinkov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 15:27:33 by rlinkov           #+#    #+#             */
-/*   Updated: 2021/06/25 14:20:51 by cduvivie         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:51:40 by rlinkov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ char	*set_env_var(char *full_cmd, int *i)
 
 	pos_i = *i;
 	len_var = 1;
-	*i = *i + 1;
 	if (full_cmd[pos_i + 1] && full_cmd[pos_i + 1] == '?')
 		full_cmd = insert_msh_status(pos_i, full_cmd);
 	else
 	{
+		*i = *i + 1;
 		while (ft_isalnum_underscore(full_cmd[(*i)++]))
 			len_var++;
 		var_name = malloc(sizeof(char) * (len_var));
