@@ -1,16 +1,17 @@
-# minishell
+# Minishell
+The goal is to create our own bash shell, with a small set of features. 
 
-# TODO List
-- [ ] Foundation block (Basic loop of a shell)
-
-- [ ] builtins functions like in bash:
-    - [ ] "echo" with option ’-n’
-    - [ ] "cd" with only a relative or absolute path
-    - [ ] "pwd" without any options
-    - [ ] "export" without any options
-    - [ ] "unset" without any options
-    - [ ] "env" without any options and any arguments
-    - [ ] "exit" without any options
+# Features
+- [x] Redirections (e.g. ">" "<" ">>" "<<") and pipe ("|")
+- [x] History of commands available with UP/DOWN arrows
+- [x] Builtins functions like in bash:
+    - [x] "echo" with option ’-n’
+    - [x] "cd" with only a relative or absolute path
+    - [x] "pwd" without any options
+    - [x] "export" without any options
+    - [x] "unset" without any options
+    - [x] "env" without any options and any arguments
+    - [x] "exit" without any options
 
 # Resources
 Starting point to learn how the whole process works
@@ -20,7 +21,10 @@ Starting point to learn how the whole process works
 - Install readline library. have brew working on OS 
 https://code2care.org/zsh/fix-zsh-command-not-found-brew
 
-# Allowed Function
+## Credit:
+Thanks to: [@chrisduvivier](https://github.com/chrisduvivier)  [@Kovlin](https://github.com/Kovlin)
+
+## Allowed Function (with some memo)
 - `chdir` : `int chdir(const char *path);`
     changes the current working directory of the calling process to the directory specified in path.
 
